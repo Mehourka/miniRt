@@ -1,4 +1,10 @@
 
+# Compiler and flags
+CC		=	gcc
+# CFLAGS	=	-Wall -Werror -Wextra
+# CFLAGS +=	-Wunreachable-code -Ofast
+RM		=	rm
+
 #------------------------------------------------------------------------------#
 #                                VARIABLES                                     #
 #------------------------------------------------------------------------------#
@@ -26,15 +32,12 @@ LIBMLX	=	$(MLXDIR)/build/libmlx42.a
 INCLUDES=	-I $(LIBDIR)/libft -I $(INCDIR) -I $(LIBDIR)/MLX42/include
 LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)/lib
 
-# Compiler and flags
-CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
-CFLAGS +=	-Wunreachable-code -Ofast
-RM		=	rm
+
 
 # Sources
 
 SRCS	:=	main.c				\
+			vec_operations.c	\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 
@@ -53,6 +56,9 @@ DEPS		:=	$(OBJS:%.o=%.d)
 #------------------------------------------------------------------------------#
 
 all : $(NAME)
+
+run : $(NAME)
+	./$(NAME)
 
 # Compile program
 $(NAME) : $(LIBMLX) $(LIBFT) $(OBJS)
@@ -89,7 +95,6 @@ $(OBJDIR)%.o : $(BONDIR)%.c
 clean :
 	@$(RM) -rf $(OBJDIR)
 	@$(RM) -rf $(NAME).dSYM
-	@rm -rf $(MLXDIR)/build
 	@echo "$(RED)	Removed objects	$(NC)"
 
 # Remove all
