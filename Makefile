@@ -1,4 +1,3 @@
-
 # Compiler and flags
 CC		=	gcc
 # CFLAGS	=	-Wall -Werror -Wextra
@@ -10,7 +9,7 @@ RM		=	rm
 #------------------------------------------------------------------------------#
 
 ARGS	=	""
-NAME	=	main
+NAME	=	miniRt
 
 # Colors
 GREEN	=	\033[0;32m
@@ -38,6 +37,8 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 
 SRCS	:=	main.c				\
 			vec_operations.c	\
+			colors.c			\
+			render.c			\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 
@@ -59,6 +60,10 @@ all : $(NAME)
 
 run : $(NAME)
 	./$(NAME)
+
+print : $(NAME)
+	./$(NAME) > tmp/img.p3
+	open tmp/img.p3
 
 # Compile program
 $(NAME) : $(LIBMLX) $(LIBFT) $(OBJS)
