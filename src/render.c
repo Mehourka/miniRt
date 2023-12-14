@@ -10,7 +10,7 @@ void draw_gradient(t_data *data)
 		{
 			float c1 = 1.0 * i / image->width;
 			float c2 = 1.0 * j / image->height;
-			mlx_put_pixel(image, i, j, norm_rgba(c1, c2, 0, 1));
+			mlx_put_pixel(image, i, j, norm_rgba(c1, 0, c2, 1));
 		}
 	}
 }

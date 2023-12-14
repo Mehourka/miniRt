@@ -1,6 +1,6 @@
-#include "vectors.h"
+#include "minirt.h"
 
-t_vec3 *ft_create_vec3(double x, double y, double z)
+t_vec3 *ft_vec3_create(double x, double y, double z)
 {
 	t_vec3 *new;
 
@@ -76,7 +76,7 @@ t_vec3 *ft_vec3_cross_prod(t_vec3 *u, t_vec3 *v)
 	i = u->y * v->z - u->z * v->y;
 	j = u->z * v->x - u->x * v->z;
 	k = u->x * v->y - u->y * v->x;
-	return (ft_create_vec3(i, j, k));
+	return (ft_vec3_create(i, j, k));
 }
 
 double ft_vec3_get_angle(t_vec3 *u, t_vec3 *v)
@@ -93,6 +93,6 @@ double ft_vec3_get_angle(t_vec3 *u, t_vec3 *v)
 
 void ft_vec3_print(t_vec3 *u)
 {
-	printf("Vec (%.2f, %.2f, %.2f)\n", u->x, u->y, u->z);
+	printf("Vec (%.4f, %.4f, %.4f)\n", u->x, u->y, u->z);
 }
 

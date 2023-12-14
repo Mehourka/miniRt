@@ -1,5 +1,5 @@
 # Compiler and flags
-CC		=	gcc
+CC		=	gcc -g
 # CFLAGS	=	-Wall -Werror -Wextra
 # CFLAGS +=	-Wunreachable-code -Ofast
 RM		=	rm
