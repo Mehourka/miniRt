@@ -24,6 +24,7 @@ void	ft_vec3_print(t_vec3 u);
 t_vec3	ft_vec3_create(double x, double y, double z);
 t_vec3	ft_vec3_add(t_vec3 u, t_vec3 v);
 t_vec3	ft_vec3_minus(t_vec3 u, t_vec3 v);
+t_vec3	ft_vec3_add_scal(t_vec3 u, double k);
 t_vec3	ft_vec3_scal_prod(t_vec3 u, double k);
 t_vec3	ft_vec3_cross_prod(t_vec3 u, t_vec3 v);
 t_vec3	ft_vec3_normalize(t_vec3 u);

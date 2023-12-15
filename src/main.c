@@ -57,9 +57,23 @@ typedef struct s_viewport
 	t_vec3	focal_length;
 }	t_viewport;
 
+bool hit_sphere(t_obj sphere, t_ray ray)
+{
+	t_vec3 oc = ft_vec3_minus(ray.orig, sphere.center);
+
+	double a = ft_vec3_dot(ray.dir, ray.dir);
+	double b = ft_vec3_dot(
+		ft_vec3_scal_prod(ray.dir, 2.0),
+		oc);
+	double c =	ft_vec3_dot(oc, oc) - pow(sphere.r, 2);
+
+	double discriminant = b*b - 4*a*c;
+	return (discriminant >= 0);
+}
 
 int ray_color(t_ray ray)
 {
+	t_data *data = get_data();
 	t_vec3 u = ft_vec3_normalize(ray.dir);
 	double a = 0.5 * (u.y + 1);
 	t_vec3 white = ft_vec3_create(1, 1, 1);
@@ -68,8 +82,14 @@ int ray_color(t_ray ray)
 		ft_vec3_scal_prod(white, 1.0 - a),
 		ft_vec3_scal_prod(blue, a)
 	);
+
+	if (hit_sphere(data->obj, ray))
+		return norm_rgba(0, 0, 0, 1);
+
 	return (norm_rgba(col.x, col.y, col.z, 1));
 }
+
+
 
 void compute_viewport()
 {
