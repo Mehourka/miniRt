@@ -2,11 +2,12 @@
 #define HEADER_H
 
 # include "libft.h"
-# include "math.h"
+# include <math.h>
 # include "vectors.h"
-# include "stdio.h"
-# include "stdlib.h"
+# include <stdio.h>
+# include <stdlib.h>
 # include <MLX42/MLX42.h>
+# include "get_next_line.h"
 
 # define WIDTH 720
 # define HEIGHT 480

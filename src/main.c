@@ -167,7 +167,7 @@ void ft_hook(void *param)
 	compute_viewport();
 }
 
-int main(void)
+/*int main(void)
 {
 	const int image_width = WIDTH;
 	const int image_height = HEIGHT;
@@ -198,4 +198,4 @@ int main(void)
 
 
 	return (EXIT_SUCCESS);
-}
+}*/
