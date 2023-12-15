@@ -58,13 +58,17 @@ typedef struct s_viewport
 }	t_viewport;
 
 
-int render_pixel(ray)
+int ray_color(t_ray ray)
 {
-	// if intersec white
-	if (1)
-		return (get_rgba(255, 255, 255, 255));
-	// else  black
-	return (get_rgba(0, 0, 0, 0));
+	t_vec3 u = ft_vec3_normalize(ray.dir);
+	double a = 0.5 * (u.y + 1);
+	t_vec3 white = ft_vec3_create(1, 1, 1);
+	t_vec3 blue = ft_vec3_create(0.5, 0.7, 1.0);
+	t_vec3 col  = ft_vec3_add(
+		ft_vec3_scal_prod(white, 1.0 - a),
+		ft_vec3_scal_prod(blue, a)
+	);
+	return (norm_rgba(col.x, col.y, col.z, 1));
 }
 
 void compute_viewport()
@@ -114,7 +118,7 @@ void compute_viewport()
 			t_ray ray = ft_ray_create(data->cam.center, ray_dir);
 
 			// Render le pixel (i, j)
-			int color = render_pixel(ray);
+			int color = ray_color(ray);
 			mlx_put_pixel(data->img, i, j, color);
 		}
 	}

@@ -10,4 +10,5 @@ int main (void)
 	ft_vec3_print(
 		ft_ray_project(ray, 3)
 	);
+	printf();
 }
