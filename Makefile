@@ -12,6 +12,7 @@ ARGS	=	""
 NAME	=	miniRt
 
 # Colors
+YELLOW	=	\033[0;33m
 GREEN	=	\033[0;32m
 RED		=	\033[0;31m
 BLUE	=	\033[0;34m
@@ -44,11 +45,12 @@ B_SRCS	:=	$(SRCS:%=bonus_%)
 
 
 # Objects
-OBJDIR	=	obj/
+OBJDIR		:=	obj/
 OBJS		:=	$(SRCS:%.c=$(OBJDIR)%.o)
 SRCS		:=	$(SRCS:%.c=$(SRCDIR)%.c)
-B_OBJS	:=	$(B_SRCS:%.c=$(OBJDIR)%.o)
+B_OBJS		:=	$(B_SRCS:%.c=$(OBJDIR)%.o)
 B_SRCS		:=	$(B_SRCS:%=$(BONDIR)%)
+T_OBJS		:=	$(subst main,test,$(OBJS))
 DEPS		:=	$(OBJS:%.o=%.d)
 
 
@@ -61,7 +63,7 @@ all : $(NAME)
 run : $(NAME)
 	./$(NAME)
 
-print : $(NAME)
+p3 : $(NAME)
 	./$(NAME) > tmp/img.p3
 	open tmp/img.p3
 
@@ -69,6 +71,11 @@ print : $(NAME)
 $(NAME) : $(LIBMLX) $(LIBFT) $(OBJS)
 	@echo "$(GREEN)	Compiling $@ ... $(NC)"
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@ -I. $(INCLUDES)
+
+test : $(LIBMLX) $(LIBFT) $(T_OBJS)
+	@echo "$(YELLOW)	Compiling $@ ... $(NC)"
+	@$(CC) $(CFLAGS) $(T_OBJS) $(LIBS) -o $@ -I. $(INCLUDES)
+	./test
 
 # Compile objects
 $(OBJDIR)%.o : $(SRCDIR)%.c
