@@ -92,3 +92,19 @@ void ft_vec3_print(t_vec3 u)
 	printf("Vec (%.4f, %.4f, %.4f)\n", u.x, u.y, u.z);
 }
 
+t_ray ft_ray_create(t_pt3 origine, t_vec3 direction)
+{
+	t_ray ray;
+
+	ray.orig = origine;
+	ray.dir = direction;
+	return (ray);
+}
+
+t_pt3 ft_ray_project(t_ray ray, double t)
+{
+	return (ft_vec3_add(
+		ray.orig,
+		ft_vec3_scal_prod(ray.dir, t)
+	));
+}

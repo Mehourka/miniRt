@@ -108,7 +108,11 @@ void compute_viewport()
 				),
 				pixel00
 			);
-			t_vec3 ray = ft_vec3_minus(pixel_pos, data->cam.center);
+			t_vec3 ray_dir = ft_vec3_minus(
+				pixel_pos,
+				data->cam.center);
+			t_ray ray = ft_ray_create(data->cam.center, ray_dir);
+
 			// Render le pixel (i, j)
 			int color = render_pixel(ray);
 			mlx_put_pixel(data->img, i, j, color);
