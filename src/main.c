@@ -38,11 +38,9 @@ void create_objects(void)
 	t_obj *sphere = &data->obj;;
 	t_cam *cam = &data->cam;
 
-	
 	sphere->obj_type = OBJ_SPHERE;
 	sphere->center = ft_vec3_create(5, 0, 0);
 	sphere->r = 1;
-
 
 	cam->center = ft_vec3_create(0, 0, 0);
 	cam->direction = ft_vec3_create(1, 0, 0);
@@ -51,12 +49,12 @@ void create_objects(void)
 
 typedef struct s_viewport
 {
-	t_vec3	*upper_left_corner;
-	t_vec3	*u;
-	t_vec3	*v;
-	t_vec3	*du;
-	t_vec3	*dv;
-	t_vec3	*focal_length;
+	t_vec3	upper_left_corner;
+	t_vec3	u;
+	t_vec3	v;
+	t_vec3	du;
+	t_vec3	dv;
+	t_vec3	focal_length;
 }	t_viewport;
 
 
@@ -89,12 +87,12 @@ void compute_viewport()
 	// determier upper left
 	// TODO : check le signe de cam.direction
 	vp.upper_left_corner = ft_vec3_create(0, 0, 0);
-	vp.upper_left_corner->x = data->cam.center->x + data->cam.direction->x - vp.u->x / 2 - vp.v->x / 2;
-	vp.upper_left_corner->y = data->cam.center->y + data->cam.direction->y - vp.u->y / 2 - vp.v->y / 2;
-	vp.upper_left_corner->z = data->cam.center->z + data->cam.direction->z - vp.u->z / 2 - vp.v->z / 2;
+	vp.upper_left_corner.x = data->cam.center.x + data->cam.direction.x - vp.u.x / 2 - vp.v.x / 2;
+	vp.upper_left_corner.y = data->cam.center.y + data->cam.direction.y - vp.u.y / 2 - vp.v.y / 2;
+	vp.upper_left_corner.z = data->cam.center.z + data->cam.direction.z - vp.u.z / 2 - vp.v.z / 2;
 
 	// trouver le Pixel00
-	t_vec3 *pixel00 = ft_vec3_add(
+	t_vec3 pixel00 = ft_vec3_add(
 		ft_vec3_scal_prod(ft_vec3_add(vp.du, vp.dv), 0.5),
 		vp.upper_left_corner);
 	ft_vec3_print(pixel00);
@@ -103,14 +101,14 @@ void compute_viewport()
 	{
 		for (int i = 0; i < WIDTH; i++)
 		{
-			t_pt3 *pixel_pos = ft_vec3_add(
+			t_pt3 pixel_pos = ft_vec3_add(
 				ft_vec3_add(
 					ft_vec3_scal_prod(vp.du, i),
 					ft_vec3_scal_prod(vp.dv, j)
 				),
 				pixel00
 			);
-			t_vec3 *ray = ft_vec3_minus(pixel_pos, data->cam.center);
+			t_vec3 ray = ft_vec3_minus(pixel_pos, data->cam.center);
 			// Render le pixel (i, j)
 			int color = render_pixel(ray);
 			mlx_put_pixel(data->img, i, j, color);

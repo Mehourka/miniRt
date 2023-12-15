@@ -22,18 +22,18 @@ typedef struct s_obj
 {
 	int		obj_type;
 
-	t_vec3 *center;
-	t_vec3 *color;
+	t_vec3 center;
+	t_vec3 color;
 
 	double	r;
 	double	longueur;
-	t_vec3	*direction;
+	t_vec3	direction;
 }	t_obj;
 
 typedef struct s_cam
 {
-	t_vec3	*center;
-	t_vec3	*direction;
+	t_vec3	center;
+	t_vec3	direction;
 	double	angle;
 }	t_cam;
 
