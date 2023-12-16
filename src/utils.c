@@ -24,12 +24,12 @@ void ft_raise_error(t_data *data)
 void create_objects(void)
 {
 	t_data *data = get_data();
-	t_obj *obj = &data->obj;
+	t_obj *obj1 = &data->obj[0];
 	t_cam *cam = &data->cam;
 
-	obj->obj_type = OBJ_SPHERE;
-	obj->ori = ft_vec3_create(100, 0, 0);
-	obj->sphere.r = 20;
+	obj1->obj_type = OBJ_SPHERE;
+	obj1->ori = ft_vec3_create(100, 0, 0);
+	obj1->sphere.r = 20;
 
 	cam->ori = ft_vec3_create(0, 0, 0);
 	cam->dir = ft_vec3_create(1, 0, 0);

@@ -65,16 +65,16 @@ int ray_color(t_ray ray)
 		ft_vec3_scal_prod(col2, a)
 	);
 
-	double t = hit_sphere(data->obj, ray);
+	double t = hit_sphere(data->obj[0], ray);
 	if (t >= 0)
 	{
 		// Calcule la normale
 		t_vec3 n = ft_vec3_scal_prod(
 			ft_vec3_minus(
 				ft_ray_project(ray, t),
-				data->obj.ori
+				data->obj[0].ori
 			),
-			1 / data->obj.sphere.r
+			1 / data->obj[0].sphere.r
 		);
 		n = ft_vec3_scal_prod(
 			ft_vec3_add_scal(n, 1),

@@ -38,7 +38,7 @@ void ft_hook(void *param)
 
 	// change sphere radius
 	double EPS = 0.05;
-	double *r = &get_data()->obj.sphere.r;
+	double *r = &get_data()->obj[0].sphere.r;
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
 	{
 		*r += EPS;

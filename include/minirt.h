@@ -18,20 +18,6 @@ enum e_type
 	OBJ_CYLINDRE,
 };
 
-typedef struct s_amb_light
-{
-	double intensity;
-	t_color color;
-}	t_amb_light;
-
-typedef struct s_light
-{
-	double	intensity;
-	t_vec3	ori;
-	t_color	color;
-}	t_light;
-
-
 typedef struct s_sphere
 {
 	t_vec3 ori;
@@ -83,7 +69,7 @@ typedef struct s_data
 	mlx_t *mlx;
 	mlx_image_t *img;
 
-	t_obj	obj;
+	t_obj	obj[100];
 	t_cam	cam;
 	double	aspect_ratio;
 } t_data;
