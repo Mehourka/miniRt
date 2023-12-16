@@ -20,6 +20,7 @@ enum e_type
 
 typedef struct s_obj
 {
+	// TODO : create union for different object types
 	int		obj_type;
 
 	t_vec3 center;
@@ -48,5 +49,9 @@ typedef struct s_data
 } t_data;
 
 t_data *get_data();
+void ft_hook(void *param);
+void ft_raise_error(t_data *data);
+void create_objects(void);
+void compute_viewport();
 
 #endif

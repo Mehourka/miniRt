@@ -40,6 +40,8 @@ SRCS	:=	main.c				\
 			vec_operations.c	\
 			colors.c			\
 			render.c			\
+			utils.c				\
+			hooks.c				\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 
