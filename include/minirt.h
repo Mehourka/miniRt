@@ -18,23 +18,63 @@ enum e_type
 	OBJ_CYLINDRE,
 };
 
+typedef struct s_amb_light
+{
+	double intensity;
+	t_color color;
+}	t_amb_light;
+
+typedef struct s_light
+{
+	double	intensity;
+	t_vec3	ori;
+	t_color	color;
+}	t_light;
+
+
+typedef struct s_sphere
+{
+	t_vec3 ori;
+	t_vec3 color;
+	double	r;
+} t_sphere;
+
+typedef struct s_cylinder
+{
+	t_vec3 ori;
+	t_vec3 color;
+	double	r;
+	double	longueur;
+	t_vec3	dir;
+}	t_cylinder;
+
+typedef struct s_plane
+{
+	t_vec3 ori;
+	t_vec3 color;
+	t_vec3	dir;
+}	t_plane;
+
 typedef struct s_obj
 {
 	// TODO : create union for different object types
 	int		obj_type;
 
-	t_vec3 center;
-	t_vec3 color;
-
-	double	r;
-	double	longueur;
-	t_vec3	direction;
+	union {
+		t_sphere	sphere;
+		t_cylinder	cylinder;
+		t_plane		plane;
+		struct {
+			t_vec3 ori;
+			t_vec3 color;
+		};
+	};
 }	t_obj;
 
 typedef struct s_cam
 {
-	t_vec3	center;
-	t_vec3	direction;
+	t_vec3	ori;
+	t_vec3	dir;
 	double	angle;
 }	t_cam;
 

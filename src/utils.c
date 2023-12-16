@@ -24,14 +24,14 @@ void ft_raise_error(t_data *data)
 void create_objects(void)
 {
 	t_data *data = get_data();
-	t_obj *sphere = &data->obj;;
+	t_obj *obj = &data->obj;
 	t_cam *cam = &data->cam;
 
-	sphere->obj_type = OBJ_SPHERE;
-	sphere->center = ft_vec3_create(100, 0, 0);
-	sphere->r = 20;
+	obj->obj_type = OBJ_SPHERE;
+	obj->ori = ft_vec3_create(100, 0, 0);
+	obj->sphere.r = 20;
 
-	cam->center = ft_vec3_create(0, 0, 0);
-	cam->direction = ft_vec3_create(1, 0, 0);
+	cam->ori = ft_vec3_create(0, 0, 0);
+	cam->dir = ft_vec3_create(1, 0, 0);
 	cam->angle = 70;
 }

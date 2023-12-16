@@ -15,16 +15,16 @@ int main (void)
 
 	printf("Cam direction : ");
 	ft_vec3_print(
-		data->cam.direction
+		data->cam.dir
 	);
 
 	// rotate cam.dir
 	double angle = ft_deg_to_rad(90);
-	data->cam.direction = rotate_yaxis(data->cam.direction, -angle);
+	data->cam.dir = rotate_yaxis(data->cam.dir, -angle);
 
 	printf("Cos(%f) = %f\n", angle, sin(angle));
 	ft_vec3_print(
-		data->cam.direction
+		data->cam.dir
 	);
 
 	

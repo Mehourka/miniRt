@@ -38,7 +38,7 @@ void ft_hook(void *param)
 
 	// change sphere radius
 	double EPS = 0.05;
-	double *r = &get_data()->obj.r;
+	double *r = &get_data()->obj.sphere.r;
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
 	{
 		*r += EPS;
@@ -57,27 +57,27 @@ void ft_hook(void *param)
 	t_cam *cam = &(get_data()->cam);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
-		// cam->center.z += EPS;
-		cam->direction = rotate_yaxis(cam->direction, ft_deg_to_rad(5));
-		ft_vec3_print(cam->direction);
+		// cam->ori.z += EPS;
+		cam->dir = rotate_yaxis(cam->dir, ft_deg_to_rad(5));
+		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
-		// cam->center.z -= EPS;
-		cam->direction = rotate_yaxis(cam->direction, -ft_deg_to_rad(5));
-		ft_vec3_print(cam->direction);
+		// cam->ori.z -= EPS;
+		cam->dir = rotate_yaxis(cam->dir, -ft_deg_to_rad(5));
+		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
-		// cam->center.z += EPS;
-		cam->direction = rotate_zaxis(cam->direction, ft_deg_to_rad(5));
-		ft_vec3_print(cam->direction);
+		// cam->ori.z += EPS;
+		cam->dir = rotate_zaxis(cam->dir, ft_deg_to_rad(5));
+		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
-		// cam->center.z -= EPS;
-		cam->direction = rotate_zaxis(cam->direction, -ft_deg_to_rad(5));
-		ft_vec3_print(cam->direction);
+		// cam->ori.z -= EPS;
+		cam->dir = rotate_zaxis(cam->dir, -ft_deg_to_rad(5));
+		ft_vec3_print(cam->dir);
 	}
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))

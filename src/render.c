@@ -36,16 +36,16 @@ void gen_p3_image(t_data *data)
 	}
 }
 
-double hit_sphere(t_obj sphere, t_ray ray)
+double hit_sphere(t_obj obj, t_ray ray)
 {
-	t_vec3 oc = ft_vec3_minus(ray.orig, sphere.center);
+	t_vec3 oc = ft_vec3_minus(ray.orig, obj.sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
 	double a = ft_vec3_dot(ray.dir, ray.dir);
 	double b = ft_vec3_dot(
 		ft_vec3_scal_prod(ray.dir, 2.0),
 		oc);
-	double c =	ft_vec3_dot(oc, oc) - pow(sphere.r, 2);
+	double c =	ft_vec3_dot(oc, oc) - pow(obj.sphere.r, 2);
 
 	double discriminant = b*b - 4*a*c;
 	if (discriminant < 0 || a == 0)
@@ -72,9 +72,9 @@ int ray_color(t_ray ray)
 		t_vec3 n = ft_vec3_scal_prod(
 			ft_vec3_minus(
 				ft_ray_project(ray, t),
-				data->obj.center
+				data->obj.ori
 			),
-			1 / data->obj.r
+			1 / data->obj.sphere.r
 		);
 		n = ft_vec3_scal_prod(
 			ft_vec3_add_scal(n, 1),
@@ -107,9 +107,9 @@ void compute_viewport()
 	// determier upper left
 	// TODO : check le signe de cam.direction
 	vp.upper_left_corner = ft_vec3_create(0, 0, 0);
-	vp.upper_left_corner.x = data->cam.center.x + data->cam.direction.x - vp.u.x / 2 - vp.v.x / 2;
-	vp.upper_left_corner.y = data->cam.center.y + data->cam.direction.y - vp.u.y / 2 - vp.v.y / 2;
-	vp.upper_left_corner.z = data->cam.center.z + data->cam.direction.z - vp.u.z / 2 - vp.v.z / 2;
+	vp.upper_left_corner.x = data->cam.ori.x + data->cam.dir.x - vp.u.x / 2 - vp.v.x / 2;
+	vp.upper_left_corner.y = data->cam.ori.y + data->cam.dir.y - vp.u.y / 2 - vp.v.y / 2;
+	vp.upper_left_corner.z = data->cam.ori.z + data->cam.dir.z - vp.u.z / 2 - vp.v.z / 2;
 
 	// trouver le Pixel00
 	t_vec3 pixel00 = ft_vec3_add(
@@ -135,8 +135,8 @@ void compute_viewport()
 			);
 			t_vec3 ray_dir = ft_vec3_minus(
 				pixel_pos,
-				data->cam.center);
-			t_ray ray = ft_ray_create(data->cam.center, ray_dir);
+				data->cam.ori);
+			t_ray ray = ft_ray_create(data->cam.ori, ray_dir);
 
 			// Render le pixel (i, j)
 			int color = ray_color(ray);
