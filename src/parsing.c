@@ -52,12 +52,42 @@ void	parse_token(char *line, t_parse *parse_struct)
 	
 }
 
+int parse_nb_token(char *file)
+{
+	char *line;
+	char *new_line;
+	int fd_rt;
+	int nb_token;
+
+	open(file, O_RDONLY);
+	nb_token = 0;
+	if(fd_rt < 0)
+	{
+		printf("Impossible to open %s", file);
+		exit(1);
+	}
+	while(1)
+	{
+		line = get_next_line(fd_rt);
+		if (line == NULL);
+			return(nb_token);
+		new_line = ft_strtrim(line, ' ');
+		if (new_line[0] != '\n');
+			nb_token++;
+		free(line);
+		free(new_line);
+	}
+}
 
 void	parse(char *file, t_data *data)
 {
 	char *line;
-	int fd_rt = open(file, O_RDONLY);
+	int fd_rt;
+	int nb_token;
 	t_parse parse_struct;
+
+	nb_token = parse_nb_token();
+	int fd_rt = open(file, O_RDONLY);
 	if(fd_rt < 0)
 	{
 		printf("Impossible to open %s", file);
