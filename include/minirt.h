@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <MLX42/MLX42.h>
 # include "get_next_line.h"
+# include "parsing.h"
 
 # define WIDTH 720
 # define HEIGHT 480
@@ -21,6 +22,7 @@ enum e_type
 
 typedef struct s_obj
 {
+	// TODO : create union for different object types
 	int		obj_type;
 
 	t_vec3 center;
@@ -38,16 +40,35 @@ typedef struct s_cam
 	double	angle;
 }	t_cam;
 
+typedef struct ambiant_light
+{
+	double		ratio;
+	t_color3	color;
+}	t_ambiant;
+
+typedef struct light
+{
+	t_pt3	orig;
+	double	ratio;
+}	t_light;
+
+
 typedef struct s_data
 {
-	mlx_t *mlx;
-	mlx_image_t *img;
+	mlx_t			*mlx;
+	mlx_image_t	*img;
 
-	t_obj	obj;
-	t_cam	cam;
+	t_obj		obj[100];
+	t_cam		cam;
+	t_light		light;
+	t_ambiant	ambiant;
 	double	aspect_ratio;
 } t_data;
 
 t_data *get_data();
+void ft_hook(void *param);
+void ft_raise_error(t_data *data);
+void create_objects(void);
+void compute_viewport();
 
 #endif
