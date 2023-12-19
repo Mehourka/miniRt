@@ -36,15 +36,21 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 
 # Sources
 
-SRCS	:=	parsing.c				\
-			vec_operations.c		\
-			colors.c				\
-			render.c				\
-			get_next_line.c			\
-			get_next_line_utils.c	\
-			utils.c					\
-			hooks.c					\
-			atod.c					\
+SRCS	:=	atod.c						\
+			colors.c					\
+			get_next_line_utils.c		\
+			get_next_line.c				\
+			hooks.c						\
+			parsing_attribute_utils.c	\
+			parsing_attribute.c			\
+			parsing_env.c				\
+			parsing_objects.c			\
+			parsing_utils.c				\
+			parsing.c					\
+			render.c					\
+			token.c						\
+			vec_operations.c			\
+			utils.c						\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 

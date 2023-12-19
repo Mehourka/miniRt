@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "../include/minirt.h"
 
 // Ascii to double
 

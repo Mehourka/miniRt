@@ -8,7 +8,6 @@
 # include <stdlib.h>
 # include <MLX42/MLX42.h>
 # include "get_next_line.h"
-# include "parsing.h"
 
 # define WIDTH 720
 # define HEIGHT 480
@@ -17,20 +16,47 @@ enum e_type
 {
 	OBJ_SPHERE,
 	OBJ_PLANE,
-	OBJ_CYLINDRE,
+	OBJ_CYLINDER,
 };
+
+typedef struct s_cylinder
+{
+	t_pt3 center;
+	t_vec3	direction;
+	double	r;
+	double	longueur;
+	t_color3 color;
+}	t_cylinder;
+
+typedef struct s_sphere
+{
+	t_pt3 center;
+	double	r;
+	t_color3 color;
+}	t_sphere;
+
+typedef struct s_plane
+{
+	t_pt3 center;
+	t_vec3	direction;
+	t_color3 color;
+}	t_plane;
 
 typedef struct s_obj
 {
-	// TODO : create union for different object types
 	int		obj_type;
+	union
+	{
+		t_sphere	sphere;
+		t_plane		plane;
+		t_cylinder	cylinder;
+		struct
+		{
+			t_vec3 center;
+			t_color3 color;
 
-	t_vec3 center;
-	t_vec3 color;
-
-	double	r;
-	double	longueur;
-	t_vec3	direction;
+		};
+	};
 }	t_obj;
 
 typedef struct s_cam
@@ -55,14 +81,13 @@ typedef struct light
 
 typedef struct s_data
 {
-	mlx_t			*mlx;
+	mlx_t		*mlx;
 	mlx_image_t	*img;
-
 	t_obj		obj[100];
 	t_cam		cam;
 	t_light		light;
 	t_ambiant	ambiant;
-	double	aspect_ratio;
+	double		aspect_ratio;
 } t_data;
 
 t_data *get_data();
