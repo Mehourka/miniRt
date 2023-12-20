@@ -46,11 +46,10 @@ double hit_sphere(t_obj obj, t_ray ray)
 		ft_vec3_scal_prod(ray.dir, 2.0),
 		oc);
 	double c =	ft_vec3_dot(oc, oc) - pow(obj.sphere.r, 2);
-
 	double discriminant = b*b - 4*a*c;
 	if (discriminant < 0 || a == 0)
 		return (-1);
-	return (-b - (discriminant)) / (2.0 * a);
+	return (-b - sqrt(discriminant)) / (2.0 * a);
 }
 
 int ray_color(t_ray ray)
@@ -91,15 +90,13 @@ void compute_viewport()
 {
 	t_data *data = get_data();
 	t_viewport vp;
-	double viewport_h = 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+	double viewport_h = 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
 
 	// Trouver la hauteur/largeur du viewport
 	double viewport_w = viewport_h * data->aspect_ratio;
-	// printf("%d %d Aspect ratio : %f\n",WIDTH, HEIGHT, data->aspect_ratio);
-	// printf("Viewport dimensions : (%f x %f)\n", viewport_w, viewport_h);
 
 	// determiner les delta
-	vp.u = ft_vec3_create(0, 0, viewport_w);
+	vp.u = ft_vec3_create(viewport_w, 0, 0);
 	vp.v = ft_vec3_create(0, -viewport_h, 0);
 	vp.du = ft_vec3_scal_prod(vp.u, 1.0/WIDTH);
 	vp.dv = ft_vec3_scal_prod(vp.v, 1.0/HEIGHT);
@@ -107,20 +104,15 @@ void compute_viewport()
 	// determier upper left
 	// TODO : check le signe de cam.direction
 	vp.upper_left_corner = ft_vec3_create(0, 0, 0);
-	vp.upper_left_corner.x = data->cam.ori.x + data->cam.dir.x - vp.u.x / 2 - vp.v.x / 2;
-	vp.upper_left_corner.y = data->cam.ori.y + data->cam.dir.y - vp.u.y / 2 - vp.v.y / 2;
-	vp.upper_left_corner.z = data->cam.ori.z + data->cam.dir.z - vp.u.z / 2 - vp.v.z / 2;
+	vp.upper_left_corner.x = data->cam.ori.x - data->cam.dir.x - vp.u.x / 2 - vp.v.x / 2;
+	vp.upper_left_corner.y = data->cam.ori.y - data->cam.dir.y - vp.u.y / 2 - vp.v.y / 2;
+	vp.upper_left_corner.z = data->cam.ori.z - data->cam.dir.z - vp.u.z / 2 - vp.v.z / 2;
 
 	// trouver le Pixel00
 	t_vec3 pixel00 = ft_vec3_add(
 		ft_vec3_scal_prod(ft_vec3_add(vp.du, vp.dv), 0.5),
 		vp.upper_left_corner);
 	
-	// DEBUG
-	printf("Viewport axes: ");
-	ft_vec3_print(vp.u);
-	ft_vec3_print(vp.v);
-
 	// loop
 	for (int j = 0; j < HEIGHT; j++)
 	{

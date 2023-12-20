@@ -28,10 +28,10 @@ void create_objects(void)
 	t_cam *cam = &data->cam;
 
 	obj1->obj_type = OBJ_SPHERE;
-	obj1->ori = ft_vec3_create(100, 0, 0);
-	obj1->sphere.r = 20;
+	obj1->ori = ft_vec3_create(0, 0, -5);
+	obj1->sphere.r = 3;
 
 	cam->ori = ft_vec3_create(0, 0, 0);
-	cam->dir = ft_vec3_create(1, 0, 0);
+	cam->dir = ft_vec3_create(0, 0, 1);
 	cam->angle = 70;
 }
