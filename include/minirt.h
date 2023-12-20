@@ -23,24 +23,24 @@ enum e_type
 typedef struct s_cylinder
 {
 	t_pt3 ori;
+	t_color3 color;
 	t_vec3	dir;
 	double	r;
 	double	longueur;
-	t_color3 color;
 }	t_cylinder;
 
 typedef struct s_sphere
 {
 	t_pt3 ori;
-	double	r;
 	t_color3 color;
+	double	r;
 }	t_sphere;
 
 typedef struct s_plane
 {
 	t_pt3 ori;
-	t_vec3	dir;
 	t_color3 color;
+	t_vec3	dir;
 }	t_plane;
 
 typedef struct s_obj
@@ -63,7 +63,14 @@ typedef struct s_cam
 {
 	t_vec3	ori;
 	t_vec3	dir;
+	t_vec3	vup;
 	double	angle;
+
+	// Viewport data
+	t_vec3	du;
+	t_vec3	dv;
+	t_pt3	pixel00_pos;
+
 }	t_cam;
 
 typedef struct ambiant_light
@@ -78,6 +85,12 @@ typedef struct light
 	double	ratio;
 }	t_light;
 
+typedef struct s_hit_point
+{
+	t_pt3	pos;
+	t_vec3	normal;
+	double	distance;
+}	t_hit_point;
 
 typedef struct s_data
 {
