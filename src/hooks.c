@@ -9,6 +9,16 @@ double ft_deg_to_rad(double deg)
 	return (deg * M_PI / 180);
 }
 
+t_vec3 rotate_xaxis(t_vec3 u, double angle)
+{
+	t_vec3 new;
+
+	new.x = u.x;
+	new.y = cos(angle) * u.y - sin(angle) * u.z;
+	new.z = sin(angle) * u.y + cos(angle) * u.z;
+	return (new);
+}
+
 t_vec3 rotate_yaxis(t_vec3 u, double angle)
 {
 	t_vec3 new;
@@ -18,6 +28,7 @@ t_vec3 rotate_yaxis(t_vec3 u, double angle)
 	new.z = sin(angle) * u.x + cos(angle) * u.z;
 	return (new);
 }
+
 
 t_vec3 rotate_zaxis(t_vec3 u, double angle)
 {
@@ -71,13 +82,13 @@ void ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
 		// cam->ori.z += EPS;
-		cam->dir = rotate_zaxis(cam->dir, ft_deg_to_rad(5));
+		cam->dir = rotate_xaxis(cam->dir, -ft_deg_to_rad(5));
 		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
 		// cam->ori.z -= EPS;
-		cam->dir = rotate_zaxis(cam->dir, -ft_deg_to_rad(5));
+		cam->dir = rotate_xaxis(cam->dir, ft_deg_to_rad(5));
 		ft_vec3_print(cam->dir);
 	}
 

@@ -24,14 +24,33 @@ void ft_raise_error(t_data *data)
 void create_objects(void)
 {
 	t_data *data = get_data();
-	t_obj *obj1 = &data->obj[0];
+	
 	t_cam *cam = &data->cam;
 
-	obj1->obj_type = OBJ_SPHERE;
-	obj1->ori = ft_vec3_create(0, 0, -5);
-	obj1->sphere.r = 3;
+	data->obj[0].obj_type = OBJ_SPHERE;
+	data->obj[0].ori = ft_vec3_create(2, 0, -5);
+	data->obj[0].sphere.r = 1.1;
+	data->obj[0].color = ft_vec3_create(.6, .1, .1);
+
+	data->obj[1].obj_type = OBJ_SPHERE;
+	data->obj[1].ori = ft_vec3_create(0, 0, -5);
+	data->obj[1].sphere.r = 1;
+	data->obj[1].color = ft_vec3_create(.1, .6, .1);
+
+	data->obj[2].obj_type = OBJ_SPHERE;
+	data->obj[2].ori = ft_vec3_create(-2, 0, -5);
+	data->obj[2].sphere.r = 0.9;
+	data->obj[2].color = ft_vec3_create(0.1, .1, .6);
+
+	data->obj[3].obj_type = OBJ_SPHERE;
+	data->obj[3].ori = ft_vec3_create(0, -150, 0);
+	data->obj[3].sphere.r = 145;
+	data->obj[3].color = ft_vec3_create(0.15, .15, .15);
 
 	cam->ori = ft_vec3_create(0, 0, 0);
-	cam->dir = ft_vec3_create(0, 0, 1);
+	cam->dir = ft_vec3_create(0, 0, -1);
+	cam->vup = ft_vec3_create(0, 1, 0);
 	cam->angle = 70;
+
+	data->light.ori = ft_vec3_create(3, 0, 0);
 }
