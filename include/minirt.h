@@ -64,6 +64,12 @@ typedef struct s_cam
 	t_vec3	ori;
 	t_vec3	dir;
 	double	angle;
+
+	// Viewport data
+	t_vec3	du;
+	t_vec3	dv;
+	t_pt3	pixel00_pos;
+
 }	t_cam;
 
 typedef struct ambiant_light

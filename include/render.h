@@ -24,5 +24,6 @@ int norm_rgba(float r, float g, float b, float a);
 void draw_gradient(t_data *data);
 void gen_p3_image(t_data *data);
 void compute_viewport();
+void	ft_render_image();
 
 #endif

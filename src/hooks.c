@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include "render.h"
 
 t_vec3 rotate_yaxis(t_vec3 u, double angle);
 double ft_deg_to_rad(double deg);
@@ -83,5 +84,5 @@ void ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 
-	compute_viewport();
+	ft_render_image();
 }

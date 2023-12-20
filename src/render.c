@@ -98,8 +98,8 @@ void compute_viewport()
 	// determiner les delta
 	vp.u = ft_vec3_create(viewport_w, 0, 0);
 	vp.v = ft_vec3_create(0, -viewport_h, 0);
-	vp.du = ft_vec3_scal_prod(vp.u, 1.0/WIDTH);
-	vp.dv = ft_vec3_scal_prod(vp.v, 1.0/HEIGHT);
+	data->cam.du = ft_vec3_scal_prod(vp.u, 1.0/WIDTH);
+	data->cam.dv = ft_vec3_scal_prod(vp.v, 1.0/HEIGHT);
 
 	// determier upper left
 	// TODO : check le signe de cam.direction
@@ -109,21 +109,27 @@ void compute_viewport()
 	vp.upper_left_corner.z = data->cam.ori.z - data->cam.dir.z - vp.u.z / 2 - vp.v.z / 2;
 
 	// trouver le Pixel00
-	t_vec3 pixel00 = ft_vec3_add(
+	data->cam.pixel00_pos = ft_vec3_add(
 		ft_vec3_scal_prod(ft_vec3_add(vp.du, vp.dv), 0.5),
 		vp.upper_left_corner);
-	
-	// loop
+}
+
+void	ft_render_image()
+{
+	t_data	*data = get_data();
+
+	compute_viewport();
+
 	for (int j = 0; j < HEIGHT; j++)
 	{
 		for (int i = 0; i < WIDTH; i++)
 		{
 			t_pt3 pixel_pos = ft_vec3_add(
 				ft_vec3_add(
-					ft_vec3_scal_prod(vp.du, i),
-					ft_vec3_scal_prod(vp.dv, j)
+					ft_vec3_scal_prod(data->cam.du, i),
+					ft_vec3_scal_prod(data->cam.dv, j)
 				),
-				pixel00
+				data->cam.pixel00_pos
 			);
 			t_vec3 ray_dir = ft_vec3_minus(
 				pixel_pos,
@@ -135,6 +141,4 @@ void compute_viewport()
 			mlx_put_pixel(data->img, i, j, color);
 		}
 	}
-	// compute rays
 }
-
