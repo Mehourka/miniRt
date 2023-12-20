@@ -34,5 +34,6 @@ void	create_object(t_data *data, t_parse *parse);
 void	parsing(char *file, t_data *data);
 void	parse_token(char *line, t_parse *parse);
 int		parse_nb_token(char *file);
+void	dot_rt(char *file);
 
 #endif

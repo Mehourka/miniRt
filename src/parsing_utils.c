@@ -68,3 +68,26 @@ void	parse_limit(int checker, int max)
 	}
 }
 
+void	dot_rt(char *file)
+{
+	char	*new;
+	int		fd;
+
+	new = ft_strrchr(file, '.');
+	if (ft_strncmp(new, ".rt", 4) != 0)
+	{
+		printf("Problem with the name of the file");
+		exit(1);
+	}
+	else
+	{
+		fd = open(file, O_RDONLY);
+		if (fd < 0)
+		{
+			printf("Problem with the name of the file");
+			exit(1);
+		}
+		close(fd);
+	}
+}
+

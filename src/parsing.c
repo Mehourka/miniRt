@@ -10,12 +10,14 @@ void	create_object(t_data *data, t_parse *parse)
 		parse_light(data, parse);
 	else if (ft_strncmp(parse->token[0], "C", 2) == 1)
 		parse_camera(data, parse);
-	else if (ft_strncmp(parse->token[0], "cy", 2) == 1)
+	else if (ft_strncmp(parse->token[0], "cy", 3) == 1)
 		parse_cylinder(data, parse);
-	else if (ft_strncmp(parse->token[0], "sp", 2) == 1)
+	else if (ft_strncmp(parse->token[0], "sp", 3) == 1)
 		parse_sphere(data, parse);
-	else if (ft_strncmp(parse->token[0], "pl", 2) == 1)
+	else if (ft_strncmp(parse->token[0], "pl", 3) == 1)
 		parse_plane(data, parse);
+	//else
+		//ft_error();
 }
 
 void	parsing(char *file, t_data *data)
@@ -27,19 +29,20 @@ void	parsing(char *file, t_data *data)
 	char *new_line;
 	t_parse parse;
 
+	dot_rt(file);
 	nb_token = parse_nb_token(file);
 	i = 0;
 	printf("nb_of token : %d\n", nb_token);
+	parse.A = 0;
+	parse.L = 0;
+	parse.C = 0;
+	parse.i = 0;
 	fd_rt = open(file, O_RDONLY);
 	if(fd_rt < 0)
 	{
 		printf("Impossible to open %s", file);
 		exit(1);
 	}
-	parse.A = 0;
-	parse.L = 0;
-	parse.C = 0;
-	parse.i = 0;
 	while (i < nb_token)
 	{
 		if (i >= 103)
