@@ -16,16 +16,8 @@ typedef struct s_viewport
 typedef struct s_amb_light
 {
 	double intensity;
-	t_color color;
+	t_color3 color;
 }	t_amb_light;
-
-typedef struct s_light
-{
-	double	intensity;
-	t_vec3	ori;
-	t_color	color;
-}	t_light;
-
 
 int get_rgba(int r, int g, int b, int a);
 int norm_rgba(float r, float g, float b, float a);

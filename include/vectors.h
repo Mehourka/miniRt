@@ -12,8 +12,8 @@ typedef union s_vec3
 } t_vec3;
 
 typedef t_vec3 t_pt3;
-typedef t_vec3 t_color;
 
+typedef t_vec3 t_color3;
 typedef struct s_ray
 {
 	t_pt3	orig;
