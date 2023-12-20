@@ -42,14 +42,12 @@ double hit_sphere(t_obj obj, t_ray ray)
 
 	// TODO: optimize by replacing dot products with len*len
 	double a = ft_vec3_dot(ray.dir, ray.dir);
-	double b = ft_vec3_dot(
-		ft_vec3_scal_prod(ray.dir, 2.0),
-		oc);
-	double c =	ft_vec3_dot(oc, oc) - pow(obj.sphere.r, 2);
-	double discriminant = b*b - 4*a*c;
+	double half_b = ft_vec3_dot(oc, ray.dir);
+	double c =	ft_vec3_dot(oc, oc) - obj.sphere.r*obj.sphere.r;
+	double discriminant = half_b*half_b - a*c;
 	if (discriminant < 0 || a == 0)
 		return (-1);
-	return (-b - sqrt(discriminant)) / (2.0 * a);
+	return (-half_b - sqrt(discriminant)) /  a;
 }
 
 int get_color_int(t_color3 color)
@@ -101,13 +99,10 @@ int ray_color(t_ray ray)
 				),
 				1 / data->obj[i].sphere.r
 			);
-			// n = ft_vec3_scal_prod(
-				// ft_vec3_add_scal(n, 1),
-				// 0.5
-			// );
 
 			hit_pt.normal = n;
 			hit_pt.pos = ft_ray_project(ray, t);
+
 			// render selon la normal
 			if (min_dist == -1 || t < min_dist)
 			{

@@ -21,7 +21,6 @@ int main(void)
 	// draw_gradient(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 
-
 	// // Hooks
 	mlx_loop_hook(data->mlx, &ft_hook, data->mlx);
 
