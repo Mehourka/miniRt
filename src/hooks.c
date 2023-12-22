@@ -54,8 +54,8 @@ void ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
 	{
 		*r += EPS;
-		if (*r > 2.5)
-			*r = 2.5;
+		// if (*r > 2.5)
+		// 	*r = 2.5;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
 	{

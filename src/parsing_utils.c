@@ -58,12 +58,12 @@ int	dot_digit(char *str)
 	return (0);
 }
 
-void	parse_limit(int checker, int max)
+void	parse_limit(int *checker, int max, char *type)
 {
-	checker++;
-	if(checker > max)
+	(*checker)++;
+	if(*checker > max)
 	{
-		printf("This is an error");
+		printf("%s need to be unique", type);
 		exit(1);
 	}
 }
@@ -74,9 +74,14 @@ void	dot_rt(char *file)
 	int		fd;
 
 	new = ft_strrchr(file, '.');
+	if ( new == NULL)
+	{
+		printf("Enter a valid .rt file");
+		exit(1);
+	}
 	if (ft_strncmp(new, ".rt", 4) != 0)
 	{
-		printf("Problem with the name of the file");
+		printf("Enter a valid .rt file");
 		exit(1);
 	}
 	else
@@ -84,10 +89,10 @@ void	dot_rt(char *file)
 		fd = open(file, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("Problem with the name of the file");
+			printf("Enter a valid .rt file");
 			exit(1);
 		}
 		close(fd);
-	}
+	}	
 }
 

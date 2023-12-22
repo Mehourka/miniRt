@@ -38,6 +38,7 @@ void gen_p3_image(t_data *data)
 
 double hit_sphere(t_obj obj, t_ray ray)
 {
+	static int i = 0;
 	t_vec3 oc = ft_vec3_minus(ray.orig, obj.sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
@@ -93,7 +94,6 @@ int ray_color(t_ray ray)
 		double t = hit_sphere(data->obj[i], ray);
 		if (t >= 0)
 		{
-			// Calcule la normale
 			t_vec3 n = ft_vec3_scal_prod(
 				ft_vec3_minus(
 					ft_ray_project(ray, t),
@@ -102,8 +102,8 @@ int ray_color(t_ray ray)
 				1 / data->obj[i].sphere.r
 			);
 			// n = ft_vec3_scal_prod(
-				// ft_vec3_add_scal(n, 1),
-				// 0.5
+			// 	ft_vec3_add_scal(n, 1),
+			// 	0.5
 			// );
 
 			hit_pt.normal = n;
@@ -169,7 +169,6 @@ void	ft_render_image()
 	t_data	*data = get_data();
 
 	compute_viewport();
-	// ft_vec3_print(data->cam.pixel00_pos);
 
 	for (int j = 0; j < HEIGHT; j++)
 	{
@@ -178,13 +177,9 @@ void	ft_render_image()
 			t_pt3 pixel_pos = ft_vec3_add(
 				ft_vec3_add(
 					ft_vec3_scal_prod(data->cam.du, i),
-					ft_vec3_scal_prod(data->cam.dv, j)
-				),
-				data->cam.pixel00_pos
-			);
-			t_vec3 ray_dir = ft_vec3_minus(
-				pixel_pos,
-				data->cam.ori);
+					ft_vec3_scal_prod(data->cam.dv, j)),
+					data->cam.pixel00_pos);
+			t_vec3 ray_dir = ft_vec3_minus(pixel_pos, data->cam.ori);
 			t_ray ray = ft_ray_create(data->cam.ori, ray_dir);
 
 			// Render le pixel (i, j)

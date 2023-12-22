@@ -10,7 +10,7 @@ void	parse_token(char *line, t_parse *parse)
 
 	i = 0;
 	parse->count = 0;
-	new = ft_strtrim(line, " ");
+	new = ft_strtrim(line, " \n");
 	parse_count_atribute(new, parse);
 	parse->token = ft_calloc(parse->count + 1, sizeof (char*));
 	t = 0;
@@ -24,7 +24,6 @@ void	parse_token(char *line, t_parse *parse)
 			new[i] = '\0';
 			i++;
 		}
-		printf("%d %s\n", t, parse->token[t]);
 		t++;
 	}
 }

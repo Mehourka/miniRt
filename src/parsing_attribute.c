@@ -12,7 +12,7 @@ void	ft_parse_rgb(t_color3 *color, char *line)
 	j = 0;
 	if(parse_comma(line) != 2)
 	{
-		printf("This is an error");
+		printf("%s is not a valid vector", line);
 		exit(1);
 	}
 	parse_color(line, &j, &R);
@@ -31,35 +31,48 @@ void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line)
 	j = 0;
 	if(parse_comma(line) != 2)
 	{
-		printf("This is an error");
+		printf("%s is not a valid vector", line);
 		exit(1);
 	}
 	parse_var(line, &j, &x);
 	parse_var(line, &j, &y);
 	parse_var(line, &j, &z);
+	printf("x :%f\n", x);
+	printf("y :%f\n", y);
+	printf("z :%f\n", z);
 	*orig_dir = ft_vec3_create(x, y, z);
 }
 
 void	parse_ratio(double *ratio, char *nb)
 {
+	if(parse_comma(nb) != 0)
+	{
+		printf("%s is not a ratio", nb);
+		exit(1);
+	}
 	if(dot_digit(nb) == 0)
 	{
 		*ratio = ft_atod(nb);
 		if (*ratio > 1 || *ratio < -1)
 		{
-			printf("This is an error");
+			printf("Ratio outside of the range of [-1, 1]");
 			exit(1);
 		}
 	}
 	else
 	{
-		printf("This is an error");
+		printf("%s is not a ratio", nb);
 		exit(1);
 	}
 }
 
 void	parse_length(double *length, char *nb)
 {
+	if(parse_comma(nb) != 0)
+	{
+		printf("%s is not a length", nb);
+		exit(1);
+	}
 	if(dot_digit(nb) == 0)
 	{
 		*length = ft_atod(nb);
@@ -71,7 +84,7 @@ void	parse_length(double *length, char *nb)
 	}
 	else
 	{
-		printf("This is an error");
+		printf("%s is not a length", nb);
 		exit(1);
 	}
 }
