@@ -1,4 +1,4 @@
-FILE = maps/spheres.rt
+FILE = maps/scene.rt
 # Compiler and flags
 CC		=	gcc -g
 # CFLAGS	=	-Wall -Werror -Wextra

@@ -17,6 +17,7 @@ void	parse_sphere(t_data *data, t_parse *parse)
 	data->obj[parse->i].obj_type = OBJ_SPHERE;
 	ft_parse_orig_dir(&data->obj[parse->i].sphere.ori, parse->token[1]);
 	parse_length(&data->obj[parse->i].sphere.r, parse->token[2]);
+	data->obj[parse->i].sphere.r /= 2; // Division du diametre pour donner le rayer
 	ft_parse_rgb(&data->obj[parse->i].sphere.color, parse->token[3]);
 	data->object_count++;
 	parse->i++;
@@ -58,6 +59,7 @@ void	parse_cylinder(t_data *data, t_parse *parse)
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.ori, parse->token[1]);
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.dir, parse->token[2]);
 	parse_length(&data->obj[parse->i].cylinder.r, parse->token[3]);
+	data->obj[parse->i].sphere.r /= 2; // Division du diametre pour donner le rayer
 	parse_length(&data->obj[parse->i].cylinder.longueur, parse->token[4]);
 	ft_parse_rgb(&data->obj[parse->i].cylinder.color, parse->token[5]);
 	data->object_count++;

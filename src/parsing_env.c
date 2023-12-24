@@ -17,7 +17,7 @@ void	parse_ambiant_light(t_data *data, t_parse *parse)
 void	parse_light(t_data *data, t_parse *parse)
 {
 	parse_limit(&parse->L, 1, "Light");
-	if(parse->count != 3)
+	if(parse->count != 4)
 	{
 		printf("Wrong number of attribute for %s", parse->token[0]);
 		exit(1);
