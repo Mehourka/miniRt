@@ -101,6 +101,7 @@ typedef struct s_data
 	t_light		light;
 	t_ambiant	ambiant;
 	double		aspect_ratio;
+	int			object_count;
 } t_data;
 
 t_data *get_data();

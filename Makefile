@@ -1,8 +1,10 @@
+FILE = maps/spheres.rt
 # Compiler and flags
 CC		=	gcc -g
 # CFLAGS	=	-Wall -Werror -Wextra
 # CFLAGS +=	-Wunreachable-code -Ofast
 RM		=	rm
+
 
 #------------------------------------------------------------------------------#
 #                                VARIABLES                                     #
@@ -73,7 +75,7 @@ DEPS		:=	$(OBJS:%.o=%.d)
 all : $(NAME)
 
 run : $(NAME)
-	./$(NAME)
+	./$(NAME) $(FILE)
 
 p3 : $(NAME)
 	./$(NAME) > tmp/img.p3

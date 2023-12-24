@@ -3,10 +3,10 @@
 #include "../include/parsing.h"
 
 void	create_object(t_data *data, t_parse *parse)
-{ 
+{
 	// pour des virgules vides
 	//tester trop d'objets
-	
+
 	if (ft_strncmp(parse->token[0], "A", 2) == 0)
 		parse_ambiant_light(data, parse);
 	else if (ft_strncmp(parse->token[0], "L", 2) == 0)

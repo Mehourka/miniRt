@@ -89,7 +89,7 @@ int ray_color(t_ray ray)
 
 	double min_dist = -1;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < data->object_count; i++)
 	{
 		double t = hit_sphere(data->obj[i], ray);
 		if (t >= 0)

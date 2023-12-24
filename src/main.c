@@ -26,7 +26,6 @@ int	main(int argc, char**argv)
 		
 		mlx_image_to_window(data->mlx, data->img, 0, 0);
 
-		ft_render_image();
 
 		// // Hooks
 		mlx_loop_hook(data->mlx, &ft_hook, data->mlx);

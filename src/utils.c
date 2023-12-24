@@ -24,7 +24,7 @@ void ft_raise_error(t_data *data)
 void create_objects(void)
 {
 	t_data *data = get_data();
-	
+
 	t_cam *cam = &data->cam;
 
 	data->obj[0].obj_type = OBJ_SPHERE;
