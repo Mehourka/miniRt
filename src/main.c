@@ -10,25 +10,23 @@ int	main(int argc, char**argv)
 
 	if (argc == 2)
 	{
-		dot_rt(argv[1]);
-
-		// Setup mlx data
 		t_data *data = get_data();
 		parsing(argv[1], data);
 
+		// Setup mlx data
 		if (!(data->mlx = mlx_init(WIDTH, HEIGHT, "miniRt", true)))
 			ft_raise_error(data);
 		if (!(data->img = mlx_new_image(data->mlx, image_width, image_height)))
 			ft_raise_error(data);
-
-		// // // Draw on image
 		ft_memset(data->img->pixels, 255, sizeof(int32_t) * image_height * image_width);
-		
 		mlx_image_to_window(data->mlx, data->img, 0, 0);
 
 
 		// // Hooks
-		mlx_loop_hook(data->mlx, &ft_hook, data->mlx);
+		// Navigation Hook
+		mlx_loop_hook(data->mlx, &ft_nav_hook, data->mlx);
+		// Rendering Hook
+		mlx_loop_hook(data->mlx, &ft_render_hook, data->mlx);
 
 		// // mlx loop
 		mlx_loop(data->mlx);

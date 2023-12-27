@@ -1,16 +1,17 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-# include "libft.h"
 # include <math.h>
-# include "vectors.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <MLX42/MLX42.h>
+# include "libft.h"
 # include "get_next_line.h"
+# include "vectors.h"
+# include "hooks.h"
 
-# define WIDTH 720
-# define HEIGHT 480
+# define WIDTH 	256
+# define HEIGHT	256
 
 enum e_type
 {
@@ -105,7 +106,6 @@ typedef struct s_data
 } t_data;
 
 t_data *get_data();
-void ft_hook(void *param);
 void ft_raise_error(t_data *data);
 void create_objects(void);
 void compute_viewport();
