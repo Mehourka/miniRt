@@ -1,9 +1,6 @@
 #include "minirt.h"
 #include "render.h"
 
-t_vec3 rotate_yaxis(t_vec3 u, double angle);
-double ft_deg_to_rad(double deg);
-
 double ft_deg_to_rad(double deg)
 {
 	return (deg * M_PI / 180);
@@ -40,11 +37,15 @@ t_vec3 rotate_zaxis(t_vec3 u, double angle)
 	return (new);
 }
 
-void ft_hook(void *param)
+/*
+	brief: mlx loop hook for navigation control
+*/
+void ft_nav_hook(void *param)
 {
 
 	mlx_t *mlx = param;
 
+	// Quit minirt
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 
@@ -52,11 +53,7 @@ void ft_hook(void *param)
 	double EPS = 0.05;
 	double *r = &get_data()->obj[0].sphere.r;
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
-	{
 		*r += EPS;
-		if (*r > 2.5)
-			*r = 2.5;
-	}
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
 	{
 		*r -= EPS;
@@ -64,36 +61,30 @@ void ft_hook(void *param)
 			*r = 0.1;
 	}
 
-
 	// Rotate camera
 	t_cam *cam = &(get_data()->cam);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
-		// cam->ori.z += EPS;
 		cam->dir = rotate_yaxis(cam->dir, ft_deg_to_rad(5));
-		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
-		// cam->ori.z -= EPS;
 		cam->dir = rotate_yaxis(cam->dir, -ft_deg_to_rad(5));
-		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
-		// cam->ori.z += EPS;
 		cam->dir = rotate_xaxis(cam->dir, -ft_deg_to_rad(5));
-		ft_vec3_print(cam->dir);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
-		// cam->ori.z -= EPS;
 		cam->dir = rotate_xaxis(cam->dir, ft_deg_to_rad(5));
-		ft_vec3_print(cam->dir);
 	}
+}
 
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-
+/*
+	brief: mlx loop hook for rendering
+*/
+void ft_render_hook(void *param)
+{
 	ft_render_image();
 }
