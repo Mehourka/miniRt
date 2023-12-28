@@ -38,22 +38,23 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 
 # Sources
 
-SRCS	:=	atod.c						\
-			colors.c					\
-			get_next_line_utils.c		\
-			get_next_line.c				\
-			hooks.c						\
-			parsing_attribute_utils.c	\
-			parsing_attribute.c			\
-			parsing_env.c				\
-			parsing_objects.c			\
-			parsing_utils.c				\
-			parsing.c					\
-			main.c						\
-			render.c					\
-			token.c						\
-			vec_operations.c			\
-			utils.c						\
+SRCS	:=	\
+			main.c								\
+			hooks.c								\
+			parsing/parsing_attribute_utils.c	\
+			parsing/parsing_attribute.c			\
+			parsing/parsing_env.c				\
+			parsing/parsing_objects.c			\
+			parsing/parsing_utils.c				\
+			parsing/parsing.c					\
+			parsing/token.c						\
+			render/colors.c						\
+			render/render.c						\
+			utils/utils.c						\
+			utils/atod.c						\
+			utils/get_next_line_utils.c			\
+			utils/get_next_line.c				\
+			vec3/vec_operations.c				\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 
@@ -93,7 +94,7 @@ test : $(LIBMLX) $(LIBFT) $(T_OBJS)
 
 # Compile objects
 $(OBJDIR)%.o : $(SRCDIR)%.c
-	@mkdir -p $(OBJDIR);
+	@mkdir -p $(@D);
 	$(CC) -c $(CFLAGS) -MMD -MP $< -o $@ $(INCLUDES)
 
 -include $(DEPS)

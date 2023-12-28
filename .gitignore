@@ -3,7 +3,9 @@
 !.gitignore
 
 !src/
+!src/*
 !src/*.c
+!src/**/.c
 
 !include/
 !include/*.h

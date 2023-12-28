@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-#include "minirt.h"
+#include "vectors.h"
 
 typedef struct s_viewport
 {
@@ -13,16 +13,24 @@ typedef struct s_viewport
 	t_vec3	focal_length;
 }	t_viewport;
 
-typedef struct s_amb_light
+typedef struct s_cam
 {
-	double intensity;
-	t_color3 color;
-}	t_amb_light;
+	t_vec3	ori;
+	t_vec3	dir;
+	t_vec3	vup;
+	double	angle;
+
+	// Viewport data
+	t_vec3	du;
+	t_vec3	dv;
+	t_pt3	pixel00_pos;
+
+}	t_cam;
 
 int get_rgba(int r, int g, int b, int a);
 int norm_rgba(float r, float g, float b, float a);
-void draw_gradient(t_data *data);
-void gen_p3_image(t_data *data);
+void draw_gradient();
+void gen_p3_image();
 void compute_viewport();
 void	ft_render_image();
 
