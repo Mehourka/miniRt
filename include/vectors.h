@@ -20,7 +20,6 @@ typedef struct s_ray
 	t_vec3	dir;
 }	t_ray;
 
-
 void	ft_vec3_print(t_vec3 u);
 t_vec3	ft_vec3_create(double x, double y, double z);
 t_vec3	ft_vec3_add(t_vec3 u, t_vec3 v);

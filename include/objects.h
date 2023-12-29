@@ -49,8 +49,6 @@ typedef struct s_obj
 	};
 }	t_obj;
 
-
-
 typedef struct ambiant_light
 {
 	double		ratio;

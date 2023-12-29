@@ -6,6 +6,38 @@ double ft_deg_to_rad(double deg)
 	return (deg * M_PI / 180);
 }
 
+/*
+	brief: Rodrigues' rotation of vector v around the given axis
+
+	param: v target vector
+	param: axis rotation axis, has to be normalized
+	param: theta rotation angle in radians
+	returns: the rotated axis
+*/
+t_vec3 ft_rodrigues_rotation(t_vec3 v, t_vec3 axis, double theta)
+{
+	t_vec3 t1;
+	t_vec3 t2;
+	t_vec3 t3;
+
+	// normalize axis
+	axis = ft_vec3_normalize(axis);
+
+	// comput the three terms
+	t1 = ft_vec3_scal_prod(v, cos(theta));
+	t2 = ft_vec3_scal_prod(
+		axis,
+		ft_vec3_dot(v, axis) * (1 - cos(theta))
+	);
+	t3 = ft_vec3_scal_prod(
+		ft_vec3_cross_prod(axis, v),
+		sin(theta)
+	);
+	return ft_vec3_add(
+		ft_vec3_add(t1, t2), t3
+	);
+}
+
 t_vec3 rotate_xaxis(t_vec3 u, double angle)
 {
 	t_vec3 new;
@@ -63,21 +95,27 @@ void ft_nav_hook(void *param)
 
 	// Rotate camera
 	t_cam *cam = &(get_data()->cam);
+	double theta = ft_deg_to_rad(5);
+	t_vec3 axis;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
-		cam->dir = rotate_yaxis(cam->dir, ft_deg_to_rad(5));
+		axis = cam->vup;
+		cam->dir = ft_rodrigues_rotation(cam->dir, axis, -theta);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
-		cam->dir = rotate_yaxis(cam->dir, -ft_deg_to_rad(5));
+		axis = cam->vup;
+		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
-		cam->dir = rotate_xaxis(cam->dir, -ft_deg_to_rad(5));
+		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
+		cam->dir = ft_rodrigues_rotation(cam->dir, axis, -theta);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
-		cam->dir = rotate_xaxis(cam->dir, ft_deg_to_rad(5));
+		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
+		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
 }
 
