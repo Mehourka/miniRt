@@ -130,9 +130,7 @@ void compute_viewport()
 	// Trouver la hauteur/largeur du viewport
 	double viewport_w = viewport_h * data->aspect_ratio;
 
-	t_vec3 w = ft_vec3_normalize(
-		ft_vec3_minus(pcam->dir, pcam->ori)
-	);
+	t_vec3 w = ft_vec3_normalize(pcam->dir);
 	t_vec3 u = ft_vec3_normalize(
 		ft_vec3_cross_prod(w, pcam->vup)
 	);

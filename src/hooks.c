@@ -109,11 +109,13 @@ void ft_nav_hook(void *param)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
+		// TODO: limit up/down view range
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		cam->dir = ft_rodrigues_rotation(cam->dir, axis, -theta);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
+		// TODO: limit up/down view range
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
