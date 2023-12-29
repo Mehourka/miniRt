@@ -38,22 +38,7 @@ void gen_p3_image()
 	}
 }
 
-double hit_sphere(t_obj obj, t_ray ray)
-{
-	static int i = 0;
-	t_vec3 oc = ft_vec3_minus(ray.orig, obj.sphere.ori);
 
-	// TODO: optimize by replacing dot products with len*len
-	double a = ft_vec3_dot(ray.dir, ray.dir);
-	double b = ft_vec3_dot(
-		ft_vec3_scal_prod(ray.dir, 2.0),
-		oc);
-	double c =	ft_vec3_dot(oc, oc) - pow(obj.sphere.r, 2);
-	double discriminant = b*b - 4*a*c;
-	if (discriminant < 0 || a == 0)
-		return (-1);
-	return (-b - sqrt(discriminant)) / (2.0 * a);
-}
 
 int get_color_int(t_color3 color)
 {
@@ -87,15 +72,19 @@ int ray_color(t_ray ray)
 	t_vec3 u = ft_vec3_normalize(ray.dir);
 	double a = 0.5 * (u.y + 1);
 	t_color3 col  = u;
-	t_hit_point	hit_pt;
 
 	double min_dist = -1;
 
 	for (int i = 0; i < data->object_count; i++)
 	{
-		double t = hit_sphere(data->obj[i], ray);
-		if (t >= 0)
+		double t = ft_hit_object(data->obj[i], ray);
+		if (t > 0)
 		{
+			// skip if object is obstructed
+			if (min_dist != -1 && t > min_dist)
+				continue;
+			min_dist = t;
+			t_hit_point	hit_pt;
 			t_vec3 n = ft_vec3_scal_prod(
 				ft_vec3_minus(
 					ft_ray_project(ray, t),
@@ -107,14 +96,9 @@ int ray_color(t_ray ray)
 			hit_pt.normal = n;
 			hit_pt.pos = ft_ray_project(ray, t);
 			// render selon la normal
-			if (min_dist == -1 || t < min_dist)
-			{
-				// col = get_col3(data->obj[i].color);
-				// col = norm_rgba(n.x, n.y, n.z, 1);
-				double brightness = ft_get_shade(hit_pt);
-				col = ft_vec3_scal_prod(data->obj[i].color, brightness);
-				min_dist = t;
-			}
+			double brightness = 1;
+			brightness = ft_get_shade(hit_pt);
+			col = ft_vec3_scal_prod(data->obj[i].color, brightness);
 		}
 	}
 	return get_color_int(col);

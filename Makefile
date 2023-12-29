@@ -41,6 +41,7 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 SRCS	:=	\
 			main.c								\
 			hooks.c								\
+			math/intersect.c					\
 			parsing/parsing_attribute_utils.c	\
 			parsing/parsing_attribute.c			\
 			parsing/parsing_env.c				\
