@@ -42,6 +42,7 @@ SRCS	:=	\
 			main.c								\
 			hooks.c								\
 			math/intersect.c					\
+			math/obj_normals.c					\
 			parsing/parsing_attribute_utils.c	\
 			parsing/parsing_attribute.c			\
 			parsing/parsing_env.c				\

@@ -61,7 +61,12 @@ typedef struct light
 	double	ratio;
 }	t_light;
 
+double ft_hit_object(t_obj obj, t_ray ray);
 double ft_intersect_plane(t_plane plane, t_ray ray);
 double ft_intersect_sphere(t_sphere spehere, t_ray ray);
-double ft_hit_object(t_obj obj, t_ray ray);
+
+t_vec3 ft_get_obj_normal(t_obj obj, t_pt3 pos);
+t_vec3 ft_get_plane_normal(t_plane plane, t_pt3 pos);
+t_vec3 ft_get_sphere_normal(t_sphere sphere, t_pt3 pos);
+
 #endif

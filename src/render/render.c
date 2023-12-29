@@ -16,30 +16,6 @@ void draw_gradient()
 	}
 }
 
-void gen_p3_image()
-{
-	t_data *data = get_data();
-	const int image_width = data->img->height;
-	const int image_height = data->img->width;
-	uint8_t *buffer = data->img->pixels;
-
-	// Render
-	printf("P3\n%i %i\n255\n", image_width, image_height);
-	for (int j = 0; j < image_height; j++)
-	{
-		for (int i = 0; i < image_width; i++)
-		{
-			int pos = (i + j * image_width) * sizeof(uint8_t);
-			printf("%i %i %i\n",
-				buffer[pos],
-				buffer[pos + 1],
-				buffer[pos + 2]);
-		}
-	}
-}
-
-
-
 int get_color_int(t_color3 color)
 {
 	return (norm_rgba(
@@ -54,6 +30,11 @@ double ft_get_shade(t_hit_point hpt)
 {
 	t_data *data = get_data();
 
+	if (0 == ft_vec3_mod(hpt.normal))
+	{
+		return (1);
+	}
+
 	t_vec3 light_dir = ft_vec3_minus(
 		data->light.ori,
 		hpt.pos
@@ -66,38 +47,39 @@ double ft_get_shade(t_hit_point hpt)
 	return (i);
 }
 
+t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
+{
+	t_hit_point pt;
+	pt.distance = t;
+	pt.pos = ft_ray_project(ray, t);
+	pt.normal = ft_get_obj_normal(obj, pt.pos);
+	// Normal depends on object type:
+
+	return (pt);
+}
+
 int ray_color(t_ray ray)
 {
 	t_data *data = get_data();
-	t_vec3 u = ft_vec3_normalize(ray.dir);
-	double a = 0.5 * (u.y + 1);
-	t_color3 col  = u;
+	t_color3 col  = ft_vec3_normalize(ray.dir);
+	t_obj obj;
 
 	double min_dist = -1;
 
 	for (int i = 0; i < data->object_count; i++)
 	{
-		double t = ft_hit_object(data->obj[i], ray);
+		obj = data->obj[i];
+		double t = ft_hit_object(obj, ray);
 		if (t > 0)
 		{
 			// skip if object is obstructed
 			if (min_dist != -1 && t > min_dist)
 				continue;
 			min_dist = t;
-			t_hit_point	hit_pt;
-			t_vec3 n = ft_vec3_scal_prod(
-				ft_vec3_minus(
-					ft_ray_project(ray, t),
-					data->obj[i].ori
-				),
-				1 / data->obj[i].sphere.r
-			);
+			t_hit_point	hit_pt = ft_get_hitpoint(ray, t, obj);
 
-			hit_pt.normal = n;
-			hit_pt.pos = ft_ray_project(ray, t);
 			// render selon la normal
-			double brightness = 1;
-			brightness = ft_get_shade(hit_pt);
+			double brightness = ft_get_shade(hit_pt);
 			col = ft_vec3_scal_prod(data->obj[i].color, brightness);
 		}
 	}
