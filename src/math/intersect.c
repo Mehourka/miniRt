@@ -3,6 +3,8 @@
 double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 {
 	static int i = 0;
+	double res;
+
 	t_vec3 oc = ft_vec3_minus(ray.orig, sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
@@ -14,7 +16,10 @@ double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 	double discriminant = b*b - 4*a*c;
 	if (discriminant < 0 || a == 0)
 		return (-1);
-	return (-b - sqrt(discriminant)) / (2.0 * a);
+	res = (-b - sqrt(discriminant)) / (2.0 * a);
+	if (res > 0)
+		return (res);
+	return (-b + sqrt(discriminant)) / (2.0 * a);
 }
 
 /*

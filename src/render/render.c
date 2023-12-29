@@ -52,9 +52,18 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 	t_hit_point pt;
 	pt.distance = t;
 	pt.pos = ft_ray_project(ray, t);
-	pt.normal = ft_get_obj_normal(obj, pt.pos);
-	// Normal depends on object type:
 
+	// Normal depends on object type:
+	pt.normal = ft_get_obj_normal(obj, pt.pos);
+
+	// Flip normal if we're inside the object
+	if (ft_vec3_dot(ray.dir, pt.normal) > 0)
+	{
+		pt.normal = ft_vec3_scal_prod(pt.normal, -1.0);
+		pt.f_inside = true;
+	}
+	else
+		pt.f_inside = false;
 	return (pt);
 }
 

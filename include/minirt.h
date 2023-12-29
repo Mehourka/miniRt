@@ -12,14 +12,15 @@
 # include "render.h"
 # include "objects.h"
 
-# define WIDTH 	256
-# define HEIGHT	256
+# define WIDTH	300
+# define HEIGHT	300
 
 typedef struct s_hit_point
 {
 	t_pt3	pos;
 	t_vec3	normal;
 	double	distance;
+	bool	f_inside;
 }	t_hit_point;
 
 typedef struct s_data
