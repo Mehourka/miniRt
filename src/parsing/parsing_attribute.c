@@ -37,9 +37,6 @@ void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line)
 	parse_var(line, &j, &x);
 	parse_var(line, &j, &y);
 	parse_var(line, &j, &z);
-	printf("x :%f\n", x);
-	printf("y :%f\n", y);
-	printf("z :%f\n", z);
 	*orig_dir = ft_vec3_create(x, y, z);
 }
 

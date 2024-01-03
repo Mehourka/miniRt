@@ -38,6 +38,11 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 	return (numer / denom);
 }
 
+double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
+{
+	return (-1);
+}
+
 double ft_hit_object(t_obj obj, t_ray ray)
 {
 	if (OBJ_SPHERE == obj.obj_type)
@@ -48,8 +53,10 @@ double ft_hit_object(t_obj obj, t_ray ray)
 	{
 		return (ft_intersect_plane(obj.plane, ray));
 	}
+	if (OBJ_CYLINDER == obj.obj_type)
+	{
+		return (ft_intersect_cylinder(obj.cylinder, ray));
+	}
 
-	// TODO : Handle other objects
-	printf("Object not yet supported");
-	exit(1);
+	return (-1);
 }
