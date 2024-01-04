@@ -126,5 +126,6 @@ void ft_nav_hook(void *param)
 */
 void ft_render_hook(void *param)
 {
+	(void) param;
 	ft_render_image();
 }

@@ -1,8 +1,8 @@
 FILE = maps/scene.rt
 # Compiler and flags
-CC		=	gcc -g
-# CFLAGS	=	-Wall -Werror -Wextra
-# CFLAGS +=	-Wunreachable-code -Ofast
+CC		=	gcc
+# CFLAGS	=	-Wall -Werror -Wextra -Wunreachable-code
+CFLAGS +=	-Ofast
 RM		=	rm
 
 

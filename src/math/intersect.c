@@ -2,7 +2,6 @@
 
 double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 {
-	static int i = 0;
 	double res;
 
 	t_vec3 oc = ft_vec3_minus(ray.ori, sphere.ori);
@@ -40,14 +39,8 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
-	if (fabs(ray.dir.x) < 0.1)
-	{
-		// printf("Cylinder r: %f\n", cylinder.r);
-		// ft_vec3_print(ray.dir);
-		// printf("\n");
-		return (-1);
-
-	}
+	(void) cylinder;
+	
 	return (-1);
 }
 
