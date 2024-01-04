@@ -38,17 +38,19 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 	return (numer / denom);
 }
 
-double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
+double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
 {
-	if (fabs(ray.dir.x) < 0.1)
-	{
-		// printf("Cylinder r: %f\n", cylinder.r);
-		// ft_vec3_print(ray.dir);
-		// printf("\n");
+	double a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
+	double b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
+	double c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
+
+	double discriminant = b * b - 4 * a * c;
+	if (discriminant <= 0)
 		return (-1);
 
-	}
-	return (-1);
+	double t = (-b - sqrt(discriminant)) / (2 * a);
+	// Check if intersection is within cylinder height
+	return t;
 }
 
 double ft_hit_object(t_obj obj, t_ray ray)
