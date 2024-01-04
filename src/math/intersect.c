@@ -37,11 +37,24 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 	return (numer / denom);
 }
 
-double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
+double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
 {
-	(void) cylinder;
-	
-	return (-1);
+	double a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
+	double b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
+	double c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
+
+	double discriminant = b * b - 4 * a * c;
+	if (discriminant <= 0)
+		return (-1);
+
+	double t = (-b - sqrt(discriminant)) / (2 * a);
+	// Check if intersection is within cylinder height
+	double h = ft_ray_project(r, t).y;
+	if (fabs(h) < cylinder.longueur / 2)
+	{
+		return (t);
+	}
+	return -1;
 }
 
 double ft_hit_object(t_obj obj, t_ray ray)
