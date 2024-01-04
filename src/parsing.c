@@ -68,7 +68,7 @@ void	parsing(char *file, t_data *data)
 		else
 		{
 			new_line = ft_strtrim(line, " ");
-			if (new_line[0] != '\n')
+			if (new_line[0] != '\n' && ft_strncmp(line, "#", 1) != 0)
 			{
 				parse_token(line, &parse);
 				//ici tout est beau
