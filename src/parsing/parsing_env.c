@@ -35,10 +35,6 @@ void	parse_camera(t_data *data, t_parse *parse)
 		printf("Wrong number of attribute for %s", parse->token[0]);
 		exit(1);
 	}
-	printf("token 1 :%s\n", parse->token[0]);
-	printf("token 1 :%s\n", parse->token[1]);
-	printf("token 2 :%s\n", parse->token[2]);
-	printf("token 2 :%s\n", parse->token[3]);
 	ft_parse_orig_dir(&data->cam.ori, parse->token[1]);
 	ft_parse_orig_dir(&data->cam.dir, parse->token[2]);
 	parse_length(&data->cam.angle, parse->token[3]);

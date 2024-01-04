@@ -8,7 +8,7 @@ double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 	t_vec3 oc = ft_vec3_minus(ray.orig, sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
-	double a = ft_vec3_dot(ray.dir, ray.dir);
+	double a = 1;
 	double b = ft_vec3_dot(
 		ft_vec3_scal_prod(ray.dir, 2.0),
 		oc);
@@ -40,6 +40,14 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
+	if (fabs(ray.dir.x) < 0.1)
+	{
+		// printf("Cylinder r: %f\n", cylinder.r);
+		// ft_vec3_print(ray.dir);
+		// printf("\n");
+		return (-1);
+
+	}
 	return (-1);
 }
 

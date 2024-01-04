@@ -147,7 +147,8 @@ void	ft_render_image()
 					ft_vec3_scal_prod(data->cam.du, i),
 					ft_vec3_scal_prod(data->cam.dv, j)),
 					data->cam.pixel00_pos);
-			t_vec3 ray_dir = ft_vec3_minus(pixel_pos, data->cam.ori);
+			t_vec3 ray_dir = ft_vec3_normalize(
+				ft_vec3_minus(pixel_pos, data->cam.ori));
 			t_ray ray = ft_ray_create(data->cam.ori, ray_dir);
 
 			// Render le pixel (i, j)
