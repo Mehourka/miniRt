@@ -5,7 +5,7 @@ double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 	static int i = 0;
 	double res;
 
-	t_vec3 oc = ft_vec3_minus(ray.orig, sphere.ori);
+	t_vec3 oc = ft_vec3_minus(ray.ori, sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
 	double a = 1;
@@ -32,7 +32,7 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 	if (denom == 0)
 		return (-1);
 	double numer = ft_vec3_dot(
-		ft_vec3_minus(plane.ori, ray.orig),
+		ft_vec3_minus(plane.ori, ray.ori),
 		plane.dir
 	);
 	return (numer / denom);
