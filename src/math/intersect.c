@@ -50,7 +50,12 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
 
 	double t = (-b - sqrt(discriminant)) / (2 * a);
 	// Check if intersection is within cylinder height
-	return t;
+	double h = ft_ray_project(r, t).y;
+	if (fabs(h) < cylinder.longueur / 2)
+	{
+		return (t);
+	}
+	return -1;
 }
 
 double ft_hit_object(t_obj obj, t_ray ray)

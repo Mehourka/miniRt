@@ -12,8 +12,8 @@
 # include "render.h"
 # include "objects.h"
 
-# define WIDTH	300
-# define HEIGHT	300
+# define WIDTH	350
+# define HEIGHT	350
 
 typedef struct s_hit_point
 {
