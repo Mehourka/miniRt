@@ -28,6 +28,7 @@ t_vec3	ft_vec3_add_scal(t_vec3 u, double k);
 t_vec3	ft_vec3_scal_prod(t_vec3 u, double k);
 t_vec3	ft_vec3_cross_prod(t_vec3 u, t_vec3 v);
 t_vec3	ft_vec3_normalize(t_vec3 u);
+t_vec3 ft_vec3_cap01(t_vec3 u);
 double	ft_vec3_mod(t_vec3 u);
 double	ft_vec3_dot(t_vec3 u, t_vec3 v);
 double	ft_vec3_get_angle(t_vec3 u, t_vec3 v);

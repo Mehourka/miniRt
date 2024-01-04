@@ -70,7 +70,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 int ray_color(t_ray ray)
 {
 	t_data *data = get_data();
-	t_color3 col  = ft_vec3_normalize(ray.dir);
+	t_color3 col  = ft_vec3_cap01(ray.dir);
 	t_obj obj;
 
 	double min_dist = -1;
