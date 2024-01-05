@@ -10,4 +10,7 @@
 !include/
 !include/*.h
 
+!maps/
+!maps/scene.rt
+
 !Makefile

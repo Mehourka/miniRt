@@ -69,14 +69,15 @@ void	parsing(char *file, t_data *data)
 		else
 		{
 			new_line = ft_strtrim(line, " ");
-			if (new_line[0] != '\n' && ft_strncmp(line, "#", 1) != 0)
+			if (new_line && new_line[0] != '\n'
+				&& ft_strncmp(line, "#", 1) != 0) // Gestion des commentaires
 			{
 				parse_token(line, &parse);
 				//ici tout est beau
 				create_object(data, &parse);
 				i++;
 			}
-			free(parse.token);
+			free(parse.token); // TODO: SEGFAULT quand la premiere ligne du .rt est vide/espaces/commentaire
 			parse.token = NULL;
 			free(line);
 			free(new_line);
