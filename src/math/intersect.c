@@ -47,12 +47,18 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
 	if (discriminant <= 0)
 		return (-1);
 
-	double t = (-b - sqrt(discriminant)) / (2 * a);
-	// Check if intersection is within cylinder height
-	double h = ft_ray_project(r, t).y;
-	if (fabs(h) < cylinder.longueur / 2)
+	double t1 = (-b - sqrt(discriminant)) / (2 * a);
+	double t2 = (-b + sqrt(discriminant)) / (2 * a);
+	// Check if intersection is within cylinde height
+	double h1 = ft_ray_project(r, t1).y;
+	double h2 = ft_ray_project(r, t2).y;
+	if (fabs(h1) < cylinder.longueur / 2 && t1 > 0)
 	{
-		return (t);
+		return (t1);
+	}
+	else if (fabs(h2) < cylinder.longueur / 2)
+	{
+		return (t2);
 	}
 	return -1;
 }
