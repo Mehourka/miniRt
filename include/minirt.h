@@ -11,9 +11,10 @@
 # include "hooks.h"
 # include "render.h"
 # include "objects.h"
+#include "matrix.h"
 
-# define WIDTH	350
-# define HEIGHT	350
+# define WIDTH	250
+# define HEIGHT 250
 
 typedef struct s_hit_point
 {

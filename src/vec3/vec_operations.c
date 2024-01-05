@@ -108,6 +108,19 @@ t_pt3 ft_ray_project(t_ray ray, double t)
 		ft_vec3_scal_prod(ray.dir, t)));
 }
 
+
+void ft_ray_print(t_ray ray)
+{
+	printf("Ray: \n");
+	printf("ori : ");
+	ft_vec3_print(ray.ori);
+	printf("dir : ");
+	ft_vec3_print(ray.dir);
+	printf("\n");
+}
+
+
+
 t_vec3 ft_vec3_add_scal(t_vec3 u, double k)
 {
 	t_vec3 new;

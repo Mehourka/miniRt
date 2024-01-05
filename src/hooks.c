@@ -83,15 +83,16 @@ void ft_nav_hook(void *param)
 
 	// change sphere radius
 	double EPS = 0.05;
-	double *r = &get_data()->obj[0].sphere.r;
+	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
-		*r += EPS;
+	{
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
 	{
-		*r -= EPS;
-		if (*r < 0.1)
-			*r = 0.1;
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
 	}
+
 
 	// Rotate camera
 	t_cam *cam = &(get_data()->cam);

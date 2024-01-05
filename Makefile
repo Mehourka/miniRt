@@ -56,6 +56,7 @@ SRCS	:=	\
 			utils/atod.c						\
 			utils/get_next_line_utils.c			\
 			utils/get_next_line.c				\
+			vec3/matrix.c						\
 			vec3/vec_operations.c				\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
