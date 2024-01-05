@@ -37,7 +37,8 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 	return (numer / denom);
 }
 
-double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
+/*Checks if a ray intersects a cylinder centered at the origin, and extending along the y axis*/
+double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 {
 	double a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
 	double b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
@@ -61,6 +62,45 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray r)
 		return (t2);
 	}
 	return -1;
+}
+
+double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
+{
+	// Transform the ray
+	t_vec3 v = cylinder.dir;
+	t_vec3 u = ft_vec3_normalize(ft_vec3_cross_prod((t_vec3){1.5, 1, 0}, v));
+	t_vec3 w = ft_vec3_normalize(ft_vec3_cross_prod(u, v));
+
+	// Create transform matrix
+	t_mat3 A = ft_mat3_from_vec3(u, v, w);
+
+	t_ray nray = ft_ray_transform(ray, A, cylinder.ori);
+
+
+	// check if new ray intersects the transformed cyliinder
+	double t = ft_intersect_normalized_cylinder(cylinder, nray);
+
+	// ft_vec3_print(cylinder.ori);
+	// DEBUG
+	// if (t > 0)
+	// {
+	// 	ft_vec3_print(cylinder.ori);
+	// 	printf("\n");
+	// 	ft_vec3_print(u);
+	// 	ft_vec3_print(v);
+	// 	ft_vec3_print(w);
+	// 	printf("\n");
+	// 	ft_mat3_print(A);
+	// // ft_vec3_print(
+	// 	//  ft_mat3_multiplication(A, v)
+	// // );
+	// 	ft_ray_print(ray);
+	// 	printf("\n");
+	// 	ft_ray_print(nray);
+	// 	// printf("\n");
+	// 	exit(0);
+	// }
+	return (t);
 }
 
 double ft_hit_object(t_obj obj, t_ray ray)
