@@ -119,6 +119,39 @@ void ft_nav_hook(void *param)
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
+
+	// Translate Camera
+	if (mlx_is_key_down(mlx, MLX_KEY_H))
+	{
+		// moce left
+		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
+		axis = ft_vec3_scal_prod(axis, 4 * EPS);
+		cam->ori = ft_vec3_minus(cam->ori, axis);
+	}
+
+	if (mlx_is_key_down(mlx, MLX_KEY_L))
+	{
+		// move right
+		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
+		axis = ft_vec3_scal_prod(axis, 4 * EPS);
+		cam->ori = ft_vec3_add(cam->ori, axis);
+
+	}
+
+	if (mlx_is_key_down(mlx, MLX_KEY_K))
+	{
+		// move up
+		axis = ft_vec3_scal_prod(cam->vup, 4 * EPS);
+		cam->ori = ft_vec3_add(cam->ori, axis);
+	}
+
+	if (mlx_is_key_down(mlx, MLX_KEY_J))
+	{
+		// move down
+		axis = ft_vec3_scal_prod(cam->vup, 4 * EPS);
+		cam->ori = ft_vec3_minus(cam->ori, axis);
+	}
+
 }
 
 /*
