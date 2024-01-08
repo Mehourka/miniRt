@@ -86,11 +86,11 @@ void ft_nav_hook(void *param)
 	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
 	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
 	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
 	}
 
 

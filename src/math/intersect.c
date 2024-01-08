@@ -67,39 +67,30 @@ double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
 	// Transform the ray
-	t_vec3 v = cylinder.dir;
-	t_vec3 u = ft_vec3_normalize(ft_vec3_cross_prod((t_vec3){1.5, 1, 0}, v));
-	t_vec3 w = ft_vec3_normalize(ft_vec3_cross_prod(u, v));
+	t_vec3 v;
+	t_vec3 u;
+	t_vec3 w;
+
+	// Create ortho normal basis
+	// TODO: for performance, store in t_obj and compute on dir modification only
+	v = cylinder.dir; // We assume cylinder.dir is normalized
+	// quick check for a non parallel vector
+	if (fabs(v.x) < fabs(v.y))
+		u = ft_vec3_cross_prod((t_vec3){1, 0, 0}, v);
+	else
+		u = ft_vec3_cross_prod((t_vec3){0, 1, 0}, v);
+	w = ft_vec3_cross_prod(u, v);
 
 	// Create transform matrix
 	t_mat3 A = ft_mat3_from_vec3(u, v, w);
+	// ft_mat3_print(A);
 
+	// Project the ray into the cylinder local coordinates
 	t_ray nray = ft_ray_transform(ray, A, cylinder.ori);
 
-
-	// check if new ray intersects the transformed cyliinder
+	// check if reprojected ray intersects the normalized cyliinder
 	double t = ft_intersect_normalized_cylinder(cylinder, nray);
 
-	// ft_vec3_print(cylinder.ori);
-	// DEBUG
-	// if (t > 0)
-	// {
-	// 	ft_vec3_print(cylinder.ori);
-	// 	printf("\n");
-	// 	ft_vec3_print(u);
-	// 	ft_vec3_print(v);
-	// 	ft_vec3_print(w);
-	// 	printf("\n");
-	// 	ft_mat3_print(A);
-	// // ft_vec3_print(
-	// 	//  ft_mat3_multiplication(A, v)
-	// // );
-	// 	ft_ray_print(ray);
-	// 	printf("\n");
-	// 	ft_ray_print(nray);
-	// 	// printf("\n");
-	// 	exit(0);
-	// }
 	return (t);
 }
 
