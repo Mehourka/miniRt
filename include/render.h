@@ -42,9 +42,7 @@ typedef struct s_cam
 int get_rgba(int r, int g, int b, int a);
 int norm_rgba(float r, float g, float b, float a);
 void draw_gradient();
-void gen_p3_image();
-void compute_viewport();
-void	ft_render_image();
+
 t_ray	ft_compute_ray(t_cam cam, int row, int col);
 t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray ray);
 

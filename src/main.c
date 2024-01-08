@@ -24,11 +24,11 @@ int	main(int argc, char**argv)
 
 		// // Hooks
 		// Navigation Hook
-		mlx_loop_hook(data->mlx, &ft_nav_hook, data->mlx);
+		mlx_loop_hook(data->mlx, &ft_nav_hook, data);
 		// Rendering Hook
-		mlx_loop_hook(data->mlx, &ft_render_hook, data->mlx);
+		mlx_loop_hook(data->mlx, &ft_render_hook, data);
 		// Selection hook
-		mlx_loop_hook(data->mlx, &ft_mouse_select, data->mlx);
+		mlx_loop_hook(data->mlx, &ft_mouse_select, data);
 
 
 		// // mlx loop

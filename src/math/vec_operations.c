@@ -118,9 +118,13 @@ t_vec3 ft_vec3_add_scal(t_vec3 u, double k)
 	return (new);
 }
 
+/*
+	brief: Scales the values of a vector between 0 and 1;
+*/
 t_vec3 ft_vec3_cap01(t_vec3 u)
 {
 	return (
 		ft_vec3_scal_prod(
-			ft_vec3_add_scal(ft_vec3_normalize(u), 1), 0.5));
+			ft_vec3_add_scal(ft_vec3_normalize(u), 1),
+		 0.5));
 }

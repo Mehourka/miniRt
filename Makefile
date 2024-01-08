@@ -44,6 +44,9 @@ SRCS	:=	\
 			debug.c								\
 			math/intersect.c					\
 			math/obj_normals.c					\
+			math/matrix.c						\
+			math/vec_operations.c				\
+			math/vec_rotation.c					\
 			parsing/parsing_attribute_utils.c	\
 			parsing/parsing_attribute.c			\
 			parsing/parsing_env.c				\
@@ -57,8 +60,6 @@ SRCS	:=	\
 			utils/atod.c						\
 			utils/get_next_line_utils.c			\
 			utils/get_next_line.c				\
-			vec3/matrix.c						\
-			vec3/vec_operations.c				\
 
 B_SRCS	:=	$(SRCS:%=bonus_%)
 

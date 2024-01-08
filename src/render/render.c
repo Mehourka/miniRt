@@ -108,10 +108,9 @@ int ray_color(t_ray ray)
 	return get_color_int(ft_vec3_cap01(ray.dir));
 }
 
-void compute_viewport()
+void compute_viewport(t_data *data)
 {
-	t_data	*data = get_data();
-	t_cam	*pcam = &data->cam;
+	const t_cam	*pcam = &data->cam;
 	t_viewport vp;
 	double viewport_h = 2;
 
@@ -157,12 +156,11 @@ t_ray ft_compute_ray(t_cam cam, int row, int col)
 	return (ft_ray_create(cam.ori, ray_dir));
 }
 
-void	ft_render_image()
+void	ft_render_image(t_data *data)
 {
-	t_data	*data = get_data();
 	int color_int;
 
-	compute_viewport();
+	compute_viewport(data);
 
 	for (int j = 0; j < HEIGHT; j++)
 	{

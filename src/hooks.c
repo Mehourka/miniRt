@@ -1,96 +1,29 @@
 #include "minirt.h"
-#include "render.h"
 
-double ft_deg_to_rad(double deg)
+void ft_mouse_select(void *param)
 {
-	return (deg * M_PI / 180);
-}
+	t_data *data;
+	mlx_t *mlx;
+	t_ray ray;
+	int32_t mousePos[2];
 
-/*
-	brief: Rodrigues' rotation of vector v around the given axis
-
-	param: v target vector
-	param: axis rotation axis, has to be normalized
-	param: theta rotation angle in radians
-	returns: the rotated axis
-*/
-t_vec3 ft_rodrigues_rotation(t_vec3 v, t_vec3 axis, double theta)
-{
-	t_vec3 t1;
-	t_vec3 t2;
-	t_vec3 t3;
-
-	// normalize axis
-	axis = ft_vec3_normalize(axis);
-
-	// comput the three terms
-	t1 = ft_vec3_scal_prod(v, cos(theta));
-	t2 = ft_vec3_scal_prod(
-		axis,
-		ft_vec3_dot(v, axis) * (1 - cos(theta)));
-	t3 = ft_vec3_scal_prod(
-		ft_vec3_cross_prod(axis, v),
-		sin(theta));
-	return ft_vec3_add(
-		ft_vec3_add(t1, t2), t3);
-}
-
-t_vec3 rotate_xaxis(t_vec3 u, double angle)
-{
-	t_vec3 new;
-
-	new.x = u.x;
-	new.y = cos(angle) * u.y - sin(angle) * u.z;
-	new.z = sin(angle) * u.y + cos(angle) * u.z;
-	return (new);
-}
-
-t_vec3 rotate_yaxis(t_vec3 u, double angle)
-{
-	t_vec3 new;
-
-	new.x = cos(angle) * u.x - sin(angle) * u.z;
-	new.y = u.y;
-	new.z = sin(angle) * u.x + cos(angle) * u.z;
-	return (new);
-}
-
-t_vec3 rotate_zaxis(t_vec3 u, double angle)
-{
-	t_vec3 new;
-
-	new.x = cos(angle) * u.x + sin(angle) * u.y;
-	new.y = -sin(angle) * u.x + cos(angle) * u.y;
-	new.z = u.z;
-	return (new);
-}
-
-/*
-	brief: mlx loop hook for navigation control
-*/
-void ft_nav_hook(void *param)
-{
-	mlx_t *mlx = param;
-
-	// Quit minirt
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-
-	// change sphere radius
-	double EPS = 0.05;
-	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
+	data = (t_data *) param;
+	mlx = data->mlx;
+	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
+		mlx_get_mouse_pos(mlx, mousePos, mousePos + 1);
+		ray = ft_compute_ray(data->cam, mousePos[1], mousePos[0]);
+		ft_print_ray(ray);
+		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
+		ft_print_hitpt(hit_pt);
+		printf("\n\n");
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
-	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
-	}
+}
 
-	// Rotate camera
-	t_cam *cam = &(get_data()->cam);
-	double theta = ft_deg_to_rad(5);
+void ft_nav_cam_rotation(mlx_t *mlx, t_data *data, t_cam *cam)
+{
+	double theta;
+	theta = ft_deg_to_rad(5);
 	t_vec3 axis;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
@@ -114,62 +47,85 @@ void ft_nav_hook(void *param)
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
+}
+
+void ft_nav_cam_translation(mlx_t *mlx, t_data *data, t_cam *cam)
+{
+	t_vec3 axis;
+	const double EPS = 0.05;
 
 	// Translate Camera
+	// move left
 	if (mlx_is_key_down(mlx, MLX_KEY_H))
 	{
-		// moce left
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		axis = ft_vec3_scal_prod(axis, 4 * EPS);
 		cam->ori = ft_vec3_minus(cam->ori, axis);
 	}
-
+	// move right
 	if (mlx_is_key_down(mlx, MLX_KEY_L))
 	{
-		// move right
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		axis = ft_vec3_scal_prod(axis, 4 * EPS);
 		cam->ori = ft_vec3_add(cam->ori, axis);
 	}
-
+	// move up
 	if (mlx_is_key_down(mlx, MLX_KEY_K))
 	{
-		// move up
 		axis = ft_vec3_scal_prod(cam->vup, 4 * EPS);
 		cam->ori = ft_vec3_add(cam->ori, axis);
 	}
-
+	// move down
 	if (mlx_is_key_down(mlx, MLX_KEY_J))
 	{
-		// move down
 		axis = ft_vec3_scal_prod(cam->vup, 4 * EPS);
 		cam->ori = ft_vec3_minus(cam->ori, axis);
 	}
 }
 
 /*
+	brief: mlx loop hook for navigation control
+*/
+void ft_nav_hook(void *param)
+{
+	t_data *data;
+	mlx_t *mlx;
+	t_vec3 axis;
+	t_cam *cam;
+
+	data = (t_data*) param;
+	cam = &data->cam;
+	mlx = data->mlx;
+	// Quit minirt
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+
+	// change sphere radius
+	double EPS = 0.05;
+	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
+	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
+	{
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
+	{
+		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
+	}
+
+	// Camera Rotation
+	ft_nav_cam_rotation(mlx, data, cam);
+	// Camera Translation
+	ft_nav_cam_translation(mlx, data, cam);
+}
+
+
+/*
 	brief: mlx loop hook for rendering
 */
 void ft_render_hook(void *param)
 {
-	(void)param;
-	ft_render_image();
-}
+	t_data *data;
 
-void ft_mouse_select(void *param)
-{
-	t_data *data = get_data();
-	mlx_t *mlx = param;
-	t_ray ray;
-	int32_t mousePos[2];
-
-	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
-	{
-		mlx_get_mouse_pos(mlx, mousePos, mousePos + 1);
-		ray = ft_compute_ray(data->cam, mousePos[1], mousePos[0]);
-		ft_print_ray(ray);
-		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
-		ft_print_hitpt(hit_pt);
-		printf("\n\n");
-	}
+	data = param;
+	ft_render_image(data);
 }
