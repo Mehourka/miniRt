@@ -66,23 +66,10 @@ double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
-	// Transform the ray
-	t_vec3 v;
-	t_vec3 u;
-	t_vec3 w;
-
-	// Create ortho normal basis
-	// TODO: for performance, store in t_obj and compute on dir modification only
-	v = cylinder.dir; // We assume cylinder.dir is normalized
-	// quick check for a non parallel vector
-	if (fabs(v.x) < fabs(v.y))
-		u = ft_vec3_cross_prod((t_vec3){1, 0, 0}, v);
-	else
-		u = ft_vec3_cross_prod((t_vec3){0, 1, 0}, v);
-	w = ft_vec3_cross_prod(u, v);
-
 	// Create transform matrix
-	t_mat3 A = ft_mat3_from_vec3(u, v, w);
+	// Cylinder basis as a matrix
+	t_mat3 cy_basis = ft_ortho_normal_mat3(cylinder.dir);
+	t_mat3 A = ft_mat3_inverse(cy_basis);
 	// ft_mat3_print(A);
 
 	// Project the ray into the cylinder local coordinates

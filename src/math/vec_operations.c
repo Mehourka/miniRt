@@ -104,10 +104,6 @@ t_pt3 ft_ray_project(t_ray ray, double t)
 		ft_vec3_scal_prod(ray.dir, t)));
 }
 
-
-
-
-
 t_vec3 ft_vec3_add_scal(t_vec3 u, double k)
 {
 	t_vec3 new;

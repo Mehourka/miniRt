@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <math.h>
 #include "vectors.h"
 #include "matrix.h"
 
@@ -43,14 +43,6 @@ t_mat3 ft_mat3_identity(void)
 	return ft_mat3_from_vec3(a, b, c);
 }
 
-void ft_mat3_print(t_mat3 mx)
-{
-	printf("Matrix: \n");
-	printf("[%.2f, %.2f, %.2f]\n", mx.mx[0][0], mx.mx[0][1], mx.mx[0][2]);
-	printf("[%.2f, %.2f, %.2f]\n", mx.mx[1][0], mx.mx[1][1], mx.mx[1][2]);
-	printf("[%.2f, %.2f, %.2f]\n", mx.mx[2][0], mx.mx[2][1], mx.mx[2][2]);
-	printf("\n");
-}
 
 t_vec3 ft_mat3_multiplication(t_mat3 A, t_vec3 u)
 {
@@ -72,4 +64,55 @@ t_ray ft_ray_transform(t_ray ray, t_mat3 A, t_pt3 new_ori)
 			ft_mat3_multiplication(A, ray.dir)
 		)
 	);
+}
+
+t_mat3 ft_ortho_normal_mat3(t_vec3 v)
+{
+	t_vec3 u;
+	t_vec3 w;
+
+	// We assume v is the y unit vector in this new ortho basis
+
+	// quick check for a non parallel vector
+	v = ft_vec3_normalize(v);
+	if (fabs(v.x) < fabs(v.y))
+		u = ft_vec3_cross_prod((t_vec3){1, 0, 0}, v);
+	else
+		u = ft_vec3_cross_prod((t_vec3){0, 1, 0}, v);
+	w = ft_vec3_cross_prod(u, v);
+	return (ft_mat3_from_vec3(u,v,w));
+}
+
+t_mat3 ft_mat3_inverse(t_mat3 A)
+{
+    t_mat3 inv;
+    double det;
+
+    inv.mx[0][0] = A.mx[1][1] * A.mx[2][2] - A.mx[1][2] * A.mx[2][1];
+    inv.mx[0][1] = A.mx[0][2] * A.mx[2][1] - A.mx[0][1] * A.mx[2][2];
+    inv.mx[0][2] = A.mx[0][1] * A.mx[1][2] - A.mx[0][2] * A.mx[1][1];
+    inv.mx[1][0] = A.mx[1][2] * A.mx[2][0] - A.mx[1][0] * A.mx[2][2];
+    inv.mx[1][1] = A.mx[0][0] * A.mx[2][2] - A.mx[0][2] * A.mx[2][0];
+    inv.mx[1][2] = A.mx[0][2] * A.mx[1][0] - A.mx[0][0] * A.mx[1][2];
+    inv.mx[2][0] = A.mx[1][0] * A.mx[2][1] - A.mx[1][1] * A.mx[2][0];
+    inv.mx[2][1] = A.mx[0][1] * A.mx[2][0] - A.mx[0][0] * A.mx[2][1];
+    inv.mx[2][2] = A.mx[0][0] * A.mx[1][1] - A.mx[0][1] * A.mx[1][0];
+
+    det = A.mx[0][0] * inv.mx[0][0] + A.mx[0][1] * inv.mx[1][0] + A.mx[0][2] * inv.mx[2][0];
+
+    if (det == 0)
+    {
+        // The matrix is not invertible
+        return A;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            inv.mx[i][j] /= det;
+        }
+    }
+
+    return inv;
 }
