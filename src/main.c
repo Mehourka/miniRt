@@ -21,11 +21,15 @@ int	main(int argc, char**argv)
 		ft_memset(data->img->pixels, 255, sizeof(int32_t) * image_height * image_width);
 		mlx_image_to_window(data->mlx, data->img, 0, 0);
 
+
 		// // Hooks
 		// Navigation Hook
 		mlx_loop_hook(data->mlx, &ft_nav_hook, data->mlx);
 		// Rendering Hook
 		mlx_loop_hook(data->mlx, &ft_render_hook, data->mlx);
+		// Selection hook
+		mlx_loop_hook(data->mlx, &ft_mouse_select, data->mlx);
+
 
 		// // mlx loop
 		mlx_loop(data->mlx);

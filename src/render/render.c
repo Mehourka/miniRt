@@ -50,9 +50,10 @@ double ft_get_shade(t_hit_point hpt)
 t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 {
 	t_hit_point pt;
+	pt.f_valid = true;
 	pt.distance = t;
 	pt.pos = ft_ray_project(ray, t);
-
+	pt.object = obj;
 	// Normal depends on object type:
 	pt.normal = ft_get_obj_normal(obj, pt.pos);
 
@@ -67,32 +68,44 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 	return (pt);
 }
 
-int ray_color(t_ray ray)
+t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray ray)
 {
-	t_data *data = get_data();
-	t_color3 col  = ft_vec3_cap01(ray.dir);
 	t_obj obj;
+	t_hit_point hit_pt;
+	double min_dist;
+	double t;
 
-	double min_dist = -1;
-
-	for (int i = 0; i < data->object_count; i++)
+	min_dist = -1;
+	hit_pt.f_valid = false;
+	for (int i = 0; i < object_count; i++)
 	{
-		obj = data->obj[i];
-		double t = ft_hit_object(obj, ray);
+		obj = object_list[i];
+		t = ft_hit_object(obj, ray);
 		if (t > 0)
 		{
 			// skip if object is obstructed
 			if (min_dist != -1 && t > min_dist)
 				continue;
 			min_dist = t;
-			t_hit_point	hit_pt = ft_get_hitpoint(ray, t, obj);
-
+			hit_pt = ft_get_hitpoint(ray, t, obj);
 			// render selon la normal
 			double brightness = ft_get_shade(hit_pt);
-			col = ft_vec3_scal_prod(data->obj[i].color, brightness);
+			hit_pt.color = ft_vec3_scal_prod(obj.color, brightness);
 		}
 	}
-	return get_color_int(col);
+	return hit_pt;
+}
+
+int ray_color(t_ray ray)
+{
+	t_data *data = get_data();
+	t_color3 color;
+	t_hit_point hit_pt;
+
+	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
+	if (hit_pt.f_valid == true)
+		return get_color_int(hit_pt.color);
+	return get_color_int(ft_vec3_cap01(ray.dir));
 }
 
 void compute_viewport()
@@ -132,9 +145,22 @@ void compute_viewport()
 		vp.upper_left_corner);
 }
 
+t_ray ft_compute_ray(t_cam cam, int row, int col)
+{
+	t_pt3 pixel_pos = ft_vec3_add(
+		ft_vec3_add(
+			ft_vec3_scal_prod(cam.du, col),
+			ft_vec3_scal_prod(cam.dv, row)),
+		cam.pixel00_pos);
+	t_vec3 ray_dir = ft_vec3_normalize(
+		ft_vec3_minus(pixel_pos, cam.ori));
+	return (ft_ray_create(cam.ori, ray_dir));
+}
+
 void	ft_render_image()
 {
 	t_data	*data = get_data();
+	int color_int;
 
 	compute_viewport();
 
@@ -142,18 +168,10 @@ void	ft_render_image()
 	{
 		for (int i = 0; i < WIDTH; i++)
 		{
-			t_pt3 pixel_pos = ft_vec3_add(
-				ft_vec3_add(
-					ft_vec3_scal_prod(data->cam.du, i),
-					ft_vec3_scal_prod(data->cam.dv, j)),
-					data->cam.pixel00_pos);
-			t_vec3 ray_dir = ft_vec3_normalize(
-				ft_vec3_minus(pixel_pos, data->cam.ori));
-			t_ray ray = ft_ray_create(data->cam.ori, ray_dir);
-
+			t_ray ray = ft_compute_ray(data->cam, j, i);
 			// Render le pixel (i, j)
-			int color = ray_color(ray);
-			mlx_put_pixel(data->img, i, j, color);
+			color_int = ray_color(ray);
+			mlx_put_pixel(data->img, i, j, color_int);
 		}
 	}
 }

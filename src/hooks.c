@@ -27,15 +27,12 @@ t_vec3 ft_rodrigues_rotation(t_vec3 v, t_vec3 axis, double theta)
 	t1 = ft_vec3_scal_prod(v, cos(theta));
 	t2 = ft_vec3_scal_prod(
 		axis,
-		ft_vec3_dot(v, axis) * (1 - cos(theta))
-	);
+		ft_vec3_dot(v, axis) * (1 - cos(theta)));
 	t3 = ft_vec3_scal_prod(
 		ft_vec3_cross_prod(axis, v),
-		sin(theta)
-	);
+		sin(theta));
 	return ft_vec3_add(
-		ft_vec3_add(t1, t2), t3
-	);
+		ft_vec3_add(t1, t2), t3);
 }
 
 t_vec3 rotate_xaxis(t_vec3 u, double angle)
@@ -58,7 +55,6 @@ t_vec3 rotate_yaxis(t_vec3 u, double angle)
 	return (new);
 }
 
-
 t_vec3 rotate_zaxis(t_vec3 u, double angle)
 {
 	t_vec3 new;
@@ -74,7 +70,6 @@ t_vec3 rotate_zaxis(t_vec3 u, double angle)
 */
 void ft_nav_hook(void *param)
 {
-
 	mlx_t *mlx = param;
 
 	// Quit minirt
@@ -92,7 +87,6 @@ void ft_nav_hook(void *param)
 	{
 		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
 	}
-
 
 	// Rotate camera
 	t_cam *cam = &(get_data()->cam);
@@ -136,7 +130,6 @@ void ft_nav_hook(void *param)
 		axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 		axis = ft_vec3_scal_prod(axis, 4 * EPS);
 		cam->ori = ft_vec3_add(cam->ori, axis);
-
 	}
 
 	if (mlx_is_key_down(mlx, MLX_KEY_K))
@@ -152,7 +145,6 @@ void ft_nav_hook(void *param)
 		axis = ft_vec3_scal_prod(cam->vup, 4 * EPS);
 		cam->ori = ft_vec3_minus(cam->ori, axis);
 	}
-
 }
 
 /*
@@ -160,6 +152,24 @@ void ft_nav_hook(void *param)
 */
 void ft_render_hook(void *param)
 {
-	(void) param;
+	(void)param;
 	ft_render_image();
+}
+
+void ft_mouse_select(void *param)
+{
+	t_data *data = get_data();
+	mlx_t *mlx = param;
+	t_ray ray;
+	int32_t mousePos[2];
+
+	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
+	{
+		mlx_get_mouse_pos(mlx, mousePos, mousePos + 1);
+		ray = ft_compute_ray(data->cam, mousePos[1], mousePos[0]);
+		ft_print_ray(ray);
+		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
+		ft_print_hitpt(hit_pt);
+		printf("\n\n");
+	}
 }

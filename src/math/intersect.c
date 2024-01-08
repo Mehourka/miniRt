@@ -108,6 +108,5 @@ double ft_hit_object(t_obj obj, t_ray ray)
 	{
 		return (ft_intersect_cylinder(obj.cylinder, ray));
 	}
-
 	return (-1);
 }

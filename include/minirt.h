@@ -1,5 +1,5 @@
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef MINIRT_H
+#define MINIRT_H
 
 # include <math.h>
 # include <stdio.h>
@@ -11,18 +11,11 @@
 # include "hooks.h"
 # include "render.h"
 # include "objects.h"
-#include "matrix.h"
+# include "matrix.h"
+# include "debug.h"
 
 # define WIDTH	250
 # define HEIGHT 250
-
-typedef struct s_hit_point
-{
-	t_pt3	pos;
-	t_vec3	normal;
-	double	distance;
-	bool	f_inside;
-}	t_hit_point;
 
 typedef struct s_data
 {

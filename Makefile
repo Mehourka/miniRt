@@ -1,6 +1,6 @@
 FILE = maps/scene.rt
 # Compiler and flags
-CC		=	gcc
+CC		=	gcc -g
 # CFLAGS	=	-Wall -Werror -Wextra -Wunreachable-code
 CFLAGS +=	-Ofast
 RM		=	rm
@@ -41,6 +41,7 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 SRCS	:=	\
 			main.c								\
 			hooks.c								\
+			debug.c								\
 			math/intersect.c					\
 			math/obj_normals.c					\
 			parsing/parsing_attribute_utils.c	\

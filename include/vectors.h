@@ -36,6 +36,5 @@ double ft_vec3_get_angle(t_vec3 u, t_vec3 v);
 
 t_ray ft_ray_create(t_pt3 origine, t_vec3 direction);
 t_pt3 ft_ray_project(t_ray ray, double t);
-void ft_ray_print(t_ray ray);
 
 #endif

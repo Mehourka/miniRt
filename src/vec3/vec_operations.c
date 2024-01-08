@@ -87,10 +87,6 @@ double ft_vec3_get_angle(t_vec3 u, t_vec3 v)
 	return (acos(num / denom));
 }
 
-void ft_vec3_print(t_vec3 u)
-{
-	printf("Vec (%.4f, %.4f, %.4f)\n", u.x, u.y, u.z);
-}
 
 t_ray ft_ray_create(t_pt3 origine, t_vec3 direction)
 {
@@ -109,15 +105,6 @@ t_pt3 ft_ray_project(t_ray ray, double t)
 }
 
 
-void ft_ray_print(t_ray ray)
-{
-	printf("Ray: \n");
-	printf("ori : ");
-	ft_vec3_print(ray.ori);
-	printf("dir : ");
-	ft_vec3_print(ray.dir);
-	printf("\n");
-}
 
 
 
