@@ -25,7 +25,12 @@ t_vec3 ft_get_cylinder_normal(t_cylinder cylinder, t_pt3 pos)
 {
 	t_vec3 normal = ft_vec3_create(0,0,0);
 
-	return (normal);
+	// Vector from cylinder center to hitpoint
+	t_pt3 OH = ft_vec3_minus(pos, cylinder.ori);
+	// Compute hitpoint projection on cylinder dir axis
+	t_pt3 p = ft_vec3_scal_prod( cylinder.dir, ft_vec3_dot(cylinder.dir, OH));
+
+	return (ft_vec3_minus(OH, p));
 }
 
 t_vec3 ft_get_obj_normal(t_obj obj, t_pt3 pos)
