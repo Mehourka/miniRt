@@ -1,7 +1,8 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-#include "vectors.h"
+# include "vectors.h"
+# include "matrix.h"
 
 enum e_obj_type
 {
@@ -14,6 +15,8 @@ typedef struct s_cylinder
 {
 	t_pt3 ori;
 	t_color3 color;
+	t_mat3	transform_matrix;
+	t_mat3	inverse_transfrom;
 	t_vec3	dir;
 	double	r;
 	double	longueur;
@@ -23,6 +26,8 @@ typedef struct s_sphere
 {
 	t_pt3 ori;
 	t_color3 color;
+	t_mat3	transform_matrix;
+	t_mat3	inverse_transfrom;
 	double	r;
 }	t_sphere;
 
@@ -30,6 +35,8 @@ typedef struct s_plane
 {
 	t_pt3 ori;
 	t_color3 color;
+	t_mat3	transform_matrix;
+	t_mat3	inverse_transfrom;
 	t_vec3	dir;
 }	t_plane;
 
@@ -45,6 +52,8 @@ typedef struct s_obj
 		{
 			t_vec3 ori;
 			t_color3 color;
+			t_mat3 transform_matrix;
+			t_mat3 inverse_transfrom;
 		};
 	};
 }	t_obj;
@@ -70,5 +79,7 @@ t_vec3 ft_get_obj_normal(t_obj obj, t_pt3 pos);
 t_vec3 ft_get_plane_normal(t_plane plane, t_pt3 pos);
 t_vec3 ft_get_sphere_normal(t_sphere sphere, t_pt3 pos);
 t_vec3 ft_get_cylinder_normal(t_cylinder cylinder, t_pt3 pos);
+
+void ft_compute_obj_matrices(t_obj *object_list, int object_count);
 
 #endif

@@ -68,12 +68,9 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
 	// Create transform matrix
 	// Cylinder basis as a matrix
-	t_mat3 cy_basis = ft_ortho_normal_mat3(cylinder.dir);
-	t_mat3 A = ft_mat3_inverse(cy_basis);
-	// ft_mat3_print(A);
 
 	// Project the ray into the cylinder local coordinates
-	t_ray nray = ft_ray_transform(ray, A, cylinder.ori);
+	t_ray nray = ft_ray_transform(ray, cylinder.inverse_transfrom, cylinder.ori);
 
 	// check if reprojected ray intersects the normalized cyliinder
 	double t = ft_intersect_normalized_cylinder(cylinder, nray);

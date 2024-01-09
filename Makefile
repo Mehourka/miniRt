@@ -42,6 +42,7 @@ SRCS	:=	\
 			main.c								\
 			hooks.c								\
 			debug.c								\
+			object_matrix.c						\
 			math/intersect.c					\
 			math/obj_normals.c					\
 			math/matrix.c						\
