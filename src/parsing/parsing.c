@@ -40,6 +40,11 @@ void	parsing(char *file, t_data *data)
 
 	dot_rt(file);
 	nb_token = parse_nb_token(file);
+	if (nb_token == 0)
+	{
+		printf("%s is an empty file", file);  //TODO pourquoi ca imprime pas 
+		exit(1);
+	}
 	i = 0;
 	parse.A = 0;
 	parse.L = 0;
@@ -80,7 +85,7 @@ void	parsing(char *file, t_data *data)
 			free(line);
 			free(new_line);
 		}
-		// Mis en commantaire, car nous ne gerons pas encore A
+		// Mis en commentaire, car nous ne gerons pas encore A
 		/*if(parse.A ==0 || parse.C == 0 || parse.L == 0)
 		{
 			printf("Ambiant light, Light or Camera is missing");

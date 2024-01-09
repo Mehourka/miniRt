@@ -89,7 +89,7 @@ void	dot_rt(char *file)
 		fd = open(file, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("Enter a valid .rt file");
+			printf("Permission denied");
 			exit(1);
 		}
 		close(fd);

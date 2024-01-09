@@ -8,8 +8,16 @@ void parse_color(char *line, int *j, double *color)
 	//TODO manage error
 
 	new = line + *j;
-	while (line[*j] != ',' && line[*j])
-		(*j)++;
+	if(line[*j] != ',' && line[*j] && line[*j] != ' ')
+	{
+		while (line[*j] != ',' && line[*j] && line[*j] != ' ')
+			(*j)++;
+	}
+	else
+	{
+		printf("The RGB value of %s is invalid", line);
+		exit(1);
+	}
 	if (line[*j] == ',')
 	{
 		line[*j] = '\0';
@@ -35,6 +43,16 @@ void parse_var(char *line, int *j, double *var)
 	//TODO manage error
 
 	new = line + *j;
+	if(line[*j] != ',' && line[*j] && line[*j] != ' ')
+	{
+		while (line[*j] != ',' && line[*j] && line[*j] != ' ')
+			(*j)++;
+	}
+	else
+	{
+		printf("The origin or direction value of %s is invalid", line);
+		exit(1);
+	}
 	while (line[*j] != ',' && line[*j])
 		(*j)++;
 	if (line[*j] == ',')

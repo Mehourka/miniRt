@@ -48,6 +48,8 @@ int parse_nb_token(char *file)
 		line = get_next_line(fd_rt);
 		if (line == NULL)
 			return(close(fd_rt), nb_token);
+		if (line[0] == '#')
+			continue;
 		new_line = ft_strtrim(line, " ");
 		if (new_line[0] != '\n')
 			nb_token++;
