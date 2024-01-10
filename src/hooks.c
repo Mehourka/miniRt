@@ -129,6 +129,22 @@ void ft_nav_hook(void *param)
 	ft_nav_cam_translation(mlx, data, cam);
 }
 
+void ft_rotate_objects(t_obj *object_list, int object_count)
+{
+	const double EPS = 0.05;
+	int i;
+	t_obj *obj;
+
+	i = 0;
+	while (i < object_count)
+	{
+		obj = &object_list[i];
+		obj->ori = ft_rodrigues_rotation(obj->ori, (t_vec3){0,1,0}, EPS);
+		i++;
+	}
+
+}
+
 /*
 	brief: mlx loop hook for rendering
 */
@@ -137,5 +153,6 @@ void ft_render_hook(void *param)
 	t_data *data;
 
 	data = param;
+	ft_rotate_objects(data->obj, data->object_count);
 	ft_render_image(data);
 }

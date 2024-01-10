@@ -72,20 +72,23 @@ void ft_mouse_select(void *param)
 		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 		// ft_print_hitpt(hit_pt);
 
-		if (OBJ_CYLINDER == hit_pt.object.obj_type)
+		if (OBJ_CYLINDER == hit_pt.object.obj_type && hit_pt.f_valid)
 		{
 			t_cylinder cy = hit_pt.object.cylinder;
-			printf("Original Ray : ");
-			ft_print_ray(ray);
+			// ft_print_vec3( hit_pt.pos);
+			t_pt3 lspace_pos = ft_mat3_multiplication(cy.inverse_transfrom, hit_pt.pos);
+			t_pt3 wspace_pos = ft_mat3_multiplication(cy.transform_matrix, lspace_pos);
 
-			printf("Cy transform : ");
-			t_mat3 cy_basis = ft_ortho_normal_mat3(cy.dir);
-			t_mat3 T = ft_mat3_inverse(cy_basis);
-			ft_print_mat3(T);
+			// Reference direction
+			printf("Local space dir : ");
+			ft_print_vec3(ft_mat3_multiplication(cy.inverse_transfrom, cy.dir));
+			printf("Word space dir : ");
+			ft_print_vec3(cy.dir);
+			printf("\n");
 
-			printf("Transformed ray : ");
-			t_ray tray = ft_ray_transform(ray, T, cy.ori);
-			ft_print_ray(tray);
+			t_vec3 lspace_normal = ft_get_obj_normal(hit_pt.object, wspace_pos);
+
+
 		}
 		printf("\n\n");
 	}
