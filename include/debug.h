@@ -11,6 +11,7 @@ void ft_print_object(t_obj obj);
 void ft_print_ray(t_ray ray);
 void ft_print_vec3(t_vec3 vec3);
 void ft_print_mat3(t_mat3 mx);
+void manual_create_objects(void);
 
 
 #endif

@@ -111,18 +111,6 @@ void ft_nav_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 
-	// change sphere radius
-	double EPS = 0.05;
-	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
-	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
-	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
-	}
-
 	// Camera Rotation
 	ft_nav_cam_rotation(mlx, data, cam);
 	// Camera Translation

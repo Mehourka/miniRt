@@ -30,6 +30,19 @@ t_vec3 ft_vec3_minus(t_vec3 u, t_vec3 v)
 	return (new);
 }
 
+/*
+	brief: element-wise multiplication of vector components
+*/
+t_vec3 ft_vec3_elem_mult(t_vec3 u, t_vec3 v)
+{
+	t_vec3 w;
+
+	w.x = u.x * v.x;
+	w.y = u.y * v.y;
+	w.z = u.z * v.z;
+	return (w);
+}
+
 t_vec3 ft_vec3_scal_prod(t_vec3 u, double k)
 {
 	t_vec3 new;

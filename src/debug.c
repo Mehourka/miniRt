@@ -1,5 +1,39 @@
 #include "minirt.h"
 
+void manual_create_objects(void)
+{
+	t_data *data = get_data();
+
+	t_cam *cam = &data->cam;
+
+	data->obj[0].obj_type = OBJ_SPHERE;
+	data->obj[0].ori = ft_vec3_create(0, 0, 0);
+	data->obj[0].sphere.r = 1;
+	data->obj[0].color = ft_vec3_create(.6, .1, .1);
+
+	// data->obj[1].obj_type = OBJ_SPHERE;
+	// data->obj[1].ori = ft_vec3_create(0, 0, -5);
+	// data->obj[1].sphere.r = 1;
+	// data->obj[1].color = ft_vec3_create(.1, .6, .1);
+
+	// data->obj[2].obj_type = OBJ_SPHERE;
+	// data->obj[2].ori = ft_vec3_create(-2, 0, -5);
+	// data->obj[2].sphere.r = 0.9;
+	// data->obj[2].color = ft_vec3_create(0.1, .1, .6);
+
+	// data->obj[3].obj_type = OBJ_SPHERE;
+	// data->obj[3].ori = ft_vec3_create(0, -150, 0);
+	// data->obj[3].sphere.r = 145;
+	// data->obj[3].color = ft_vec3_create(0.15, .15, .15);
+
+	cam->ori = ft_vec3_create(0, 0, -5);
+	cam->dir = ft_vec3_create(0, 0, 1);
+	cam->vup = ft_vec3_create(0, 1, 0);
+	cam->angle = 70;
+
+	data->light.ori = ft_vec3_create(3, 0, 0);
+}
+
 void ft_print_object(t_obj obj)
 {
 	printf("Object : ");
@@ -60,6 +94,21 @@ void ft_mouse_select(void *param)
 
 	data = (t_data *)param;
 	mlx = data->mlx;
+
+		// change sphere radius
+	t_ambiant *amb = &data->ambiant;
+	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
+	{
+		 amb->ratio = ft_cap01(amb->ratio + 0.01);
+		 printf("%f\n",amb->ratio);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
+	{
+		 amb->ratio = ft_cap01(amb->ratio - 0.01);
+		 printf("%f\n",amb->ratio);
+	}
+
+
 	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
 		// Get mouse position
@@ -72,7 +121,8 @@ void ft_mouse_select(void *param)
 		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 		// ft_print_hitpt(hit_pt);
 
-		if (OBJ_CYLINDER == hit_pt.object.obj_type && hit_pt.f_valid)
+		// Wordspace / local space
+		if (false && OBJ_CYLINDER == hit_pt.object.obj_type && hit_pt.f_valid)
 		{
 			t_cylinder cy = hit_pt.object.cylinder;
 			// ft_print_vec3( hit_pt.pos);
@@ -87,9 +137,23 @@ void ft_mouse_select(void *param)
 			printf("\n");
 
 			t_vec3 lspace_normal = ft_get_obj_normal(hit_pt.object, wspace_pos);
+		}
 
+
+		// Color
+		if (true && hit_pt.f_valid)
+		{
+			printf("amb ratio : %f\n", amb->ratio);
+			printf("Ambiant color : ");
+			ft_print_vec3(data->ambiant.color);
+			printf("Point color : ");
+			ft_print_vec3(hit_pt.object.color);
+			printf("get_shade output : ");
+			ft_print_vec3(ft_get_shade(hit_pt));
+			// ft_print_vec3(hit_pt.color);
 
 		}
+
 		printf("\n\n");
 	}
 }

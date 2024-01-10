@@ -48,6 +48,7 @@ SRCS	:=	\
 			math/matrix.c						\
 			math/vec_operations.c				\
 			math/vec_rotation.c					\
+			math/math_utils.c					\
 			parsing/parsing_attribute_utils.c	\
 			parsing/parsing_attribute.c			\
 			parsing/parsing_env.c				\

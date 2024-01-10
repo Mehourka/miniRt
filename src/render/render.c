@@ -26,26 +26,6 @@ int get_color_int(t_color3 color)
 	));
 }
 
-double ft_get_shade(t_hit_point hpt)
-{
-	t_data *data = get_data();
-
-	if (0 == ft_vec3_mod(hpt.normal))
-	{
-		return (1);
-	}
-
-	t_vec3 light_dir = ft_vec3_minus(
-		data->light.ori,
-		hpt.pos
-	);
-
-	double	i = ft_vec3_dot(
-		ft_vec3_normalize(hpt.normal),
-		ft_vec3_normalize(light_dir)
-	);
-	return (i);
-}
 
 t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 {
@@ -88,12 +68,66 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 				continue;
 			min_dist = t;
 			hit_pt = ft_get_hitpoint(ray, t, obj);
-			// render selon la normal
-			double brightness = ft_get_shade(hit_pt);
-			hit_pt.color = ft_vec3_scal_prod(obj.color, brightness);
 		}
 	}
 	return hit_pt;
+}
+
+/*
+	result = (col1 + col2 * intensity).normalized()
+*/
+t_color3 ft_add_color(t_color3 col1, t_color3 col2, double intensity)
+{
+	intensity = ft_cap01(intensity);
+
+
+	// printf("Intensity %f\n", intensity);
+	// ft_print_vec3(col1);
+	// ft_print_vec3(col2);
+	// ft_print_vec3(ft_vec3_scal_prod(col2, intensity));
+	// printf("\n\n");
+
+	return (ft_vec3_cap01(
+		ft_vec3_add(col1, ft_vec3_scal_prod(col2, intensity))
+	));
+}
+
+
+t_color3 ft_get_shade(t_hit_point hpt)
+{
+	t_data *data = get_data();
+	t_ambiant amb = data->ambiant;
+	t_light light = data->light;
+	t_color3 object_color;
+	t_color3 ambiant_color;
+	t_color3 diffuse_color;
+	t_color3 final_color;
+
+	// TODO: DEBUG do this part in parsing
+	light.color = ft_vec3_create(1,1,1);
+
+	// no normal no change ...
+	if (0 == ft_vec3_mod(hpt.normal))
+		return (final_color);
+
+	t_vec3 light_dir = ft_vec3_minus(
+		data->light.ori,
+		hpt.pos
+	);
+
+	double	brightness = ft_vec3_dot(
+		ft_vec3_normalize(hpt.normal),
+		ft_vec3_normalize(light_dir)
+	);
+
+	// Ambiant light color
+	object_color = hpt.object.color;
+	ambiant_color = ft_vec3_elem_mult(object_color, ft_vec3_scal_prod(amb.color, amb.ratio));
+	diffuse_color = ft_vec3_scal_prod(light.color, brightness * light.ratio);
+	final_color = ft_vec3_add(ambiant_color, ft_vec3_elem_mult(object_color, diffuse_color));
+
+	// return (final_color);
+	return final_color;
 }
 
 int ray_color(t_ray ray)
@@ -104,7 +138,11 @@ int ray_color(t_ray ray)
 
 	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 	if (hit_pt.f_valid == true)
+	{
+		hit_pt.color = ft_get_shade(hit_pt);
+		// hit_pt.color = ft_vec3_create(.1,.1,.1);
 		return get_color_int(hit_pt.color);
+	}
 	return get_color_int(ft_vec3_cap01(ray.dir));
 }
 
