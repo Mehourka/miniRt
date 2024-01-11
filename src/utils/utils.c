@@ -8,6 +8,8 @@ t_data *get_data()
 	{
 		data = malloc(sizeof(t_data));
 		data->aspect_ratio = (float) WIDTH / HEIGHT;
+		data->height = 300;
+		data->width = 500;
 	}
 	return (data);
 }

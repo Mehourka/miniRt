@@ -14,8 +14,8 @@
 # include "matrix.h"
 # include "debug.h"
 
-# define WIDTH	250
-# define HEIGHT 250
+# define WIDTH	1000
+# define HEIGHT 750
 
 typedef struct s_data
 {
@@ -27,6 +27,8 @@ typedef struct s_data
 	t_ambiant	ambiant;
 	double		aspect_ratio;
 	int			object_count;
+	int			height;
+	int			width;
 } t_data;
 
 t_data *get_data();

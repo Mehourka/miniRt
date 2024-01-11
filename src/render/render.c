@@ -112,10 +112,10 @@ void compute_viewport(t_data *data)
 {
 	const t_cam	*pcam = &data->cam;
 	t_viewport vp;
-	double viewport_h = 2;
+	double viewport_w = tan(data->cam.angle * M_PI/360) * 1;  // distance between the viewer and the field of view = 1.
 
 	// Trouver la hauteur/largeur du viewport
-	double viewport_w = viewport_h * data->aspect_ratio;
+	double viewport_h = viewport_w * (1 / data->aspect_ratio);
 
 	t_vec3 w = ft_vec3_normalize(pcam->dir);
 	t_vec3 u = ft_vec3_normalize(

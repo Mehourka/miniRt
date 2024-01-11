@@ -70,7 +70,7 @@ void	parsing(char *file, t_data *data)
 	parse_init(&parse, file);
 	tokenization(&parse);
 	missing_env(parse);
-	printf("cam\n");
+	/*printf("cam\n");
 	ft_print_vec3(data->cam.dir);
 	ft_print_vec3(data->cam.ori);
 	printf("%f\n", data->cam.angle);
@@ -103,5 +103,5 @@ void	parsing(char *file, t_data *data)
 			ft_print_vec3(data->obj[i].sphere.color);
 		}
 		i++;
-	}
+	}*/
 }
