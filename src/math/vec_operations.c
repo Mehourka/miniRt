@@ -106,7 +106,7 @@ t_ray ft_ray_create(t_pt3 origine, t_vec3 direction)
 	t_ray ray;
 
 	ray.ori = origine;
-	ray.dir = direction;
+	ray.dir = ft_vec3_normalize(direction);
 	return (ray);
 }
 

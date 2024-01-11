@@ -58,6 +58,7 @@ SRCS	:=	\
 			parsing/token.c						\
 			render/colors.c						\
 			render/render.c						\
+			render/shading.c					\
 			utils/utils.c						\
 			utils/atod.c						\
 			utils/get_next_line_utils.c			\

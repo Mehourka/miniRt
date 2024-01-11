@@ -58,7 +58,7 @@ void ft_print_hitpt(t_hit_point hp)
 		printf("No hit\n");
 		return;
 	}
-	ft_print_object(hp.object);
+	ft_print_object(*hp.object);
 }
 
 void ft_print_ray(t_ray ray)
@@ -122,9 +122,9 @@ void ft_mouse_select(void *param)
 		// ft_print_hitpt(hit_pt);
 
 		// Wordspace / local space
-		if (false && OBJ_CYLINDER == hit_pt.object.obj_type && hit_pt.f_valid)
+		if (false && OBJ_CYLINDER == hit_pt.object->obj_type && hit_pt.f_valid)
 		{
-			t_cylinder cy = hit_pt.object.cylinder;
+			t_cylinder cy = hit_pt.object->cylinder;
 			// ft_print_vec3( hit_pt.pos);
 			t_pt3 lspace_pos = ft_mat3_multiplication(cy.inverse_transfrom, hit_pt.pos);
 			t_pt3 wspace_pos = ft_mat3_multiplication(cy.transform_matrix, lspace_pos);
@@ -136,22 +136,30 @@ void ft_mouse_select(void *param)
 			ft_print_vec3(cy.dir);
 			printf("\n");
 
-			t_vec3 lspace_normal = ft_get_obj_normal(hit_pt.object, wspace_pos);
+			t_vec3 lspace_normal = ft_get_obj_normal(*hit_pt.object, wspace_pos);
 		}
 
 
 		// Color
 		if (true && hit_pt.f_valid)
 		{
-			printf("amb ratio : %f\n", amb->ratio);
-			printf("Ambiant color : ");
-			ft_print_vec3(data->ambiant.color);
-			printf("Point color : ");
-			ft_print_vec3(hit_pt.object.color);
-			printf("get_shade output : ");
-			ft_print_vec3(ft_get_shade(hit_pt));
-			// ft_print_vec3(hit_pt.color);
+			t_light light = data->light;
+			t_vec3 light_dir = ft_vec3_minus(light.ori, hit_pt.pos);
+			ray = ft_ray_create(hit_pt.pos, light_dir);
+				for (int i = 0; i < data->object_count; i++)
+				{
+					t_obj *obj = data->obj + i;
+					if (obj == hit_pt.object)
+					continue;
+					if (ft_hit_object(*obj, ray) > 0)
+					{
+						printf("Obstruction by object[%i]\n",i);
+						printf("intersect_distance : %f\n", ft_hit_object(data->obj[i], ray));
+					}
 
+				}
+			ft_print_ray(ray);
+			// ft_print_vec3(light_dir);
 		}
 
 		printf("\n\n");

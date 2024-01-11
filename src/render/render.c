@@ -27,7 +27,7 @@ int get_color_int(t_color3 color)
 }
 
 
-t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
+t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj *obj)
 {
 	t_hit_point pt;
 	pt.f_valid = true;
@@ -35,7 +35,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 	pt.pos = ft_ray_project(ray, t);
 	pt.object = obj;
 	// Normal depends on object type:
-	pt.normal = ft_get_obj_normal(obj, pt.pos);
+	pt.normal = ft_get_obj_normal(*obj, pt.pos);
 
 	// Flip normal if we're inside the object
 	if (ft_vec3_dot(ray.dir, pt.normal) > 0)
@@ -50,7 +50,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 
 t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray ray)
 {
-	t_obj obj;
+	t_obj *obj;
 	t_hit_point hit_pt;
 	double min_dist;
 	double t;
@@ -59,8 +59,8 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 	hit_pt.f_valid = false;
 	for (int i = 0; i < object_count; i++)
 	{
-		obj = object_list[i];
-		t = ft_hit_object(obj, ray);
+		obj = &object_list[i];
+		t = ft_hit_object(*obj, ray);
 		if (t > 0)
 		{
 			// skip if object is obstructed
@@ -71,63 +71,6 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 		}
 	}
 	return hit_pt;
-}
-
-/*
-	result = (col1 + col2 * intensity).normalized()
-*/
-t_color3 ft_add_color(t_color3 col1, t_color3 col2, double intensity)
-{
-	intensity = ft_cap01(intensity);
-
-
-	// printf("Intensity %f\n", intensity);
-	// ft_print_vec3(col1);
-	// ft_print_vec3(col2);
-	// ft_print_vec3(ft_vec3_scal_prod(col2, intensity));
-	// printf("\n\n");
-
-	return (ft_vec3_cap01(
-		ft_vec3_add(col1, ft_vec3_scal_prod(col2, intensity))
-	));
-}
-
-
-t_color3 ft_get_shade(t_hit_point hpt)
-{
-	t_data *data = get_data();
-	t_ambiant amb = data->ambiant;
-	t_light light = data->light;
-	t_color3 object_color;
-	t_color3 ambiant_color;
-	t_color3 diffuse_color;
-	t_color3 final_color;
-
-	// TODO: DEBUG do this part in parsing
-	light.color = ft_vec3_create(1,1,1);
-
-	// no normal no change ...
-	if (0 == ft_vec3_mod(hpt.normal))
-		return (final_color);
-
-	t_vec3 light_dir = ft_vec3_minus(
-		data->light.ori,
-		hpt.pos
-	);
-
-	double	brightness = ft_vec3_dot(
-		ft_vec3_normalize(hpt.normal),
-		ft_vec3_normalize(light_dir)
-	);
-
-	// Ambiant light color
-	object_color = hpt.object.color;
-	ambiant_color = ft_vec3_elem_mult(object_color, ft_vec3_scal_prod(amb.color, amb.ratio));
-	diffuse_color = ft_vec3_scal_prod(light.color, brightness * light.ratio);
-	final_color = ft_vec3_add(ambiant_color, ft_vec3_elem_mult(object_color, diffuse_color));
-
-	// return (final_color);
-	return final_color;
 }
 
 int ray_color(t_ray ray)

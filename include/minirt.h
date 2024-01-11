@@ -14,8 +14,8 @@
 # include "matrix.h"
 # include "debug.h"
 
-# define WIDTH	250
-# define HEIGHT 250
+# define WIDTH  270
+# define HEIGHT 270
 
 typedef struct s_data
 {

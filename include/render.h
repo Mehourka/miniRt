@@ -17,7 +17,7 @@ typedef struct s_viewport
 typedef struct s_hit_point
 {
 	int		f_valid;
-	t_obj		object;
+	t_obj		*object;
 	t_pt3		pos;
 	t_vec3		normal;
 	double		distance;
