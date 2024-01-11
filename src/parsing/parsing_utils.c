@@ -1,17 +1,17 @@
-# include "../include/minirt.h"
+#include "../include/minirt.h"
 #include "../include/render.h"
 #include "../include/parsing.h"
 
 void	parse_count_atribute(char *new, t_parse *parse)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (new[i])
 	{
 		if (new[i] == ' ')
 			parse->count++;
-		while (new[i] == ' '&& new[i + 1])
+		while (new[i] == ' ' && new[i + 1])
 			i++;
 		i++;
 	}
@@ -63,6 +63,7 @@ void	parse_limit(int *checker, int max, char *type)
 	(*checker)++;
 	if (*checker > max)
 	{
+		printf("Error\n");
 		printf("%s need to be unique", type);
 		exit(1);
 	}
@@ -74,25 +75,15 @@ void	dot_rt(char *file)
 	int		fd;
 
 	new = ft_strrchr(file, '.');
-	if ( new == NULL)
-	{
-		printf("Enter a valid .rt file");
-		exit(1);
-	}
+	if (new == NULL)
+			ft_error_message("Enter a valid .rt file");
 	if (ft_strncmp(new, ".rt", 4) != 0)
-	{
-		printf("Enter a valid .rt file");
-		exit(1);
-	}
+			ft_error_message("Enter a valid .rt file");
 	else
 	{
 		fd = open(file, O_RDONLY);
 		if (fd < 0)
-		{
-			printf("Permission denied");
-			exit(1);
-		}
+			ft_error_message("Permission denied");
 		close(fd);
 	}
 }
-

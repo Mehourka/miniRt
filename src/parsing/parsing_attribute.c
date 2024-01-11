@@ -1,24 +1,25 @@
-# include "../include/minirt.h"
+#include "../include/minirt.h"
 #include "../include/render.h"
 #include "../include/parsing.h"
 
 void	ft_parse_rgb(t_color3 *color, char *line)
 {
-	double	R;
-	double	G;
-	double	B;
+	double	r;
+	double	g;
+	double	b;
 	int		j;
 
 	j = 0;
 	if (parse_comma(line) != 2)
 	{
+		printf("Error\n");
 		printf("%s is not a valid vector", line);
 		exit(1);
 	}
-	parse_color(line, &j, &R);
-	parse_color(line, &j, &G);
-	parse_color(line, &j, &B);
-	*color = ft_vec3_create(R, G, B);
+	parse_color(line, &j, &r);
+	parse_color(line, &j, &g);
+	parse_color(line, &j, &b);
+	*color = ft_vec3_create(r, g, b);
 }
 
 void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line, char vect)
@@ -31,6 +32,7 @@ void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line, char vect)
 	j = 0;
 	if (parse_comma(line) != 2)
 	{
+		printf("Error\n");
 		printf("%s is not a valid vector", line);
 		exit(1);
 	}
@@ -44,6 +46,7 @@ void	parse_ratio(double *ratio, char *nb)
 {
 	if (parse_comma(nb) != 0)
 	{
+		printf("Error\n");
 		printf("%s is not a ratio", nb);
 		exit(1);
 	}
@@ -51,13 +54,11 @@ void	parse_ratio(double *ratio, char *nb)
 	{
 		*ratio = ft_atod(nb);
 		if (*ratio > 1 || *ratio < 0)
-		{
-			printf("Ratio outside of the range of [0, 1]");
-			exit(1);
-		}
+			ft_error_message("Out of range : Ratio must be between [0, 1]");
 	}
 	else
 	{
+		printf("Error\n");
 		printf("%s is not a ratio", nb);
 		exit(1);
 	}
@@ -67,20 +68,15 @@ void	parse_length(double *length, char *nb)
 {
 	if (parse_comma(nb) != 0)
 	{
+		printf("Error\n");
 		printf("%s is not a length", nb);
 		exit(1);
 	}
 	if (dot_digit(nb) == 0)
-	{
 		*length = ft_atod(nb);
-		if (*length > __DBL_MAX__ || *length < __DBL_MIN__)
-		{
-			printf("This is an error");
-			exit(1);
-		}
-	}
 	else
 	{
+		printf("Error\n");
 		printf("%s is not a length", nb);
 		exit(1);
 	}

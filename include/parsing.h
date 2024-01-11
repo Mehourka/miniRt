@@ -40,5 +40,6 @@ void	dot_rt(char *file);
 void	tokenization(t_parse *parse);
 void	analyse_line(t_parse *parse, char *line, int *i);
 void	read_n_analyze_line(t_parse *parse, int *i);
+void	ft_error_message(char *str);
 
 #endif

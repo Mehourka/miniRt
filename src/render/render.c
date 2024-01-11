@@ -81,10 +81,6 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 	{
 		obj = object_list[i];
 		t = ft_hit_object(obj, ray);
-		if(obj.obj_type == OBJ_CYLINDER)
-		{
-			printf("t = %f\n", t);
-		}
 		if (t > 0)
 		{
 			// skip if object is obstructed

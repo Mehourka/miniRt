@@ -1,4 +1,4 @@
-# include "../include/minirt.h"
+#include "../include/minirt.h"
 #include "../include/render.h"
 #include "../include/parsing.h"
 
@@ -51,8 +51,7 @@ void	tokenization(t_parse *parse)
 		if (i >= 103)
 		{
 			close(parse->fd_rt);
-			printf("Too many arguments. MAX : 100 objects");
-			exit(1);
+			ft_error_message("A maximum of 100 objects is allowed");
 		}
 		read_n_analyze_line(parse, &i);
 	}
@@ -95,6 +94,7 @@ int	parse_nb_token(char *file)
 	nb_token = 0;
 	if (fd_rt < 0)
 	{
+		printf("Error\n");
 		printf("Impossible to open %s", file);
 		close(fd_rt);
 		exit(1);

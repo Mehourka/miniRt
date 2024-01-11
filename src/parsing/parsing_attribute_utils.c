@@ -1,4 +1,4 @@
-# include "../include/minirt.h"
+#include "../include/minirt.h"
 #include "../include/render.h"
 #include "../include/parsing.h"
 
@@ -14,6 +14,7 @@ void	parse_nb(char *line, int *j, double *color)
 	}
 	else
 	{
+		printf("Error\n");
 		printf("The RGB value of %s is invalid", line);
 		exit(1);
 	}
@@ -22,10 +23,11 @@ void	parse_nb(char *line, int *j, double *color)
 		line[*j] = '\0';
 		(*j)++;
 	}
-if (dot_digit(new) == 0 && ft_strlen(new))
+	if (dot_digit(new) == 0 && ft_strlen(new))
 		*color = ft_atod(new);
 	else
 	{
+		printf("Error\n");
 		printf("%f is an invalid number", *color);
 		exit(1);
 	}
@@ -34,12 +36,9 @@ if (dot_digit(new) == 0 && ft_strlen(new))
 void	parse_color(char *line, int *j, double *color)
 {
 	parse_nb(line, j, color);
-	*color = (*color)/255;
+	*color = (*color) / 255;
 	if (*color > 1 || *color < 0)
-	{
-		printf("Ratio outside of the range of [0, 255]");
-		exit(1);
-	}
+		ft_error_message("Out of range : Color must be between [0, 255]");
 }
 
 void	parse_var(char *line, int *j, double *var, char vect)
@@ -48,9 +47,13 @@ void	parse_var(char *line, int *j, double *var, char vect)
 	if (vect == 'd')
 	{
 		if (*var > 1 || *var < -1)
-		{
-			printf("Out of range");
-			exit(1);
-		}
+			ft_error_message("Out of range : Vector of direction");
 	}
+}
+
+void	ft_error_message(char *str)
+{
+	printf("Error\n");
+	printf("%s\n", str);
+	exit(1);
 }
