@@ -4,8 +4,9 @@
 
 void	create_object(t_data *data, t_parse *parse)
 {
-	// pour des virgules vides
-	//tester trop d'objets
+	int	i;
+
+	i = 0;
 	if (ft_strncmp(parse->token[0], "A", 2) == 0)
 		parse_ambiant_light(data, parse);
 	else if (ft_strncmp(parse->token[0], "L", 2) == 0)
@@ -21,7 +22,6 @@ void	create_object(t_data *data, t_parse *parse)
 	else
 	{
 		printf("Wrong type of argument : ");
-		int i = 0;
 		while (parse->token[i])
 			printf("%s ", parse->token[i++]);
 		printf("\n");
@@ -29,67 +29,51 @@ void	create_object(t_data *data, t_parse *parse)
 	}
 }
 
-void	parsing(char *file, t_data *data)
+void	parse_init(t_parse *parse, char *file)
 {
-	char *line;
-	int fd_rt;
-	int nb_token;
-	int i;
-	char *new_line;
-	t_parse parse;
-
-	dot_rt(file);
-	nb_token = parse_nb_token(file);
-	if (nb_token == 0)
+	parse->nb_token = parse_nb_token(file);
+	if (parse->nb_token == 0)
 	{
-		printf("%s is an empty file", file);  //TODO pourquoi ca imprime pas 
+		printf("%s is an empty file", file);
 		exit(1);
 	}
-	i = 0;
-	parse.A = 0;
-	parse.L = 0;
-	parse.C = 0;
-	parse.i = 0;
-	fd_rt = open(file, O_RDONLY);
-	if(fd_rt < 0)
+	parse->A = 0;
+	parse->L = 0;
+	parse->C = 0;
+	parse->i = 0;
+	parse->fd_rt = open(file, O_RDONLY);
+	if (parse->fd_rt < 0)
 	{
 		printf("Impossible to open %s", file);
 		exit(1);
 	}
-	while (i < nb_token)
+}
+
+void	missing_env(t_parse parse)
+{
+	// if(parse.A == 0)
+	// {
+	// 	printf("Ambiant light is missing");
+	// 	exit(1);
+	// }
+	if (parse.C == 0)
 	{
-		if (i >= 103)
-		{
-			printf("Too many arguments. MAX : 100 objects");
-			exit(1);
-		}
-		line = get_next_line(fd_rt);
-		if (line == NULL)
-		{
-			close(fd_rt);
-			i = nb_token;
-		}
-		else
-		{
-			new_line = ft_strtrim(line, " ");
-			if (new_line && new_line[0] != '\n'
-				&& ft_strncmp(line, "#", 1) != 0) // Gestion des commentaires
-			{
-				parse_token(line, &parse);
-				//ici tout est beau
-				create_object(data, &parse);
-				i++;
-			}
-			free(parse.token); // TODO: SEGFAULT quand la premiere ligne du .rt est vide/espaces/commentaire
-			parse.token = NULL;
-			free(line);
-			free(new_line);
-		}
-		// Mis en commentaire, car nous ne gerons pas encore A
-		/*if(parse.A ==0 || parse.C == 0 || parse.L == 0)
-		{
-			printf("Ambiant light, Light or Camera is missing");
-			exit(1);
-		}*/
+		printf("Camera is missing");
+		exit(1);
 	}
+	if (parse.L == 0)
+	{
+		printf("Light is missing");
+		exit(1);
+	}
+}
+
+void	parsing(char *file, t_data *data)
+{
+	t_parse	parse;
+
+	dot_rt(file);
+	parse_init(&parse, file);
+	tokenization(&parse);
+	missing_env(parse);
 }

@@ -8,16 +8,18 @@ typedef struct s_parse
 	int		L;
 	int		C;
 	int		A;
+	int 	fd_rt;
 	char	**token;
+	int		nb_token;
 	int		count;
-	int		i;
+	int 	i;
 }	t_parse;
 
 double	ft_atod(char *str);
 void	parse_color(char *line, int *j, double *color);
-void	parse_var(char *line, int *j, double *var);
+void	parse_var(char *line, int *j, double *var, char vect);
 void	ft_parse_rgb(t_color3 *color, char *line);
-void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line);
+void	ft_parse_orig_dir(t_vec3 *orig_dir, char *line, char vect);
 void	parse_ratio(double *ratio, char *nb);
 void	parse_length(double *length, char *nb);
 void	parse_ambiant_light(t_data *data, t_parse *parse);
@@ -35,5 +37,8 @@ void	parsing(char *file, t_data *data);
 void	parse_token(char *line, t_parse *parse);
 int		parse_nb_token(char *file);
 void	dot_rt(char *file);
+void	tokenization(t_parse *parse);
+void	analyse_line(t_parse *parse, char *line, int *i);
+void	read_n_analyze_line(t_parse *parse, int *i);
 
 #endif

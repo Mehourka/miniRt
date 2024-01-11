@@ -43,8 +43,10 @@ double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 	double a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
 	double b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
 	double c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
+	//ft_print_vec3(r.dir);
+	//ft_print_vec3(r.ori);
 
-	double discriminant = b * b - 4 * a * c;
+	double discriminant = b * b - (4 * a * c);
 	if (discriminant <= 0)
 		return (-1);
 
@@ -61,7 +63,7 @@ double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 	{
 		return (t2);
 	}
-	return -1;
+	return (-1);
 }
 
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
@@ -70,15 +72,20 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 	// Cylinder basis as a matrix
 
 	// Project the ray into the cylinder local coordinates
-	t_ray nray = ft_ray_transform(ray, cylinder.inverse_transfrom, cylinder.ori);
+	t_ray nray = ft_ray_transform(ray, cylinder.inverse_transfrom, cylinder.ori);  //mets tout a 0
 
 	// check if reprojected ray intersects the normalized cyliinder
 	double t = ft_intersect_normalized_cylinder(cylinder, nray);
-
+	printf("ici");
+	// ft_print_vec3(cylinder.ori);
+	// ft_print_vec3(cylinder.color);
+	// ft_print_vec3(cylinder.dir);
+	// printf("%f\n", cylinder.r);
+	// printf("%f\n", cylinder.longueur);
 	return (t);
 }
 
-double ft_hit_object(t_obj obj, t_ray ray)
+double	ft_hit_object(t_obj obj, t_ray ray)
 {
 	if (OBJ_SPHERE == obj.obj_type)
 	{

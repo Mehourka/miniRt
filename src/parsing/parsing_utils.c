@@ -2,16 +2,16 @@
 #include "../include/render.h"
 #include "../include/parsing.h"
 
-void parse_count_atribute(char *new, t_parse *parse)
+void	parse_count_atribute(char *new, t_parse *parse)
 {
 	int i;
 
 	i = 0;
-	while(new[i])
+	while (new[i])
 	{
-		if(new[i] == ' ')
+		if (new[i] == ' ')
 			parse->count++;
-		while(new[i] == ' '&& new[i + 1])
+		while (new[i] == ' '&& new[i + 1])
 			i++;
 		i++;
 	}
@@ -20,40 +20,40 @@ void parse_count_atribute(char *new, t_parse *parse)
 
 int	parse_comma(char *line)
 {
-	int i;
-	int comma;
+	int	i;
+	int	comma;
 
 	i = 0;
 	comma = 0;
-	while(line[i])
+	while (line[i])
 	{
-		if(line[i] == ',')
+		if (line[i] == ',')
 			comma++;
 		i++;
 	}
-	return(comma);
+	return (comma);
 }
 
 int	dot_digit(char *str)
 {
-	int i;
-	int dot;
+	int	i;
+	int	dot;
 
 	i = 0;
 	dot = 0;
 	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
-		i++;
-		if(str[i] == '.')
+			i++;
+		if (str[i] == '.')
 		{
 			i++;
 			dot++;
 		}
 		else
-			return(0);
+			return (0);
 	}
-	if(dot > 1)
+	if (dot > 1)
 		return (1);
 	return (0);
 }
@@ -61,7 +61,7 @@ int	dot_digit(char *str)
 void	parse_limit(int *checker, int max, char *type)
 {
 	(*checker)++;
-	if(*checker > max)
+	if (*checker > max)
 	{
 		printf("%s need to be unique", type);
 		exit(1);
@@ -93,6 +93,6 @@ void	dot_rt(char *file)
 			exit(1);
 		}
 		close(fd);
-	}	
+	}
 }
 

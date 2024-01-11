@@ -81,6 +81,10 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 	{
 		obj = object_list[i];
 		t = ft_hit_object(obj, ray);
+		if(obj.obj_type == OBJ_CYLINDER)
+		{
+			printf("t = %f\n", t);
+		}
 		if (t > 0)
 		{
 			// skip if object is obstructed
@@ -93,7 +97,7 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 			hit_pt.color = ft_vec3_scal_prod(obj.color, brightness);
 		}
 	}
-	return hit_pt;
+	return (hit_pt);
 }
 
 int ray_color(t_ray ray)

@@ -42,5 +42,10 @@ double	ft_atod(char *str)
 	}
 	if (decimal(str) != 0)
 		nb = nb / pow(10, decimal(str));
+	if(str[i])
+	{
+		printf("Error with atod");
+		exit(1);
+	}
 	return (multiple * nb);
 }
