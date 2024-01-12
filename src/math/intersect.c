@@ -7,7 +7,7 @@ double ft_intersect_sphere(t_sphere sphere, t_ray ray)
 	t_vec3 oc = ft_vec3_minus(ray.ori, sphere.ori);
 
 	// TODO: optimize by replacing dot products with len*len
-	double a = 1;
+	double a = ft_vec3_dot(ray.dir, ray.dir);
 	double b = ft_vec3_dot(
 		ft_vec3_scal_prod(ray.dir, 2.0),
 		oc);
