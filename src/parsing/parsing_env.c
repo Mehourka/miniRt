@@ -44,7 +44,7 @@ void	parse_camera(t_data *data, t_parse *parse)
 		data->cam.angle = 179.99999;
 	else if(data->cam.angle == 0)
 		data->cam.angle = 0.00001;
-	else if (data->cam.angle > 180 || &data->cam.angle < 0)
+	else if (data->cam.angle > 180 || data->cam.angle < 0)
 	ft_error_message("Out of range : Camera angle must be between [0, 180]");
 	data->cam.vup = ft_vec3_create(0, 1, 0);
 }

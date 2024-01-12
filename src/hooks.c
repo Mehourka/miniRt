@@ -14,13 +14,11 @@ t_vec3 ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 	return (new_dir);
 }
 
-void ft_nav_cam_rotation(mlx_t *mlx, t_data *data, t_cam *cam)
+void ft_nav_cam_rotation(mlx_t *mlx, t_cam *cam)
 {
 	double theta;
 	theta = ft_deg_to_rad(5);
 	t_vec3 axis;
-	const double EPS = 0.005;
-	t_vec3 tmp;
 
 	axis = cam->vup;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
@@ -42,12 +40,11 @@ void ft_nav_cam_rotation(mlx_t *mlx, t_data *data, t_cam *cam)
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
 		// TODO: limit up/down view range
-		tmp = cam->dir;
 		cam->dir = ft_constrain_vertical_rot(cam, axis, theta);
 	}
 }
 
-void ft_nav_cam_translation(mlx_t *mlx, t_data *data, t_cam *cam)
+void ft_nav_cam_translation(mlx_t *mlx, t_cam *cam)
 {
 	t_vec3 axis;
 	const double EPS = 0.05;
@@ -101,7 +98,6 @@ void ft_nav_hook(void *param)
 {
 	t_data *data;
 	mlx_t *mlx;
-	t_vec3 axis;
 	t_cam *cam;
 
 	data = (t_data *)param;
@@ -112,9 +108,9 @@ void ft_nav_hook(void *param)
 		mlx_close_window(mlx);
 
 	// Camera Rotation
-	ft_nav_cam_rotation(mlx, data, cam);
+	ft_nav_cam_rotation(mlx, cam);
 	// Camera Translation
-	ft_nav_cam_translation(mlx, data, cam);
+	ft_nav_cam_translation(mlx, cam);
 }
 
 void ft_resize_hook(int32_t width, int32_t height, void* param)
@@ -136,13 +132,15 @@ void ft_rotate_objects(t_obj *object_list, int object_count)
 {
 	const double EPS = 0.05;
 	int i;
+	t_vec3 rotation_axis;
 	t_obj *obj;
 
 	i = 0;
+	rotation_axis = ft_vec3_create(0,1,0);
 	while (i < object_count)
 	{
 		obj = &object_list[i];
-		obj->ori = ft_rodrigues_rotation(obj->ori, (t_vec3){0,1,0}, EPS);
+		obj->ori = ft_rodrigues_rotation(obj->ori, rotation_axis, EPS);
 		i++;
 	}
 

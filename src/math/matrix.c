@@ -36,9 +36,9 @@ t_mat3 ft_mat3_from_vec3(t_vec3 a, t_vec3 b, t_vec3 c)
 
 t_mat3 ft_mat3_identity(void)
 {
-	const t_vec3 a = {1, 0, 0};
-	const t_vec3 b = {0, 1, 0};
-	const t_vec3 c = {0, 0, 1};
+	const t_vec3 a = {{1, 0, 0}};
+	const t_vec3 b = {{0, 1, 0}};
+	const t_vec3 c = {{0, 0, 1}};
 
 	return ft_mat3_from_vec3(a, b, c);
 }
@@ -71,14 +71,14 @@ t_mat3 ft_ortho_normal_mat3(t_vec3 v)
 	t_vec3 u;
 	t_vec3 w;
 
-	// We assume v is the y unit vector in this new ortho basis
+	// we assume v is the y unit vector in this new ortho basis
 
 	// quick check for a non parallel vector
 	v = ft_vec3_normalize(v);
 	if (fabs(v.x) < fabs(v.y))
-		u = ft_vec3_cross_prod((t_vec3){1, 0, 0}, v);
+		u = ft_vec3_cross_prod((t_vec3){{ 1, 0, 0 }}, v);
 	else
-		u = ft_vec3_cross_prod((t_vec3){0, 1, 0}, v);
+		u = ft_vec3_cross_prod((t_vec3){{0, 1, 0}}, v);
 	w = ft_vec3_cross_prod(u, v);
 	return (ft_mat3_from_vec3(u,v,w));
 }

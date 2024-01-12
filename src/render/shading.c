@@ -25,7 +25,6 @@ t_color3 ft_add_color(t_color3 col1, t_color3 col2, double intensity)
 */
 int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light light)
 {
-	t_data *data = get_data();
 	t_ray ray;
 	t_obj *obj;
 	const double EPS = 0.01;

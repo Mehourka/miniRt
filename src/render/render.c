@@ -5,9 +5,9 @@ void draw_gradient()
 	t_data *data = get_data();
 	mlx_image_t *image = data->img;
 
-	for (int j = 0; j < image->height; j++)
+	for (uint32_t j = 0; j < image->height; j++)
 	{
-		for (int i = 0; i < image->width; i++)
+		for (uint32_t i = 0; i < image->width; i++)
 		{
 			float c1 = 1.0 * i / image->width;
 			float c2 = 1.0 * j / image->height;
@@ -76,7 +76,6 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 int ray_color(t_ray ray)
 {
 	t_data *data = get_data();
-	t_color3 color;
 	t_hit_point hit_pt;
 
 	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);

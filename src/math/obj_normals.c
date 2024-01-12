@@ -17,14 +17,14 @@ t_vec3 ft_get_sphere_normal(t_sphere sphere, t_pt3 pos)
 
 t_vec3 ft_get_plane_normal(t_plane plane, t_pt3 pos)
 {
+	(void) pos;
+
 	return (plane.dir);
 }
 
 // TODO: actually compute normal
 t_vec3 ft_get_cylinder_normal(t_cylinder cylinder, t_pt3 pos)
 {
-	t_vec3 normal;
-
 	// Vector from cylinder center to hitpoint
 	t_pt3 OH = ft_vec3_minus(pos, cylinder.ori);
 	// Compute hitpoint projection on cylinder dir axis

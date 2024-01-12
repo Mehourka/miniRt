@@ -39,12 +39,8 @@ void	analyse_line(t_parse *parse, char *line, int *i)
 
 void	tokenization(t_parse *parse)
 {
-	char	*line;
-	char	*new_line;
 	int		i;
-	t_data	*data;
 
-	data = get_data();
 	i = 0;
 	while (i < parse->nb_token)
 	{

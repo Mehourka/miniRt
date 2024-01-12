@@ -66,6 +66,7 @@ void	parsing(char *file, t_data *data)
 {
 	t_parse	parse;
 
+	(void) data;
 	dot_rt(file);
 	parse_init(&parse, file);
 	tokenization(&parse);
