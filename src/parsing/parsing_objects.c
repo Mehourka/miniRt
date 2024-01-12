@@ -34,6 +34,7 @@ void	parse_plane(t_data *data, t_parse *parse)
 	data->obj[parse->i].obj_type = OBJ_PLANE;
 	ft_parse_orig_dir(&data->obj[parse->i].plane.ori, parse->token[1], 'o');
 	ft_parse_orig_dir(&data->obj[parse->i].plane.dir, parse->token[2], 'd');
+	data->obj[parse->i].plane.dir = ft_vec3_normalize(data->obj[parse->i].plane.dir);
 	ft_parse_rgb(&data->obj[parse->i].plane.color, parse->token[3]);
 	data->object_count++;
 	parse->i++;
@@ -51,6 +52,7 @@ void	parse_cylinder(t_data *data, t_parse *parse)
 		ft_error_message("A maximum of 100 objects is allowed");
 	data->obj[parse->i].obj_type = OBJ_CYLINDER;
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.ori, parse->token[1], 'o');
+		data->obj[parse->i].cylinder.dir = ft_vec3_normalize(data->obj[parse->i].cylinder.dir);
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.dir, parse->token[2], 'd');
 	parse_length(&data->obj[parse->i].cylinder.r, parse->token[3]);
 	data->obj[parse->i].cylinder.r /= 2;

@@ -1,6 +1,8 @@
 #include <math.h>
 #include "vectors.h"
 #include "matrix.h"
+#include "objects.h"
+#include "minirt.h"
 
 /*
 	Creates a 3x3 Matrix from 3 column vectors a, b and c;
@@ -94,7 +96,14 @@ t_mat3 ft_mat3_inverse(t_mat3 A)
     double det;
 
 	// Calcule du déterminant
-    det = A.mx[0][0] * inv.mx[0][0] + A.mx[0][1] * inv.mx[1][0] + A.mx[0][2] * inv.mx[2][0];
+	
+    det = A.mx[0][0] * A.mx[1][1] * A.mx[2][2] +
+		A.mx[0][1] * A.mx[1][2] * A.mx[2][0] +
+		A.mx[0][2] * A.mx[1][0] * A.mx[2][1] -
+		A.mx[0][2] * A.mx[1][1] * A.mx[2][0] -
+		A.mx[0][0] * A.mx[1][2] * A.mx[2][1] -
+		A.mx[0][1] * A.mx[1][0] * A.mx[2][2];
+
     if (det == 0)
     {
         // La matrice n'est pas inversible

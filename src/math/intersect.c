@@ -76,11 +76,6 @@ double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 
 	// check if reprojected ray intersects the normalized cyliinder
 	double t = ft_intersect_normalized_cylinder(cylinder, nray);
-	// ft_print_vec3(cylinder.ori);
-	// ft_print_vec3(cylinder.color);
-	// ft_print_vec3(cylinder.dir);
-	// printf("%f\n", cylinder.r);
-	// printf("%f\n", cylinder.longueur);
 	return (t);
 }
 

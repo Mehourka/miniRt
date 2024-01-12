@@ -18,9 +18,7 @@ void ft_compute_obj_matrices(t_obj *object_list, int object_count)
 		{
 			obj->cylinder.dir = ft_vec3_normalize(obj->cylinder.dir);
 			trans_mx = ft_ortho_normal_mat3(obj->cylinder.dir);
-			ft_print_mat3(trans_mx);
 			inv_mx = ft_mat3_inverse(trans_mx);
-			ft_print_mat3(inv_mx);
 		}
 
 		//TODO: apply same methode for plans and spehres

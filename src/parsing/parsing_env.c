@@ -39,6 +39,7 @@ void	parse_camera(t_data *data, t_parse *parse)
 	}
 	ft_parse_orig_dir(&data->cam.ori, parse->token[1], 'o');
 	ft_parse_orig_dir(&data->cam.dir, parse->token[2], 'd');
+	data->cam.dir = ft_vec3_normalize(data->cam.dir);
 	parse_length(&data->cam.angle, parse->token[3]);
 	if (data->cam.angle == 180)
 		data->cam.angle = 179.99999;
