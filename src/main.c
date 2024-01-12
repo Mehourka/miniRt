@@ -5,14 +5,18 @@
 
 int	main(int argc, char**argv)
 {
+	const int image_width = WIDTH;
+	const int image_height = HEIGHT;
+
 	if (argc == 2)
 	{
 		t_data *data = get_data();
 		parsing(argv[1], data);
 		// Compute object transform matrices
 		ft_compute_obj_matrices(data->obj, data->object_count);
+
 		// Setup mlx data
-		if (!(data->mlx = mlx_init(WIDTH, HEIGHT, "miniRt", true)))
+		if (!(data->mlx = mlx_init(data->width, data->height, "miniRt", true)))
 			ft_raise_error(data);
 		if (!(data->img = mlx_new_image(data->mlx, data->width, data->height)))
 			ft_raise_error(data);

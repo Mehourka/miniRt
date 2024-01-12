@@ -7,9 +7,9 @@ t_data *get_data()
 	if (data == NULL)
 	{
 		data = malloc(sizeof(t_data));
-		data->aspect_ratio = (float) WIDTH / HEIGHT;
 		data->height = 300;
 		data->width = 500;
+		data->aspect_ratio = (float) data->width / data->height;
 	}
 	return (data);
 }
