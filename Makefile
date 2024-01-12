@@ -48,6 +48,7 @@ SRCS	:=	\
 			math/matrix.c						\
 			math/vec_operations.c				\
 			math/vec_rotation.c					\
+			math/math_utils.c					\
 			parsing/parsing_attribute_utils.c	\
 			parsing/parsing_attribute.c			\
 			parsing/parsing_env.c				\
@@ -57,6 +58,7 @@ SRCS	:=	\
 			parsing/token.c						\
 			render/colors.c						\
 			render/render.c						\
+			render/shading.c					\
 			utils/utils.c						\
 			utils/atod.c						\
 			utils/get_next_line_utils.c			\

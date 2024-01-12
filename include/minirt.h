@@ -32,6 +32,5 @@ t_data *get_data();
 void 	compute_viewport(t_data *data);
 void	ft_render_image(t_data *data);
 void ft_raise_error(t_data *data);
-void create_objects(void);
 
 #endif

@@ -111,18 +111,6 @@ void ft_nav_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 
-	// change sphere radius
-	double EPS = 0.05;
-	t_cylinder *cylinder = &get_data()->obj[0].cylinder;
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
-	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, +10 * EPS});
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
-	{
-		cylinder->ori = ft_vec3_add(cylinder->ori, (t_vec3){0, 0, -10 * EPS});
-	}
-
 	// Camera Rotation
 	ft_nav_cam_rotation(mlx, data, cam);
 	// Camera Translation
@@ -144,6 +132,22 @@ void ft_resize_hook(int32_t width, int32_t height, void* param)
 
 }
 
+void ft_rotate_objects(t_obj *object_list, int object_count)
+{
+	const double EPS = 0.05;
+	int i;
+	t_obj *obj;
+
+	i = 0;
+	while (i < object_count)
+	{
+		obj = &object_list[i];
+		obj->ori = ft_rodrigues_rotation(obj->ori, (t_vec3){0,1,0}, EPS);
+		i++;
+	}
+
+}
+
 /*
 	brief: mlx loop hook for rendering
 */
@@ -152,5 +156,6 @@ void ft_render_hook(void *param)
 	t_data *data;
 
 	data = param;
+	ft_rotate_objects(data->obj, data->object_count);
 	ft_render_image(data);
 }

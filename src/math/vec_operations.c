@@ -30,6 +30,19 @@ t_vec3 ft_vec3_minus(t_vec3 u, t_vec3 v)
 	return (new);
 }
 
+/*
+	brief: element-wise multiplication of vector components
+*/
+t_vec3 ft_vec3_elem_mult(t_vec3 u, t_vec3 v)
+{
+	t_vec3 w;
+
+	w.x = u.x * v.x;
+	w.y = u.y * v.y;
+	w.z = u.z * v.z;
+	return (w);
+}
+
 t_vec3 ft_vec3_scal_prod(t_vec3 u, double k)
 {
 	t_vec3 new;
@@ -93,7 +106,7 @@ t_ray ft_ray_create(t_pt3 origine, t_vec3 direction)
 	t_ray ray;
 
 	ray.ori = origine;
-	ray.dir = direction;
+	ray.dir = ft_vec3_normalize(direction);
 	return (ray);
 }
 

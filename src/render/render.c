@@ -26,28 +26,8 @@ int get_color_int(t_color3 color)
 	));
 }
 
-double ft_get_shade(t_hit_point hpt)
-{
-	t_data *data = get_data();
 
-	if (0 == ft_vec3_mod(hpt.normal))
-	{
-		return (1);
-	}
-
-	t_vec3 light_dir = ft_vec3_minus(
-		data->light.ori,
-		hpt.pos
-	);
-
-	double	i = ft_vec3_dot(
-		ft_vec3_normalize(hpt.normal),
-		ft_vec3_normalize(light_dir)
-	);
-	return (i);
-}
-
-t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
+t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj *obj)
 {
 	t_hit_point pt;
 	pt.f_valid = true;
@@ -55,7 +35,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 	pt.pos = ft_ray_project(ray, t);
 	pt.object = obj;
 	// Normal depends on object type:
-	pt.normal = ft_get_obj_normal(obj, pt.pos);
+	pt.normal = ft_get_obj_normal(*obj, pt.pos);
 
 	// Flip normal if we're inside the object
 	if (ft_vec3_dot(ray.dir, pt.normal) > 0)
@@ -70,7 +50,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj obj)
 
 t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray ray)
 {
-	t_obj obj;
+	t_obj *obj;
 	t_hit_point hit_pt;
 	double min_dist;
 	double t;
@@ -79,8 +59,8 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 	hit_pt.f_valid = false;
 	for (int i = 0; i < object_count; i++)
 	{
-		obj = object_list[i];
-		t = ft_hit_object(obj, ray);
+		obj = &object_list[i];
+		t = ft_hit_object(*obj, ray);
 		if (t > 0)
 		{
 			// skip if object is obstructed
@@ -88,9 +68,6 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 				continue;
 			min_dist = t;
 			hit_pt = ft_get_hitpoint(ray, t, obj);
-			// render selon la normal
-			double brightness = ft_get_shade(hit_pt);
-			hit_pt.color = ft_vec3_scal_prod(obj.color, brightness);
 		}
 	}
 	return (hit_pt);
@@ -104,7 +81,11 @@ int ray_color(t_ray ray)
 
 	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 	if (hit_pt.f_valid == true)
+	{
+		hit_pt.color = ft_get_shade(hit_pt);
+		// hit_pt.color = ft_vec3_create(.1,.1,.1);
 		return get_color_int(hit_pt.color);
+	}
 	return get_color_int(ft_vec3_cap01(ray.dir));
 }
 

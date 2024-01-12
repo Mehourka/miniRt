@@ -6,6 +6,7 @@
 
 enum e_obj_type
 {
+	OBJ_NULL,
 	OBJ_SPHERE,
 	OBJ_PLANE,
 	OBJ_CYLINDER,
@@ -66,8 +67,9 @@ typedef struct ambiant_light
 
 typedef struct light
 {
-	t_pt3	ori;
 	double	ratio;
+	t_color3 color;
+	t_pt3	ori;
 }	t_light;
 
 double ft_hit_object(t_obj obj, t_ray ray);
