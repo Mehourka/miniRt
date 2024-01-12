@@ -93,14 +93,6 @@ t_mat3 ft_mat3_inverse(t_mat3 A)
     t_mat3 inv;
     double det;
 
-	// Calcule du déterminant
-    det = A.mx[0][0] * inv.mx[0][0] + A.mx[0][1] * inv.mx[1][0] + A.mx[0][2] * inv.mx[2][0];
-    if (det == 0)
-    {
-        // La matrice n'est pas inversible
-		return A;
-    }
-
 	// Calcule de la comatrice transposé
     inv.mx[0][0] = A.mx[1][1] * A.mx[2][2] - A.mx[1][2] * A.mx[2][1];
     inv.mx[0][1] = A.mx[0][2] * A.mx[2][1] - A.mx[0][1] * A.mx[2][2];
@@ -112,6 +104,14 @@ t_mat3 ft_mat3_inverse(t_mat3 A)
     inv.mx[2][1] = A.mx[0][1] * A.mx[2][0] - A.mx[0][0] * A.mx[2][1];
     inv.mx[2][2] = A.mx[0][0] * A.mx[1][1] - A.mx[0][1] * A.mx[1][0];
 
+
+	// Calcule du déterminant
+    det = A.mx[0][0] * inv.mx[0][0] + A.mx[0][1] * inv.mx[1][0] + A.mx[0][2] * inv.mx[2][0];
+    if (det == 0)
+    {
+        // La matrice n'est pas inversible
+		return A;
+    }
 	// Division par le determinant
     for (int i = 0; i < 3; i++)
     {
