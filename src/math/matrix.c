@@ -55,7 +55,7 @@ t_vec3 ft_mat3_multiplication(t_mat3 A, t_vec3 u)
 	return (new);
 }
 
-t_ray ft_ray_transform(t_ray ray, t_mat3 A, t_pt3 new_ori)
+t_ray	ft_ray_transform(t_ray ray, t_mat3 A, t_pt3 new_ori)
 {
 	return (
 		ft_ray_create(

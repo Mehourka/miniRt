@@ -128,8 +128,8 @@ void compute_viewport(t_data *data)
 	// determiner les delta
 	vp.u = ft_vec3_scal_prod(u, viewport_w);
 	vp.v = ft_vec3_scal_prod(v, -viewport_h);
-	data->cam.du = ft_vec3_scal_prod(vp.u, 1.0/WIDTH);
-	data->cam.dv = ft_vec3_scal_prod(vp.v, 1.0/HEIGHT);
+	data->cam.du = ft_vec3_scal_prod(vp.u, 1.0/data->width);
+	data->cam.dv = ft_vec3_scal_prod(vp.v, 1.0/data->height);
 
 	// determier upper left
 	// TODO : check le signe de cam.direction
@@ -162,9 +162,9 @@ void	ft_render_image(t_data *data)
 
 	compute_viewport(data);
 
-	for (int j = 0; j < HEIGHT; j++)
+	for (int j = 0; j < data->height; j++)
 	{
-		for (int i = 0; i < WIDTH; i++)
+		for (int i = 0; i < data->width; i++)
 		{
 			t_ray ray = ft_compute_ray(data->cam, j, i);
 			// Render le pixel (i, j)

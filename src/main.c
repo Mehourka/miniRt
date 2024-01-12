@@ -3,18 +3,17 @@
 #include "render.h"
 #include "parsing.h"
 
+
+
 int	main(int argc, char**argv)
 {
-	const int image_width = WIDTH;
-	const int image_height = HEIGHT;
-
 	if (argc == 2)
 	{
 		t_data *data = get_data();
 		parsing(argv[1], data);
 		// Compute object transform matrices
 		ft_compute_obj_matrices(data->obj, data->object_count);
-
+		ft_print_mat3(data->obj[0].inverse_transfrom);
 		// Setup mlx data
 		if (!(data->mlx = mlx_init(data->width, data->height, "miniRt", true)))
 			ft_raise_error(data);
@@ -31,6 +30,10 @@ int	main(int argc, char**argv)
 		mlx_loop_hook(data->mlx, &ft_render_hook, data);
 		// Selection hook
 		mlx_loop_hook(data->mlx, &ft_mouse_select, data);
+		// Resize hook
+		mlx_resize_hook(data->mlx, &ft_resize_hook, data);
+
+
 		// // mlx loop
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);

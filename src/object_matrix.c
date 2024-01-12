@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "objects.h"
+#include "minirt.h"
 
 void ft_compute_obj_matrices(t_obj *object_list, int object_count)
 {
@@ -16,7 +17,9 @@ void ft_compute_obj_matrices(t_obj *object_list, int object_count)
 		if (OBJ_CYLINDER == obj->obj_type)
 		{
 			trans_mx = ft_ortho_normal_mat3(obj->cylinder.dir);
+			ft_print_mat3(trans_mx);
 			inv_mx = ft_mat3_inverse(trans_mx);
+			ft_print_mat3(inv_mx);
 		}
 
 		//TODO: apply same methode for plans and spehres

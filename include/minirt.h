@@ -14,9 +14,6 @@
 # include "matrix.h"
 # include "debug.h"
 
-# define WIDTH	500
-# define HEIGHT 300
-
 typedef struct s_data
 {
 	mlx_t		*mlx;
