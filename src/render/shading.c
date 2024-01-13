@@ -27,7 +27,7 @@ int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light
 {
 	t_ray ray;
 	t_obj *obj;
-	// const double EPS = 0.01;
+	const double EPS = 0.0001;
 
 	// light direction
 	t_vec3 light_dir = ft_vec3_minus(light.ori, hpt.pos);
@@ -41,8 +41,7 @@ int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light
 		obj = obj_list + i;
 		if (obj == hpt.object)
 		{
-			// TODO: Handle shadow of an object on itself (for cylinders)
-			continue;
+			ray.ori = ft_vec3_add(ray.ori, ft_vec3_scal_prod(light_dir, EPS));
 		}
 		if (ft_hit_object(*obj, ray) > 0)
 			return (true);
@@ -78,10 +77,9 @@ t_color3 ft_get_shade(t_hit_point hpt)
 		brightness = 0;
 	else
 	{
-		brightness = ft_vec3_dot(
+		brightness = fmax(0, ft_vec3_dot(
 			ft_vec3_normalize(hpt.normal),
-			ft_vec3_normalize(light_dir)
-		);
+			ft_vec3_normalize(light_dir)));
 	}
 
 
