@@ -29,11 +29,16 @@ int	main(int argc, char**argv)
 		mlx_loop_hook(data->mlx, &ft_render_hook, data);
 		// Selection hook
 		mlx_loop_hook(data->mlx, &ft_mouse_select_object, data);
+		// Light selection
 		mlx_loop_hook(data->mlx, &selec_light, data);
-		// change props
+		// Change props
 		mlx_loop_hook(data->mlx, &ft_obj_prop, data);
+		// Object translation
+		mlx_loop_hook(data->mlx, &ft_obj_trans, data);
 		// Resize hook
 		mlx_resize_hook(data->mlx, &ft_resize_hook, data);
+		// Light translation
+		mlx_loop_hook(data->mlx, &ft_light_trans, data);
 		// instructions
 		instruction();
 
