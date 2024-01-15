@@ -31,7 +31,7 @@ void manual_create_objects(void)
 	cam->vup = ft_vec3_create(0, 1, 0);
 	cam->angle = 70;
 
-	data->light.ori = ft_vec3_create(3, 0, 0);
+	data->light[0].ori = ft_vec3_create(3, 0, 0);
 }
 
 void ft_print_object(t_obj obj)
@@ -122,28 +122,28 @@ void ft_mouse_select(void *param)
 		// ft_print_hitpt(hit_pt);
 
 		// Wordspace / local space
-		if (false && OBJ_CYLINDER == hit_pt.object->obj_type && hit_pt.f_valid)
-		{
-			t_cylinder cy = hit_pt.object->cylinder;
+		// if (false && OBJ_CYLINDER == hit_pt.object->obj_type && hit_pt.f_valid)
+		// {
+			// t_cylinder cy = hit_pt.object->cylinder;
 			// ft_print_vec3( hit_pt.pos);
-			t_pt3 lspace_pos = ft_mat3_multiplication(cy.inverse_transfrom, hit_pt.pos);
-			t_pt3 wspace_pos = ft_mat3_multiplication(cy.transform_matrix, lspace_pos);
+			// t_pt3 lspace_pos = ft_mat3_multiplication(cy.inverse_transfrom, hit_pt.pos);
+			// t_pt3 wspace_pos = ft_mat3_multiplication(cy.transform_matrix, lspace_pos);
 
 			// Reference direction
-			printf("Local space dir : ");
-			ft_print_vec3(ft_mat3_multiplication(cy.inverse_transfrom, cy.dir));
-			printf("Word space dir : ");
-			ft_print_vec3(cy.dir);
-			printf("\n");
+			// printf("Local space dir : ");
+			// ft_print_vec3(ft_mat3_multiplication(cy.inverse_transfrom, cy.dir));
+			// printf("Word space dir : ");
+			// ft_print_vec3(cy.dir);
+			// printf("\n");
 
-			t_vec3 lspace_normal = ft_get_obj_normal(*hit_pt.object, wspace_pos);
-		}
+			// t_vec3 lspace_normal = ft_get_obj_normal(*hit_pt.object, wspace_pos);
+		// }
 
 
 		// Color
 		if (true && hit_pt.f_valid)
 		{
-			t_light light = data->light;
+			t_light light = data->light[0];
 			t_vec3 light_dir = ft_vec3_minus(light.ori, hit_pt.pos);
 			ray = ft_ray_create(hit_pt.pos, light_dir);
 				for (int i = 0; i < data->object_count; i++)

@@ -5,9 +5,9 @@ void draw_gradient()
 	t_data *data = get_data();
 	mlx_image_t *image = data->img;
 
-	for (int j = 0; j < image->height; j++)
+	for (uint32_t j = 0; j < image->height; j++)
 	{
-		for (int i = 0; i < image->width; i++)
+		for (uint32_t i = 0; i < image->width; i++)
 		{
 			float c1 = 1.0 * i / image->width;
 			float c2 = 1.0 * j / image->height;
@@ -76,7 +76,6 @@ t_hit_point ft_get_closest_hitpoint(t_obj *object_list, int object_count, t_ray 
 int ray_color(t_ray ray)
 {
 	t_data *data = get_data();
-	t_color3 color;
 	t_hit_point hit_pt;
 
 	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
@@ -98,13 +97,11 @@ void compute_viewport(t_data *data)
 	// Trouver la hauteur/largeur du viewport
 	double viewport_h = viewport_w * (1 / data->aspect_ratio);
 
-	t_vec3 w = ft_vec3_normalize(pcam->dir);
+	t_vec3 w =pcam->dir;
 	t_vec3 u = ft_vec3_normalize(
 		ft_vec3_cross_prod(w, pcam->vup)
 	);
-	t_vec3 v = ft_vec3_normalize(
-		ft_vec3_cross_prod(u, w)
-	);
+	t_vec3 v = ft_vec3_cross_prod(u, w);
 
 	// determiner les delta
 	vp.u = ft_vec3_scal_prod(u, viewport_w);
@@ -132,8 +129,7 @@ t_ray ft_compute_ray(t_cam cam, int row, int col)
 			ft_vec3_scal_prod(cam.du, col),
 			ft_vec3_scal_prod(cam.dv, row)),
 		cam.pixel00_pos);
-	t_vec3 ray_dir = ft_vec3_normalize(
-		ft_vec3_minus(pixel_pos, cam.ori));
+	t_vec3 ray_dir = ft_vec3_minus(pixel_pos, cam.ori);
 	return (ft_ray_create(cam.ori, ray_dir));
 }
 

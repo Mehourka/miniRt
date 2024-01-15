@@ -19,6 +19,8 @@ void	create_object(t_data *data, t_parse *parse)
 		parse_sphere(data, parse);
 	else if (ft_strncmp(parse->token[0], "pl", 3) == 0)
 		parse_plane(data, parse);
+	else if (ft_strncmp(parse->token[0], "co", 3) == 0)
+		parse_cone(data, parse);
 	else
 	{
 		printf("Error\n");
@@ -43,6 +45,7 @@ void	parse_init(t_parse *parse, char *file)
 	parse->L = 0;
 	parse->C = 0;
 	parse->i = 0;
+	parse->l = 0;
 	parse->fd_rt = open(file, O_RDONLY);
 	if (parse->fd_rt < 0)
 	{
@@ -66,6 +69,7 @@ void	parsing(char *file, t_data *data)
 {
 	t_parse	parse;
 
+	(void) data;
 	dot_rt(file);
 	parse_init(&parse, file);
 	tokenization(&parse);

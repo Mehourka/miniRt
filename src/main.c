@@ -28,7 +28,9 @@ int	main(int argc, char**argv)
 		// Rendering Hook
 		mlx_loop_hook(data->mlx, &ft_render_hook, data);
 		// Selection hook
-		mlx_loop_hook(data->mlx, &ft_mouse_select, data);
+		mlx_loop_hook(data->mlx, &ft_mouse_select_object, data);
+		// change props
+		mlx_loop_hook(data->mlx, &ft_obj_prop, data);
 		// Resize hook
 		mlx_resize_hook(data->mlx, &ft_resize_hook, data);
 

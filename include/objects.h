@@ -10,6 +10,9 @@ enum e_obj_type
 	OBJ_SPHERE,
 	OBJ_PLANE,
 	OBJ_CYLINDER,
+	OBJ_CONE,
+	ENV_CAM,
+	ENV_LIGHT
 };
 
 typedef struct s_cylinder
@@ -41,6 +44,15 @@ typedef struct s_plane
 	t_vec3	dir;
 }	t_plane;
 
+typedef struct s_cone
+{
+	t_pt3 ori;
+	t_color3 color;
+	t_vec3	dir;
+	double	h;
+	double	angle;
+}	t_cone;
+
 typedef struct s_obj
 {
 	int		obj_type;
@@ -49,6 +61,7 @@ typedef struct s_obj
 		t_sphere	sphere;
 		t_plane		plane;
 		t_cylinder	cylinder;
+		t_cone		cone;
 		struct
 		{
 			t_vec3 ori;

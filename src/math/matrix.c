@@ -38,9 +38,9 @@ t_mat3 ft_mat3_from_vec3(t_vec3 a, t_vec3 b, t_vec3 c)
 
 t_mat3 ft_mat3_identity(void)
 {
-	const t_vec3 a = {1, 0, 0};
-	const t_vec3 b = {0, 1, 0};
-	const t_vec3 c = {0, 0, 1};
+	const t_vec3 a = {{1, 0, 0}};
+	const t_vec3 b = {{0, 1, 0}};
+	const t_vec3 c = {{0, 0, 1}};
 
 	return ft_mat3_from_vec3(a, b, c);
 }
@@ -73,14 +73,14 @@ t_mat3 ft_ortho_normal_mat3(t_vec3 v)
 	t_vec3 u;
 	t_vec3 w;
 
-	// We assume v is the y unit vector in this new ortho basis
+	// we assume v is the y unit vector in this new ortho basis
 
 	// quick check for a non parallel vector
 	v = ft_vec3_normalize(v);
 	if (fabs(v.x) < fabs(v.y))
-		u = ft_vec3_cross_prod((t_vec3){1, 0, 0}, v);
+		u = ft_vec3_cross_prod((t_vec3){{ 1, 0, 0 }}, v);
 	else
-		u = ft_vec3_cross_prod((t_vec3){0, 1, 0}, v);
+		u = ft_vec3_cross_prod((t_vec3){{0, 1, 0}}, v);
 	w = ft_vec3_cross_prod(u, v);
 	return (ft_mat3_from_vec3(u,v,w));
 }
@@ -121,6 +121,14 @@ t_mat3 ft_mat3_inverse(t_mat3 A)
     inv.mx[2][1] = A.mx[0][1] * A.mx[2][0] - A.mx[0][0] * A.mx[2][1];
     inv.mx[2][2] = A.mx[0][0] * A.mx[1][1] - A.mx[0][1] * A.mx[1][0];
 
+
+	// Calcule du déterminant
+    det = A.mx[0][0] * inv.mx[0][0] + A.mx[0][1] * inv.mx[1][0] + A.mx[0][2] * inv.mx[2][0];
+    if (det == 0)
+    {
+        // La matrice n'est pas inversible
+		return A;
+    }
 	// Division par le determinant
     for (int i = 0; i < 3; i++)
     {

@@ -25,10 +25,9 @@ t_color3 ft_add_color(t_color3 col1, t_color3 col2, double intensity)
 */
 int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light light)
 {
-	t_data *data = get_data();
 	t_ray ray;
 	t_obj *obj;
-	const double EPS = 0.01;
+	const double EPS = 0.0001;
 
 	// light direction
 	t_vec3 light_dir = ft_vec3_minus(light.ori, hpt.pos);
@@ -42,10 +41,9 @@ int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light
 		obj = obj_list + i;
 		if (obj == hpt.object)
 		{
-			// TODO: Handle shadow of an object on itself (for cylinders)
-			continue;
+			ray.ori = ft_vec3_add(ray.ori, ft_vec3_scal_prod(light_dir, EPS));
 		}
-		if (ft_hit_object(*obj, ray) > EPS)
+		if (ft_hit_object(*obj, ray) > 0)
 			return (true);
 	}
 	return (false);
@@ -55,7 +53,7 @@ t_color3 ft_get_shade(t_hit_point hpt)
 {
 	t_data *data = get_data();
 	t_ambiant amb = data->ambiant;
-	t_light light = data->light;
+	t_light light = data->light[0];
 	double brightness;
 	t_color3 object_color;
 	t_color3 ambiant_color;
@@ -66,11 +64,11 @@ t_color3 ft_get_shade(t_hit_point hpt)
 	light.color = ft_vec3_create(1,1,1);
 
 	// no normal no change ...
-	if (0 == ft_vec3_mod(hpt.normal))
-		return (final_color);
+	//if (0 == ft_vec3_mod(hpt.normal))    //TODO cette variable n'est pas initialize
+		//return (final_color);
 
 	t_vec3 light_dir = ft_vec3_minus(
-		data->light.ori,
+		data->light[0].ori,
 		hpt.pos
 	);
 
@@ -79,10 +77,9 @@ t_color3 ft_get_shade(t_hit_point hpt)
 		brightness = 0;
 	else
 	{
-		brightness = ft_vec3_dot(
+		brightness = fmax(0, ft_vec3_dot(
 			ft_vec3_normalize(hpt.normal),
-			ft_vec3_normalize(light_dir)
-		);
+			ft_vec3_normalize(light_dir)));
 	}
 
 
