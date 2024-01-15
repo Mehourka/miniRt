@@ -23,4 +23,16 @@ void ft_raise_error(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
+void instruction(void)
+{
+	t_data * data = get_data();
+	mlx_put_string(data->mlx, "ESC : Quit", 5, 5);
+	mlx_put_string(data->mlx, "N/M : decrease / increase height", 5, 20);
+	mlx_put_string(data->mlx, "7/9 : Down/Up", 5, 35);
+	mlx_put_string(data->mlx, "4/6 : Left/Right", 5, 50);
+	mlx_put_string(data->mlx, "8/5 : Forward/Backward", 5, 65);
+	mlx_put_string(data->mlx, "V/B : decrease / increase radius", 5, 80);
+	mlx_put_string(data->mlx, "ARROWS : Cam Rotation", 5, 95);
+}
+
 

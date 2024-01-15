@@ -17,12 +17,8 @@
 typedef struct s_selected
 {
 	int		type;
-	union
-	{
-		t_obj	*obj;
-		t_cam	*cam;
-		t_light	*light;
-	};
+	t_obj	*obj;
+	t_light	*light;
 }	t_selected;
 
 typedef struct s_data
@@ -33,11 +29,12 @@ typedef struct s_data
 	t_cam		cam;
 	t_light		light[5];
 	t_ambiant	ambiant;
+	t_selected	selec;
 	double		aspect_ratio;
 	int			object_count;
 	int			height;
 	int			width;
-	t_selected	selec;
+	int		L;
 } t_data;
 
 

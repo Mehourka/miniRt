@@ -74,6 +74,7 @@ void	parsing(char *file, t_data *data)
 	parse_init(&parse, file);
 	tokenization(&parse);
 	missing_env(parse);
+	data->L = parse.L;
 	/*printf("cam\n");
 	ft_print_vec3(data->cam.dir);
 	ft_print_vec3(data->cam.ori);

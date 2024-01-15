@@ -1,6 +1,58 @@
 #include "minirt.h"
 
+void	selec_light(void *param)
+{
+	t_data *data;
+
+	data = (t_data *)param;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_1))
+	{
+		data->selec.light = &data->light[0];
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_2))
+	{
+		if(data->L >= 2)
+			data->selec.light = &data->light[0];
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_3))
+	{
+		if(data->L >= 3)
+			data->selec.light = &data->light[0];
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_4))
+	{
+		if(data->L >= 4)
+			data->selec.light = &data->light[0];
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_5))
+	{
+		if(data->L >= 5)
+			data->selec.light = &data->light[0];
+	}
+
+}
+
 void	ft_obj_prop(void *param)
+{
+	t_data *data;
+
+	data = (t_data *)param;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		data->selec.obj->ori.x += 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		data->selec.obj->ori.x -= 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		data->selec.obj->ori.y += 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		data->selec.obj->ori.y -= 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_Q))
+		data->selec.obj->ori.z += 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_E))
+		data->selec.obj->ori.z -= 0.1;
+}
+
+
+void	ft_obj_trans(void *param)
 {
 	t_data *data;
 
@@ -57,6 +109,7 @@ void	ft_obj_prop(void *param)
 	}
 }
 
+
 t_vec3 ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 {
 	t_vec3 new_dir;
@@ -70,6 +123,8 @@ t_vec3 ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 
 	return (new_dir);
 }
+
+
 
 void ft_nav_cam_rotation(mlx_t *mlx, t_cam *cam)
 {
@@ -182,11 +237,7 @@ void ft_resize_hook(int32_t width, int32_t height, void* param)
 		ft_raise_error(data);
 	ft_memset(data->img->pixels, 255, sizeof(int32_t) * data->height * data->width);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	mlx_put_string(data->mlx, "ESC : Quit", 5, 5);
-	mlx_put_string(data->mlx, "N/M : decrease / increase height", 5, 35);
-	mlx_put_string(data->mlx, "8456 : Cam translation", 5, 50);
-	mlx_put_string(data->mlx, "V/B : decrease / increase radius", 5, 20);
-	mlx_put_string(data->mlx, "ARROWS : Cam Rotation", 5, 65);
+	instruction();
 }
 
 void ft_rotate_objects(t_obj *object_list, int object_count)
