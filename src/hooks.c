@@ -182,6 +182,11 @@ void ft_resize_hook(int32_t width, int32_t height, void* param)
 		ft_raise_error(data);
 	ft_memset(data->img->pixels, 255, sizeof(int32_t) * data->height * data->width);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	mlx_put_string(data->mlx, "ESC : Quit", 5, 5);
+	mlx_put_string(data->mlx, "N/M : decrease / increase height", 5, 35);
+	mlx_put_string(data->mlx, "8456 : Cam translation", 5, 50);
+	mlx_put_string(data->mlx, "V/B : decrease / increase radius", 5, 20);
+	mlx_put_string(data->mlx, "ARROWS : Cam Rotation", 5, 65);
 }
 
 void ft_rotate_objects(t_obj *object_list, int object_count)

@@ -33,6 +33,13 @@ int	main(int argc, char**argv)
 		mlx_loop_hook(data->mlx, &ft_obj_prop, data);
 		// Resize hook
 		mlx_resize_hook(data->mlx, &ft_resize_hook, data);
+		// instructions
+		mlx_put_string(data->mlx, "ESC : Quit", 5, 5);
+		mlx_put_string(data->mlx, "N/M : decrease / increase height", 5, 35);
+		mlx_put_string(data->mlx, "8456 : Cam translation", 5, 50);
+		mlx_put_string(data->mlx, "V/B : decrease / increase radius", 5, 20);
+		mlx_put_string(data->mlx, "ARROWS : Cam Rotation", 5, 65);
+
 
 
 		// // mlx loop
