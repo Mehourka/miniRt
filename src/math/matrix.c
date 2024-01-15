@@ -98,11 +98,11 @@ t_mat3 ft_mat3_inverse(t_mat3 A)
 	// Calcule du déterminant
 	
     det = A.mx[0][0] * A.mx[1][1] * A.mx[2][2] +
-		A.mx[0][1] * A.mx[1][2] * A.mx[2][0] +
-		A.mx[0][2] * A.mx[1][0] * A.mx[2][1] -
-		A.mx[0][2] * A.mx[1][1] * A.mx[2][0] -
-		A.mx[0][0] * A.mx[1][2] * A.mx[2][1] -
-		A.mx[0][1] * A.mx[1][0] * A.mx[2][2];
+			A.mx[0][1] * A.mx[1][2] * A.mx[2][0] +
+			A.mx[0][2] * A.mx[1][0] * A.mx[2][1] -
+			A.mx[0][2] * A.mx[1][1] * A.mx[2][0] -
+			A.mx[0][0] * A.mx[1][2] * A.mx[2][1] -
+			A.mx[0][1] * A.mx[1][0] * A.mx[2][2];
 
     if (det == 0)
     {

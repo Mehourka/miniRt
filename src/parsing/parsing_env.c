@@ -26,6 +26,7 @@ void	parse_light(t_data *data, t_parse *parse)
 	}
 	ft_parse_orig_dir(&data->light.ori, parse->token[1], 'o');
 	parse_ratio(&data->light.ratio, parse->token[2]);
+	ft_parse_rgb(&data->light.color, parse->token[3]);
 }
 
 void	parse_camera(t_data *data, t_parse *parse)
