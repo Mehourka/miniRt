@@ -35,7 +35,7 @@ int	main(int argc, char**argv)
 		// Light translation
 		mlx_loop_hook(data->mlx, &ft_light_trans, data);
 		// Rotation of cylinder
-		mlx_loop_hook(data->mlx, &ft_nav_obj_rotation, data);
+		mlx_loop_hook(data->mlx, &ft_obj_rotation, data);
 		// instructions
 		instruction();
 		// // mlx loop

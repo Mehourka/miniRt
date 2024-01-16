@@ -41,6 +41,9 @@ LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)
 SRCS	:=	\
 			main.c								\
 			hooks.c								\
+			hooks_light.c						\
+			hooks_objects.c						\
+			hooks_objects2.c					\
 			debug.c								\
 			object_matrix.c						\
 			math/intersect.c					\
