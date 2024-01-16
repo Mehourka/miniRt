@@ -44,6 +44,7 @@ SRCS	:=	\
 			hooks_light.c						\
 			hooks_objects.c						\
 			hooks_objects2.c					\
+			hooks_cam.c						\
 			debug.c								\
 			object_matrix.c						\
 			math/intersect.c					\

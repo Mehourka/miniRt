@@ -4,9 +4,11 @@
 
 int	main(int argc, char**argv)
 {
+	t_data *data;
+
 	if (argc == 2)
 	{
-		t_data *data = get_data();
+		data = get_data();
 		parsing(argv[1], data);
 		// Compute object transform matrices
 		ft_compute_obj_matrices(data->obj, data->object_count);

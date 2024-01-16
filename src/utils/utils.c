@@ -27,6 +27,7 @@ void	instruction(void)
 {
 	t_data	*data;
 
+	//change instruction
 	data = get_data();
 	mlx_put_string(data->mlx, "ESC : Quit", 5, 5);
 	mlx_put_string(data->mlx, "7/9 (cam): Down/Up", 5, 20);
@@ -41,7 +42,7 @@ void	instruction(void)
 	mlx_put_string(data->mlx, "I/K (light): Translation in x", 5, 155);
 	mlx_put_string(data->mlx, "J/L (light): Translation in y", 5, 170);
 	mlx_put_string(data->mlx, "O/P (light): Translation in z", 5, 185);
-	mlx_put_string(data->mlx, "F/H (object): Rotation in x", 5, 110);
-	mlx_put_string(data->mlx, "T/G (object): Rotation in y", 5, 125);
-	mlx_put_string(data->mlx, "R/Y (object): Rotation in z", 5, 140);
+	mlx_put_string(data->mlx, "F/H (object): Rotation in x", 5, 200);
+	mlx_put_string(data->mlx, "T/G (object): Rotation in y", 5, 215);
+	mlx_put_string(data->mlx, "R/Y (object): Rotation in z", 5, 230);
 }

@@ -8,11 +8,11 @@ typedef struct s_parse
 	int		L;
 	int		C;
 	int		A;
-	int 	fd_rt;
+	int		fd_rt;
 	char	**token;
 	int		nb_token;
 	int		count;
-	int 	i;
+	int		i;
 	int		l;
 }	t_parse;
 
