@@ -11,5 +11,6 @@ void	selec_light(void *param);
 void	instruction(void);
 void	ft_obj_trans(void *param);
 void	ft_light_trans(void *param);
+void ft_nav_obj_rotation(void *param);
 
 #endif

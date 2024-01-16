@@ -1,5 +1,6 @@
 #include "minirt.h"
 
+
 void	selec_light(void *param)
 {
 	t_data *data;
@@ -140,6 +141,20 @@ t_vec3 ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 	return (new_dir);
 }
 
+t_vec3 ft_constrain_vertical_rot2(t_vec3 dir, t_vec3 axis, double theta)
+{
+	t_vec3 new_dir;
+	const double THRESH = 0.99;
+	double likeness;
+	t_data *data = get_data();
+
+	new_dir = ft_rodrigues_rotation(dir, axis, theta);
+	likeness = fabs(ft_vec3_dot(new_dir, data->cam.vup));
+	if (likeness > THRESH)
+		return (data->cam.dir);
+
+	return (new_dir);
+}
 
 
 void ft_nav_cam_rotation(mlx_t *mlx, t_cam *cam)
@@ -158,7 +173,6 @@ void ft_nav_cam_rotation(mlx_t *mlx, t_cam *cam)
 		axis = cam->vup;
 		cam->dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	}
-
 	axis = ft_vec3_cross_prod(cam->dir, cam->vup);
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
@@ -318,5 +332,64 @@ void ft_mouse_select_object(void *param)
 			data->selec.obj = hit_pt.object;
 		}
 		printf("\n\n");
+	}
+}
+void ft_nav_obj_rotation(void *param)
+{
+	double theta;
+	t_data *data;
+
+	data = (t_data *)param;
+	theta = ft_deg_to_rad(5);
+	t_vec3 x_axis = ft_vec3_create(1, 0, 0);
+	t_vec3 y_axis = ft_vec3_create(0, 1, 0);
+	t_vec3 z_axis = ft_vec3_create(0, 0, 1);
+	if (data->selec.obj->obj_type == OBJ_CONE)
+	{
+		if (mlx_is_key_down(data->mlx, MLX_KEY_F))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, x_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_H))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, x_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_T))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, y_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_G))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, y_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, z_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
+			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, z_axis, theta);
+		ft_print_vec3(data->selec.obj->cone.dir);
+	}
+	else if (data->selec.obj->obj_type == OBJ_CYLINDER)
+	{
+		if (mlx_is_key_down(data->mlx, MLX_KEY_F))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, x_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_H))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, x_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_T))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, y_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_G))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, y_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, z_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
+			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, z_axis, theta);
+		ft_print_vec3(data->selec.obj->cylinder.dir);
+	}
+	else if (data->selec.obj->obj_type == OBJ_PLANE)
+	{
+		if (mlx_is_key_down(data->mlx, MLX_KEY_F))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, x_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_H))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, x_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_T))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, y_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_G))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, y_axis, theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, z_axis, -theta);
+		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
+			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, z_axis, theta);
+		ft_print_vec3(data->selec.obj->cylinder.dir);
 	}
 }

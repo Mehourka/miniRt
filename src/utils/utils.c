@@ -39,6 +39,11 @@ void instruction(void)
 	mlx_put_string(data->mlx, "I/K (light): Translation in x", 5, 155);
 	mlx_put_string(data->mlx, "J/L (light): Translation in y", 5, 170);
 	mlx_put_string(data->mlx, "O/P (light): Translation in z", 5, 185);
+	mlx_put_string(data->mlx, "F/H (object): Rotation in x", 5, 110);
+	mlx_put_string(data->mlx, "T/G (object): Rotation in y", 5, 125);
+	mlx_put_string(data->mlx, "R/Y (object): Rotation in z", 5, 140);
+
+
 }
 
 
