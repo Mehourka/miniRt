@@ -1,4 +1,5 @@
 #include "../include/minirt.h"
+#include "../include/parsing.h"
 
 // Ascii to double
 
@@ -42,10 +43,7 @@ double	ft_atod(char *str)
 	}
 	if (decimal(str) != 0)
 		nb = nb / pow(10, decimal(str));
-	if(str[i])
-	{
-		printf("Error with atod");
-		exit(1);
-	}
+	if (str[i])
+		ft_error_message("Error with atod");
 	return (multiple * nb);
 }

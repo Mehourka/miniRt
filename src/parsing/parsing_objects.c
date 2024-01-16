@@ -30,11 +30,12 @@ void	parse_plane(t_data *data, t_parse *parse)
 		exit(1);
 	}
 	if (parse->i > 99)
-			ft_error_message("A maximum of 100 objects is allowed");
+		ft_error_message("A maximum of 100 objects is allowed");
 	data->obj[parse->i].obj_type = OBJ_PLANE;
 	ft_parse_orig_dir(&data->obj[parse->i].plane.ori, parse->token[1], 'o');
 	ft_parse_orig_dir(&data->obj[parse->i].plane.dir, parse->token[2], 'd');
-	data->obj[parse->i].plane.dir = ft_vec3_normalize(data->obj[parse->i].plane.dir);
+	data->obj[parse->i].plane.dir
+		= ft_vec3_normalize(data->obj[parse->i].plane.dir);
 	ft_parse_rgb(&data->obj[parse->i].plane.color, parse->token[3]);
 	data->object_count++;
 	parse->i++;
@@ -53,7 +54,8 @@ void	parse_cylinder(t_data *data, t_parse *parse)
 	data->obj[parse->i].obj_type = OBJ_CYLINDER;
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.ori, parse->token[1], 'o');
 	ft_parse_orig_dir(&data->obj[parse->i].cylinder.dir, parse->token[2], 'd');
-	data->obj[parse->i].cylinder.dir = ft_vec3_normalize(data->obj[parse->i].cylinder.dir);
+	data->obj[parse->i].cylinder.dir
+		= ft_vec3_normalize(data->obj[parse->i].cylinder.dir);
 	parse_length(&data->obj[parse->i].cylinder.r, parse->token[3]);
 	data->obj[parse->i].cylinder.r /= 2;
 	parse_length(&data->obj[parse->i].cylinder.longueur, parse->token[4]);
@@ -62,7 +64,7 @@ void	parse_cylinder(t_data *data, t_parse *parse)
 	parse->i++;
 }
 
-void	parse_cone(t_data *data, t_parse *parse)  // co   origine   direction     h      angle        couleur     
+void	parse_cone(t_data *data, t_parse *parse)
 {
 	if (parse->count != 6)
 	{
@@ -75,10 +77,12 @@ void	parse_cone(t_data *data, t_parse *parse)  // co   origine   direction     h
 	data->obj[parse->i].obj_type = OBJ_CONE;
 	ft_parse_orig_dir(&data->obj[parse->i].cone.ori, parse->token[1], 'o');
 	ft_parse_orig_dir(&data->obj[parse->i].cone.dir, parse->token[2], 'd');
-	data->obj[parse->i].cone.dir = ft_vec3_normalize(data->obj[parse->i].cone.dir);
+	data->obj[parse->i].cone.dir
+		= ft_vec3_normalize(data->obj[parse->i].cone.dir);
 	parse_length(&data->obj[parse->i].cone.h, parse->token[3]);
 	parse_length(&data->obj[parse->i].cone.angle, parse->token[4]);
-	if (data->obj[parse->i].cone.angle >= 180 && data->obj[parse->i].cone.angle <= 0)
+	if (data->obj[parse->i].cone.angle >= 180
+		&& data->obj[parse->i].cone.angle <= 0)
 		ft_error_message("The angle of the cone is out of range : ]0, 180[");
 	ft_parse_rgb(&data->obj[parse->i].cone.color, parse->token[5]);
 	data->object_count++;

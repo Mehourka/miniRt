@@ -47,6 +47,8 @@ SRCS	:=	\
 			math/obj_normals.c					\
 			math/matrix.c						\
 			math/vec_operations.c				\
+			math/vec_operations2.c				\
+			math/vec_operations3.c				\
 			math/vec_rotation.c					\
 			math/math_utils.c					\
 			parsing/parsing_attribute_utils.c	\

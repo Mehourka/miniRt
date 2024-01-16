@@ -38,7 +38,6 @@ void	analyse_line(t_parse *parse, char *line, int *i)
 		parse->token = NULL;
 	}
 	free(new_line);
-
 }
 
 void	tokenization(t_parse *parse)

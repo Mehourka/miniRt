@@ -72,7 +72,6 @@ t_color3 ft_get_shade(t_hit_point hpt)
 		hpt.pos
 	);
 
-
 	if (ft_is_obstructed(data->obj, data->object_count, hpt, light) == true)
 		brightness = 0;
 	else
@@ -81,7 +80,6 @@ t_color3 ft_get_shade(t_hit_point hpt)
 			ft_vec3_normalize(hpt.normal),
 			ft_vec3_normalize(light_dir)));
 	}
-
 
 	// Ambiant light color
 	object_color = hpt.object->color;

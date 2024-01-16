@@ -76,9 +76,9 @@ void	dot_rt(char *file)
 
 	new = ft_strrchr(file, '.');
 	if (new == NULL)
-			ft_error_message("Enter a valid .rt file");
+		ft_error_message("Enter a valid .rt file");
 	if (ft_strncmp(new, ".rt", 4) != 0)
-			ft_error_message("Enter a valid .rt file");
+		ft_error_message("Enter a valid .rt file");
 	else
 	{
 		fd = open(file, O_RDONLY);
