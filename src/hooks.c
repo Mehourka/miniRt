@@ -296,7 +296,7 @@ void ft_render_hook(void *param)
 	t_data *data;
 
 	data = param;
-	ft_rotate_objects(data->obj, data->object_count);
+	// ft_rotate_objects(data->obj, data->object_count);
 	ft_render_image(data);
 }
 
@@ -320,7 +320,7 @@ void ft_mouse_select_object(void *param)
 		// Compute the hit point in that pixel
 		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 		if (hit_pt.f_valid == true)
-		{		
+		{
 			if(hit_pt.object->obj_type == 1)
 				printf("sphere selected");
 			else if(hit_pt.object->obj_type == 2)
@@ -375,6 +375,7 @@ void ft_nav_obj_rotation(void *param)
 		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, z_axis, theta);
 		ft_print_vec3(data->selec.obj->cylinder.dir);
+		ft_compute_object_matrix(data->selec.obj);
 	}
 	else if (data->selec.obj->obj_type == OBJ_PLANE)
 	{
