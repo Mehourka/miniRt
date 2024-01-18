@@ -46,13 +46,12 @@ double	ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 	double	c;
 	double	t;
 	double	h;
-	double discriminant;
 
 	a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
 	b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
 	c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
-	discriminant = b * b - (4 * a * c);
-	if (discriminant <= 0)
+	c = b * b - (4 * a * c);
+	if (c <= 0)
 		return (-1);
 	t = (-b - sqrt(c)) / (2 * a);
 	h = ft_ray_project(r, t).y;
