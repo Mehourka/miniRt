@@ -19,6 +19,7 @@ void	parse_sphere(t_data *data, t_parse *parse)
 	ft_parse_rgb(&data->obj[parse->i].sphere.color, parse->token[3]);
 	data->object_count++;
 	parse->i++;
+	free(parse->token[0]);
 }
 
 void	parse_plane(t_data *data, t_parse *parse)
@@ -39,6 +40,7 @@ void	parse_plane(t_data *data, t_parse *parse)
 	ft_parse_rgb(&data->obj[parse->i].plane.color, parse->token[3]);
 	data->object_count++;
 	parse->i++;
+	free(parse->token[0]);
 }
 
 void	parse_cylinder(t_data *data, t_parse *parse)
@@ -62,6 +64,7 @@ void	parse_cylinder(t_data *data, t_parse *parse)
 	ft_parse_rgb(&data->obj[parse->i].cylinder.color, parse->token[5]);
 	data->object_count++;
 	parse->i++;
+	free(parse->token[0]);
 }
 
 void	parse_cone(t_data *data, t_parse *parse)
@@ -87,4 +90,5 @@ void	parse_cone(t_data *data, t_parse *parse)
 	ft_parse_rgb(&data->obj[parse->i].cone.color, parse->token[5]);
 	data->object_count++;
 	parse->i++;
+	free(parse->token[0]);
 }

@@ -39,16 +39,14 @@ void	ft_obj_trans(void *param)
 void	ft_mouse_select_object(void *param)
 {
 	t_data		*data;
-	mlx_t		*mlx;
 	t_ray		ray;
 	int32_t		mousepos[2];
 	t_hit_point	hit_pt;
 
 	data = (t_data *)param;
-	mlx = data->mlx;
-	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
+	if (mlx_is_mouse_down(data->mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
-		mlx_get_mouse_pos(mlx, mousepos, mousepos + 1);
+		mlx_get_mouse_pos(data->mlx, mousepos, mousepos + 1);
 		ray = ft_compute_ray(data->cam, mousepos[1], mousepos[0]);
 		hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 		if (hit_pt.f_valid == true)
@@ -78,7 +76,6 @@ void	ft_rotation2(t_vec3 *dir, t_data *data, double theta)
 		*dir = ft_rodrigues_rotation(*dir, z_axis, theta);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 		*dir = ft_rodrigues_rotation(*dir, z_axis, theta);
-	ft_print_vec3(*dir);
 }
 
 void	ft_obj_rotation(void *param)

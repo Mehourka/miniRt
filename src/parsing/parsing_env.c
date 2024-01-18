@@ -13,6 +13,7 @@ void	parse_ambiant_light(t_data *data, t_parse *parse)
 	}
 	parse_ratio(&data->ambiant.ratio, parse->token[1]);
 	ft_parse_rgb(&data->ambiant.color, parse->token[2]);
+	free(parse->token[0]);
 }
 
 void	parse_light(t_data *data, t_parse *parse)
@@ -28,6 +29,7 @@ void	parse_light(t_data *data, t_parse *parse)
 	parse_ratio(&data->light[parse->l].ratio, parse->token[2]);
 	ft_parse_rgb(&data->light[parse->l].color, parse->token[3]);
 	parse->l++;
+	free(parse->token[0]);
 }
 
 void	parse_camera(t_data *data, t_parse *parse)
@@ -50,4 +52,5 @@ void	parse_camera(t_data *data, t_parse *parse)
 	else if (data->cam.angle > 180 || data->cam.angle < 0)
 		ft_error_message("Out of range : Cam angle must be between [0, 180]");
 	data->cam.vup = ft_vec3_create(0, 1, 0);
+	free(parse->token[0]);
 }

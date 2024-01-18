@@ -16,7 +16,7 @@ void	change_radius(t_data *data)
 			data->selec.obj->cylinder.r += 0.1;
 		else if (data->selec.obj->obj_type == OBJ_CONE)
 		{
-			if (data->selec.obj->cone.angle > 179.8)
+			if (data->selec.obj->cone.angle < 179.8)
 				data->selec.obj->cone.angle += 0.1;
 		}
 	}
