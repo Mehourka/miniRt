@@ -11,7 +11,6 @@ typedef union u_mat3
 		t_vec3	j;
 		t_vec3	k;
 	};
-	
 	double	mx[3][3];
 }	t_mat3;
 

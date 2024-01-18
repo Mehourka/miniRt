@@ -5,5 +5,5 @@
 */
 double	ft_cap01(double f)
 {
-	return fmin(1, (fmax(0, f)));
+	return (fmin(1, (fmax(0, f))));
 }

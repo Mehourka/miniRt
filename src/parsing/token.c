@@ -30,7 +30,7 @@ void	analyse_line(t_parse *parse, char *line, int *i)
 	{
 		parse_token(line, parse);
 		create_object(data, parse);
-		if(parse->token)
+		if (parse->token)
 			free(parse->token);
 		parse->token = NULL;
 		(*i)++;

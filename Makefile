@@ -50,6 +50,7 @@ SRCS	:=	\
 			math/intersect.c					\
 			math/obj_normals.c					\
 			math/matrix.c						\
+			math/inverse_matrix.c				\
 			math/vec_operations.c				\
 			math/vec_operations2.c				\
 			math/vec_operations3.c				\

@@ -34,7 +34,7 @@ typedef struct s_data
 	int			object_count;
 	int			height;
 	int			width;
-	int			L;
+	int			l;
 }	t_data;
 
 t_data	*get_data(void);

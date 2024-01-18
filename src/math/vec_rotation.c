@@ -22,9 +22,7 @@ t_vec3	ft_rodrigues_rotation(t_vec3 v, t_vec3 axis, double theta)
 	t_vec3	t2;
 	t_vec3	t3;
 
-	// normalize axis
 	axis = ft_vec3_normalize(axis);
-	// comput the three terms
 	t1 = ft_vec3_scal_prod(v, cos(theta));
 	t2 = ft_vec3_scal_prod(axis,
 			ft_vec3_dot(v, axis) * (1 - cos(theta)));

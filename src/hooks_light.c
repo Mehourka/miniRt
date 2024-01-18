@@ -9,22 +9,22 @@ void	selec_light(void *param)
 		data->selec.light = &data->light[0];
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_2))
 	{
-		if (data->L >= 2)
+		if (data->l >= 2)
 			data->selec.light = &data->light[0];
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_3))
 	{
-		if (data->L >= 3)
+		if (data->l >= 3)
 			data->selec.light = &data->light[0];
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_4))
 	{
-		if (data->L >= 4)
+		if (data->l >= 4)
 			data->selec.light = &data->light[0];
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_5))
 	{
-		if (data->L >= 5)
+		if (data->l >= 5)
 			data->selec.light = &data->light[0];
 	}
 }

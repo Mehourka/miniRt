@@ -5,15 +5,15 @@
 
 typedef struct s_parse
 {
-	int		L;
-	int		C;
-	int		A;
+	int		l;
+	int		c;
+	int		a;
 	int		fd_rt;
 	char	**token;
 	int		nb_token;
 	int		count;
 	int		i;
-	int		l;
+	int		j;
 }	t_parse;
 
 double	ft_atod(char *str);

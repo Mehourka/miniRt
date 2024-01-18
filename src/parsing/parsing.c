@@ -40,11 +40,11 @@ void	parse_init(t_parse *parse, char *file)
 		printf("%s is an empty file", file);
 		exit(1);
 	}
-	parse->A = 0;
-	parse->L = 0;
-	parse->C = 0;
-	parse->i = 0;
+	parse->a = 0;
 	parse->l = 0;
+	parse->c = 0;
+	parse->i = 0;
+	parse->j = 0;
 	parse->fd_rt = open(file, O_RDONLY);
 	if (parse->fd_rt < 0)
 	{
@@ -56,11 +56,11 @@ void	parse_init(t_parse *parse, char *file)
 
 void	missing_env(t_parse parse)
 {
-	if (parse.A == 0)
+	if (parse.a == 0)
 		ft_error_message("Ambiant light is mising");
-	if (parse.C == 0)
+	if (parse.c == 0)
 		ft_error_message("Camera is mising");
-	if (parse.L == 0)
+	if (parse.l == 0)
 		ft_error_message("Light is mising");
 }
 
@@ -73,7 +73,7 @@ void	parsing(char *file, t_data *data)
 	parse_init(&parse, file);
 	tokenization(&parse);
 	missing_env(parse);
-	data->L = parse.L;
+	data->l = parse.l;
 	data->selec.obj = &(data->obj[0]);
 	data->selec.light = &(data->light[0]);
 }
