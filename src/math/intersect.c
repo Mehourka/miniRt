@@ -44,11 +44,9 @@ double	ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 	double	a;
 	double	b;
 	double	c;
-	double	discriminant;
-	double	t1;
-	double	t2;
-	double	h1;
-	double	h2;
+	double	t;
+	double	h;
+	double discriminant;
 
 	a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
 	b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
@@ -56,14 +54,14 @@ double	ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 	discriminant = b * b - (4 * a * c);
 	if (discriminant <= 0)
 		return (-1);
-	t1 = (-b - sqrt(discriminant)) / (2 * a);
-	t2 = (-b + sqrt(discriminant)) / (2 * a);
-	h1 = ft_ray_project(r, t1).y;
-	h2 = ft_ray_project(r, t2).y;
-	if (fabs(h1) < cylinder.longueur / 2 && t1 > 0)
-		return (t1);
-	else if (fabs(h2) < cylinder.longueur / 2)
-		return (t2);
+	t = (-b - sqrt(c)) / (2 * a);
+	h = ft_ray_project(r, t).y;
+	if (fabs(h) < cylinder.longueur / 2 && t > 0)
+		return (t);
+	t = (-b + sqrt(c)) / (2 * a);
+	h = ft_ray_project(r, t).y;
+	if (fabs(h) < cylinder.longueur / 2)
+		return (t);
 	return (-1);
 }
 

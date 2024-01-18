@@ -38,6 +38,7 @@ t_hit_point	ft_get_hitpoint(t_ray ray, double t, t_obj *obj)
 	pt.pos = ft_ray_project(ray, t);
 	pt.object = obj;
 	pt.normal = ft_get_obj_normal(*obj, pt.pos);
+	pt.inc_dir = ray.dir;
 	if (ft_vec3_dot(ray.dir, pt.normal) > 0)
 	{
 		pt.normal = ft_vec3_scal_prod(pt.normal, -1.0);

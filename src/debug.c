@@ -95,20 +95,6 @@ void ft_mouse_select(void *param)
 	data = (t_data *)param;
 	mlx = data->mlx;
 
-		// change sphere radius
-	t_ambiant *amb = &data->ambiant;
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_UP))
-	{
-		 amb->ratio = ft_cap01(amb->ratio + 0.01);
-		 printf("%f\n",amb->ratio);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_PAGE_DOWN))
-	{
-		 amb->ratio = ft_cap01(amb->ratio - 0.01);
-		 printf("%f\n",amb->ratio);
-	}
-
-
 	if (mlx_is_mouse_down(mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
 		// Get mouse position
@@ -118,50 +104,39 @@ void ft_mouse_select(void *param)
 		ray = ft_compute_ray(data->cam, mousePos[1], mousePos[0]);
 
 		// Compute the hit point in that pixel
-		t_hit_point hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
-		// ft_print_hitpt(hit_pt);
+		t_hit_point hpt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
+		t_light light = data->light[0];
+		t_ray			ray;
+		t_obj			*obj;
+		const double	eps = 0.0001;
+		t_vec3			light_dir;
+		double hit_dist;
+		double light_dist;
 
-		// Wordspace / local space
-		// if (false && OBJ_CYLINDER == hit_pt.object->obj_type && hit_pt.f_valid)
-		// {
-			// t_cylinder cy = hit_pt.object->cylinder;
-			// ft_print_vec3( hit_pt.pos);
-			// t_pt3 lspace_pos = ft_mat3_multiplication(cy.inverse_transfrom, hit_pt.pos);
-			// t_pt3 wspace_pos = ft_mat3_multiplication(cy.transform_matrix, lspace_pos);
-
-			// Reference direction
-			// printf("Local space dir : ");
-			// ft_print_vec3(ft_mat3_multiplication(cy.inverse_transfrom, cy.dir));
-			// printf("Word space dir : ");
-			// ft_print_vec3(cy.dir);
-			// printf("\n");
-
-			// t_vec3 lspace_normal = ft_get_obj_normal(*hit_pt.object, wspace_pos);
-		// }
-
-
-		// Color
-		if (true && hit_pt.f_valid)
+		// light direction
+		light_dir = ft_vec3_minus(light.ori, hpt.pos);
+		light_dist = ft_vec3_mod(light_dir);
+		// Create a ray from the hit point pointed at the light
+		ray = ft_ray_create(hpt.pos, light_dir);
+		// Check if an object intersects that ray
+		for (int i = 0; i < data->object_count; i++)
 		{
-			t_light light = data->light[0];
-			t_vec3 light_dir = ft_vec3_minus(light.ori, hit_pt.pos);
-			ray = ft_ray_create(hit_pt.pos, light_dir);
-				for (int i = 0; i < data->object_count; i++)
-				{
-					t_obj *obj = data->obj + i;
-					if (obj == hit_pt.object)
-					continue;
-					if (ft_hit_object(*obj, ray) > 0)
-					{
-						printf("Obstruction by object[%i]\n",i);
-						printf("intersect_distance : %f\n", ft_hit_object(data->obj[i], ray));
-					}
-
-				}
+			obj = data->obj + i;
+			if (obj == hpt.object)
+			{
+				ray.ori = ft_vec3_add(ray.ori, ft_vec3_scal_prod(light_dir, eps));
+			}
+			hit_dist = ft_hit_object(*obj, ray) * ft_vec3_mod(ray.dir);
 			ft_print_ray(ray);
-			// ft_print_vec3(light_dir);
-		}
 
-		printf("\n\n");
+			ft_print_vec3(light_dir);
+			if (obj->obj_type == OBJ_SPHERE)
+				printf("Objstructed by OBJ_SPHERE\n");
+			printf("hit_dist  : %f, light_dist: %f\n\n", hit_dist, light_dist);
+			// exit(0);
+			printf("Obstruction\n\n");
+
+		}
+		
 	}
 }
