@@ -69,9 +69,15 @@ void	ft_obj_rotation(void *param)
 	data = (t_data *)param;
 	theta = ft_deg_to_rad(5);
 	if (data->selec.obj->obj_type == OBJ_CONE)
+	{
 		ft_rotation2(&data->selec.obj->cone.dir, data, theta);
+		ft_compute_object_matrix(data->selec.obj);
+	}
 	else if (data->selec.obj->obj_type == OBJ_CYLINDER)
+	{
 		ft_rotation2(&data->selec.obj->cylinder.dir, data, theta);
+		ft_compute_object_matrix(data->selec.obj);
+	}
 	else if (data->selec.obj->obj_type == OBJ_PLANE)
 		ft_rotation2(&data->selec.obj->plane.dir, data, theta);
 }
