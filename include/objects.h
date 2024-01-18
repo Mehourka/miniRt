@@ -19,9 +19,9 @@ typedef struct s_cylinder
 {
 	t_pt3		ori;
 	t_color3	color;
+	t_vec3		dir;
 	t_mat3		transform_matrix;
 	t_mat3		inverse_transfrom;
-	t_vec3		dir;
 	double		r;
 	double		longueur;
 }	t_cylinder;
@@ -30,6 +30,7 @@ typedef struct s_sphere
 {
 	t_pt3		ori;
 	t_color3	color;
+	t_vec3		dir;
 	t_mat3		transform_matrix;
 	t_mat3		inverse_transfrom;
 	double		r;
@@ -39,9 +40,10 @@ typedef struct s_plane
 {
 	t_pt3		ori;
 	t_color3	color;
+	t_vec3		dir;
 	t_mat3		transform_matrix;
 	t_mat3		inverse_transfrom;
-	t_vec3		dir;
+
 }	t_plane;
 
 typedef struct s_cone
