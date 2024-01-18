@@ -1,5 +1,5 @@
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
 # include <math.h>
 # include <stdio.h>
@@ -34,14 +34,12 @@ typedef struct s_data
 	int			object_count;
 	int			height;
 	int			width;
-	int		L;
-} t_data;
+	int			L;
+}	t_data;
 
-
-
-t_data *get_data();
-void 	compute_viewport(t_data *data);
+t_data	*get_data(void);
+void	compute_viewport(t_data *data);
 void	ft_render_image(t_data *data);
-void ft_raise_error(t_data *data);
+void	ft_raise_error(t_data *data);
 
 #endif
