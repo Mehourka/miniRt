@@ -64,7 +64,7 @@ void	parse_limit(int *checker, int max, char *type)
 	if (*checker > max)
 	{
 		printf("Error\n");
-		printf("%s need to be unique", type);
+		printf("Too many %s", type);
 		exit(1);
 	}
 }

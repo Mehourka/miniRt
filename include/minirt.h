@@ -14,19 +14,30 @@
 # include "matrix.h"
 # include "debug.h"
 
+typedef struct s_selected
+{
+	int		type;
+	t_obj	*obj;
+	t_light	*light;
+}	t_selected;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_obj		obj[100];
 	t_cam		cam;
-	t_light		light;
+	t_light		light[5];
 	t_ambiant	ambiant;
+	t_selected	selec;
 	double		aspect_ratio;
 	int			object_count;
 	int			height;
 	int			width;
+	int		L;
 } t_data;
+
+
 
 t_data *get_data();
 void 	compute_viewport(t_data *data);

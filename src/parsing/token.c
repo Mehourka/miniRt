@@ -32,9 +32,13 @@ void	analyse_line(t_parse *parse, char *line, int *i)
 		create_object(data, parse);
 		(*i)++;
 	}
+	if (new_line[0] != '\n')
+	{
+		free(parse->token);
+		parse->token = NULL;
+	}
 	free(new_line);
-	free(parse->token);
-	parse->token = NULL;
+
 }
 
 void	tokenization(t_parse *parse)

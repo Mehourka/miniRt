@@ -23,6 +23,17 @@ t_vec3 ft_get_plane_normal(t_plane plane, t_pt3 pos)
 }
 
 // TODO: actually compute normal
+t_vec3 ft_get_cone_normal(t_cone cone, t_pt3 pos)
+{
+	// Vector from cylinder center to hitpoint
+	t_pt3 OH = ft_vec3_minus(pos, cone.ori);
+	// Compute cone surface normal
+	// Compute projection of cone axis on OH
+	t_pt3 p = ft_vec3_scal_prod(OH, ft_vec3_dot(OH, cone.dir) / ft_vec3_dot(OH, OH));
+
+	return (ft_vec3_minus(p, cone.dir));
+}
+
 t_vec3 ft_get_cylinder_normal(t_cylinder cylinder, t_pt3 pos)
 {
 	// Vector from cylinder center to hitpoint
@@ -47,6 +58,11 @@ t_vec3 ft_get_obj_normal(t_obj obj, t_pt3 pos)
 	if (OBJ_CYLINDER == obj.obj_type)
 	{
 		return (ft_get_cylinder_normal(obj.cylinder, pos));
+	}
+
+	if (OBJ_CONE == obj.obj_type)
+	{
+		return (ft_get_cone_normal(obj.cone, pos));
 	}
 	return (ft_vec3_create(0, 0, 0));
 }

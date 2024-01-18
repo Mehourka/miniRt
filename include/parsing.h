@@ -13,6 +13,7 @@ typedef struct s_parse
 	int		nb_token;
 	int		count;
 	int 	i;
+	int		l;
 }	t_parse;
 
 double	ft_atod(char *str);
@@ -28,6 +29,7 @@ void	parse_camera(t_data *data, t_parse *parse);
 void	parse_sphere(t_data *data, t_parse *parse);
 void	parse_plane(t_data *data, t_parse *parse);
 void	parse_cylinder(t_data *data, t_parse *parse);
+void	parse_cone(t_data *data, t_parse *parse);
 void	parse_count_atribute(char *new, t_parse *parse);
 int		parse_comma(char *line);
 int		dot_digit(char *str);
