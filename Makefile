@@ -48,6 +48,7 @@ SRCS	:=	\
 			debug.c								\
 			object_matrix.c						\
 			math/intersect.c					\
+			math/intersect_utils.c					\
 			math/obj_normals.c					\
 			math/matrix.c						\
 			math/inverse_matrix.c				\
