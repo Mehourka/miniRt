@@ -19,23 +19,6 @@ void	ft_obj_trans(void *param)
 		data->selec.obj->ori.z -= 0.1;
 }
 
-/*void	ft_rotate_objects(t_obj *object_list, int object_count)
-{
-	const double	eps = 0.05;
-	int				i;
-	t_vec3			rotation_axis;
-	t_obj			*obj;
-
-	i = 0;
-	rotation_axis = ft_vec3_create(0, 1, 0);
-	while (i < object_count)
-	{
-		obj = &object_list[i];
-		obj->ori = ft_rodrigues_rotation(obj->ori, rotation_axis, eps);
-		i++;
-	}
-}*/
-
 void	ft_mouse_select_object(void *param)
 {
 	t_data		*data;
