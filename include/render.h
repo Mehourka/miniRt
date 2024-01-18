@@ -20,6 +20,7 @@ typedef struct s_hit_point
 	t_obj		*object;
 	t_pt3		pos;
 	t_vec3		normal;
+	t_vec3		inc_dir;
 	double		distance;
 	int		f_inside;
 	t_color3	color;

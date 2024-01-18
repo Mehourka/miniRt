@@ -36,6 +36,7 @@ t_hit_point ft_get_hitpoint(t_ray ray, double t, t_obj *obj)
 	pt.object = obj;
 	// Normal depends on object type:
 	pt.normal = ft_get_obj_normal(*obj, pt.pos);
+	pt.inc_dir = ray.dir;
 
 	// Flip normal if we're inside the object
 	if (ft_vec3_dot(ray.dir, pt.normal) > 0)
