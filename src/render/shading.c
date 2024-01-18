@@ -25,13 +25,16 @@ t_color3 ft_add_color(t_color3 col1, t_color3 col2, double intensity)
 */
 int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light light)
 {
-	t_ray ray;
-	t_obj *obj;
-	const double EPS = 0.0001;
+	t_ray			ray;
+	t_obj			*obj;
+	const double	eps = 0.0001;
+	t_vec3			light_dir;
+	double hit_dist;
+	double light_dist;
 
 	// light direction
-	t_vec3 light_dir = ft_vec3_minus(light.ori, hpt.pos);
-
+	light_dir = ft_vec3_minus(light.ori, hpt.pos);
+	light_dist = ft_vec3_mod(light_dir);
 	// Create a ray from the hit point pointed at the light
 	ray = ft_ray_create(hpt.pos, light_dir);
 
@@ -41,10 +44,21 @@ int ft_is_obstructed(t_obj *obj_list, int object_count, t_hit_point hpt, t_light
 		obj = obj_list + i;
 		if (obj == hpt.object)
 		{
-			ray.ori = ft_vec3_add(ray.ori, ft_vec3_scal_prod(light_dir, EPS));
+			ray.ori = ft_vec3_add(ray.ori, ft_vec3_scal_prod(light_dir, eps));
 		}
-		if (ft_hit_object(*obj, ray) > 0)
+		hit_dist = ft_hit_object(*obj, ray) * ft_vec3_mod(ray.dir);
+		if ( hit_dist > 0 && hit_dist < light_dist)
+		{
+			// ft_print_vec3(light.ori);
+			// ft_print_vec3(hpt.pos);
+
+			// ft_print_vec3(light_dir);
+			// printf("obj_type : %s\n", obj->obj_type == OBJ_SPHERE ? "Sphere" : "other");
+			// printf("hit_dist  : %f, light_dist: %f\n\n", hit_dist, light_dist);
+			// exit(0);
 			return (true);
+
+		}
 	}
 	return (false);
 }

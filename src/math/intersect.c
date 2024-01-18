@@ -40,21 +40,28 @@ double ft_intersect_plane(t_plane plane, t_ray ray)
 /*Checks if a ray intersects a cylinder centered at the origin, and extending along the y axis*/
 double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 {
-	double a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
-	double b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
-	double c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
-	//ft_print_vec3(r.dir);
-	//ft_print_vec3(r.ori);
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t1;
+	double	t2;
+	double	h1;
+	double	h2;
 
-	double discriminant = b * b - (4 * a * c);
+	a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
+	b = 2 * ((r.ori.x * r.dir.x) + (r.ori.z * r.dir.z));
+	c = (r.ori.x * r.ori.x) + (r.ori.z * r.ori.z) - (cylinder.r * cylinder.r);
+
+	discriminant = b * b - (4 * a * c);
 	if (discriminant <= 0)
 		return (-1);
 
-	double t1 = (-b - sqrt(discriminant)) / (2 * a);
-	double t2 = (-b + sqrt(discriminant)) / (2 * a);
+	t1 = (-b - sqrt(discriminant)) / (2 * a);
+	t2 = (-b + sqrt(discriminant)) / (2 * a);
 	// Check if intersection is within cylinde height
-	double h1 = ft_ray_project(r, t1).y;
-	double h2 = ft_ray_project(r, t2).y;
+	h1 = ft_ray_project(r, t1).y;
+	h2 = ft_ray_project(r, t2).y;
 	if (fabs(h1) < cylinder.longueur / 2 && t1 > 0)
 	{
 		return (t1);

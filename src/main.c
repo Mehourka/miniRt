@@ -43,6 +43,8 @@ int	main(int argc, char**argv)
 		mlx_loop_hook(data->mlx, &ft_nav_obj_rotation, data);
 		// instructions
 		// instruction();
+		// debug
+		mlx_loop_hook(data->mlx, &ft_mouse_select, data);
 
 		// // mlx loop
 		mlx_loop(data->mlx);
