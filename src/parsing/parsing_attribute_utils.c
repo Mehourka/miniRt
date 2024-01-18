@@ -14,8 +14,7 @@ void	parse_nb(char *line, int *j, double *color)
 	}
 	else
 	{
-		printf("Error\n");
-		printf("The RGB value of %s is invalid", line);
+		printf("Error\nThe RGB value of %s is invalid", line);
 		exit(1);
 	}
 	if (line[*j] == ',')
@@ -27,8 +26,7 @@ void	parse_nb(char *line, int *j, double *color)
 		*color = ft_atod(new);
 	else
 	{
-		printf("Error\n");
-		printf("%f is an invalid number", *color);
+		printf("Error\n%f is an invalid number", *color);
 		exit(1);
 	}
 }
