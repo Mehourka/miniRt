@@ -49,6 +49,8 @@ typedef struct s_cone
 	t_pt3		ori;
 	t_color3	color;
 	t_vec3		dir;
+	t_mat3		transform_matrix;
+	t_mat3		inverse_transfrom;
 	double		h;
 	double		angle;
 }	t_cone;
