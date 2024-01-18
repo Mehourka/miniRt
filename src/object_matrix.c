@@ -20,8 +20,7 @@ void ft_compute_obj_matrices(t_obj *object_list, int object_count)
 		obj->dir = ft_vec3_normalize(obj->dir);
 
 		if (OBJ_CYLINDER == obj->obj_type
-			|| OBJ_CONE == obj->obj_type
-			|| OBJ_CYLINDER == obj->obj_type)
+			|| OBJ_CONE == obj->obj_type)
 		{
 			ft_compute_object_matrix(obj);
 		}

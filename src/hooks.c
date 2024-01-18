@@ -267,7 +267,7 @@ void ft_resize_hook(int32_t width, int32_t height, void* param)
 		ft_raise_error(data);
 	ft_memset(data->img->pixels, 255, sizeof(int32_t) * data->height * data->width);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	instruction();
+	// instruction();
 }
 
 void ft_rotate_objects(t_obj *object_list, int object_count)
@@ -358,7 +358,7 @@ void ft_nav_obj_rotation(void *param)
 			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, z_axis, theta);
 		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 			data->selec.obj->cone.dir = ft_rodrigues_rotation(data->selec.obj->cone.dir, z_axis, theta);
-		ft_print_vec3(data->selec.obj->cone.dir);
+		ft_compute_object_matrix(data->selec.obj);
 	}
 	else if (data->selec.obj->obj_type == OBJ_CYLINDER)
 	{
@@ -374,7 +374,6 @@ void ft_nav_obj_rotation(void *param)
 			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, z_axis, -theta);
 		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 			data->selec.obj->cylinder.dir = ft_rodrigues_rotation(data->selec.obj->cylinder.dir, z_axis, theta);
-		ft_print_vec3(data->selec.obj->cylinder.dir);
 		ft_compute_object_matrix(data->selec.obj);
 	}
 	else if (data->selec.obj->obj_type == OBJ_PLANE)
@@ -391,6 +390,5 @@ void ft_nav_obj_rotation(void *param)
 			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, z_axis, -theta);
 		if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 			data->selec.obj->plane.dir = ft_rodrigues_rotation(data->selec.obj->plane.dir, z_axis, theta);
-		ft_print_vec3(data->selec.obj->cylinder.dir);
 	}
 }
