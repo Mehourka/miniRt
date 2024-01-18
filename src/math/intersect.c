@@ -85,12 +85,12 @@ double	ft_intersect_cone(t_cone cone, t_ray r)
 	double			b;
 	double			c;
 
+	r = ft_ray_transform(r, cone.inverse_transfrom, cone.ori);
 	t = tan(ft_deg_to_rad(cone.angle));
 	a = r.dir.x * r.dir.x + r.dir.z * r.dir.z - t * t * r.dir.y * r.dir.y;
 	b = 2 * (r.ori.x * r.dir.x + r.ori.z * r.dir.z - t * t * r.ori.y * r.dir.y);
 	c = r.ori.x * r.ori.x + r.ori.z * r.ori.z - t * t * r.ori.y * r.ori.y;
 	c = b * b - (4 * a * c);
-	r = ft_ray_transform(r, cone.inverse_transfrom, cone.ori);
 	if (c <= 0)
 		return (-1);
 	t = (-b - sqrt(c)) / (2 * a);
