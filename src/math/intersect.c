@@ -68,16 +68,45 @@ double ft_intersect_normalized_cylinder(t_cylinder cylinder, t_ray r)
 
 double ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 {
-	// Create transform matrix
-	// Cylinder basis as a matrix
-
 	// Project the ray into the cylinder local coordinates
-	t_ray nray = ft_ray_transform(ray, cylinder.inverse_transfrom, cylinder.ori);  //mets tout a 0
+	t_ray nray = ft_ray_transform(ray, cylinder.inverse_transfrom, cylinder.ori);
 
 	// check if reprojected ray intersects the normalized cyliinder
 	double t = ft_intersect_normalized_cylinder(cylinder, nray);
 	return (t);
 }
+
+double ft_intersect_cone(t_cone cone, t_ray ray)
+{
+	// source : http://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
+	t_vec3 CO = ft_vec3_minus(ray.ori, cone.ori);
+	double cos2t = pow(cos(ft_deg_to_rad(cone.angle)), 2);
+	const double a = pow(ft_vec3_dot(ray.dir, cone.dir), 2) - cos2t;
+	const double b = 2 * (ft_vec3_dot(ray.dir, cone.dir) * ft_vec3_dot(CO, cone.dir)
+		- ft_vec3_dot(ray.dir, CO) * cos2t);
+	const double c = pow(ft_vec3_dot(CO, cone.dir), 2) - ft_vec3_dot(CO, CO) * cos2t;
+
+	double discriminant = b * b - (4 * a * c);
+	if (discriminant <= 0 )
+		return (-1);
+
+	double t1 = (-b - sqrt(discriminant)) / (2 * a);
+	double t2 = (-b + sqrt(discriminant)) / (2 * a);
+
+
+	// printf("Cone dir : ");
+	// ft_print_vec3(cone.dir);
+
+	// printf("Cne ori");
+	// ft_print_vec3(cone.ori);
+	// printf("Cne angle %f, cos2t %f\n", cone.angle, cos2t);
+	// printf("Cne hegiht %f\n\n", cone.h);
+	// exit(0);
+	if (t1 > 0)
+		return (t1);
+	return (t2);
+}
+
 
 double	ft_hit_object(t_obj obj, t_ray ray)
 {
@@ -92,6 +121,10 @@ double	ft_hit_object(t_obj obj, t_ray ray)
 	if (OBJ_CYLINDER == obj.obj_type)
 	{
 		return (ft_intersect_cylinder(obj.cylinder, ray));
+	}
+	if (OBJ_CONE == obj.obj_type)
+	{
+		return (ft_intersect_cone(obj.cone, ray));
 	}
 	return (-1);
 }
