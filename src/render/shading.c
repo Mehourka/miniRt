@@ -61,11 +61,16 @@ t_color3	ft_get_shade(t_hit_point hpt)
 	amb = data->ambiant;
 	light = data->light[0];
 	// TODO: DEBUG do this part in parsing
-	light.color = ft_vec3_create(1,1,1);
+
 	// no normal no change ...
 	//if (0 == ft_vec3_mod(hpt.normal))    //TODO cette variable n'est pas initialize
 		//return (final_color);
-	light_dir = ft_vec3_minus(data->light[0].ori, hpt.pos);
+
+	light_dir = ft_vec3_minus(
+		data->light[0].ori,
+		hpt.pos
+	);
+
 	if (ft_is_obstructed(data->obj, data->object_count, hpt, light) == true)
 		brightness = 0;
 	else

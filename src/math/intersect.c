@@ -85,15 +85,15 @@ double	ft_intersect_cylinder(t_cylinder cylinder, t_ray ray)
 	return (t);
 }
 
-double ft_intersect_cone(t_cone cone, t_ray ray)
+double ft_intersect_cone(t_cone cone, t_ray r)
 {
+
 	// source : http://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
-	t_vec3 CO = ft_vec3_minus(ray.ori, cone.ori);
-	double cos2t = pow(cos(ft_deg_to_rad(cone.angle)), 2);
-	const double a = pow(ft_vec3_dot(ray.dir, cone.dir), 2) - cos2t;
-	const double b = 2 * (ft_vec3_dot(ray.dir, cone.dir) * ft_vec3_dot(CO, cone.dir)
-		- ft_vec3_dot(ray.dir, CO) * cos2t);
-	const double c = pow(ft_vec3_dot(CO, cone.dir), 2) - ft_vec3_dot(CO, CO) * cos2t;
+	r = ft_ray_transform(r, cone.inverse_transfrom, cone.ori);
+	const double k = tan(ft_deg_to_rad(cone.angle));
+	const double a = r.dir.x * r.dir.x  + r.dir.z * r.dir.z - k * k * r.dir.y * r.dir.y;
+	const double b = 2 * (r.ori.x * r.dir.x  + r.ori.z * r.dir.z - k * k * r.ori.y * r.dir.y);
+	const double c = r.ori.x * r.ori.x  + r.ori.z * r.ori.z - k * k * r.ori.y * r.ori.y;
 
 	double discriminant = b * b - (4 * a * c);
 	if (discriminant <= 0 )
@@ -102,18 +102,14 @@ double ft_intersect_cone(t_cone cone, t_ray ray)
 	double t1 = (-b - sqrt(discriminant)) / (2 * a);
 	double t2 = (-b + sqrt(discriminant)) / (2 * a);
 
+	double h1 = ft_ray_project(r, t1).y;
+	double h2 = ft_ray_project(r, t2).y;
 
-	// printf("Cone dir : ");
-	// ft_print_vec3(cone.dir);
-
-	// printf("Cne ori");
-	// ft_print_vec3(cone.ori);
-	// printf("Cne angle %f, cos2t %f\n", cone.angle, cos2t);
-	// printf("Cne hegiht %f\n\n", cone.h);
-	// exit(0);
-	if (t1 > 0)
+	if (t1 > 0 && h1 > 0 && h1 < cone.h)
 		return (t1);
-	return (t2);
+	if (t2 > 0 && h2 > 0 && h2 < cone.h)
+		return (t2);
+	return (-1);
 }
 
 

@@ -39,7 +39,8 @@ int	main(int argc, char**argv)
 		// Rotation of cylinder
 		mlx_loop_hook(data->mlx, &ft_obj_rotation, data);
 		// instructions
-		instruction();
+		// instruction();
+
 		// // mlx loop
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);

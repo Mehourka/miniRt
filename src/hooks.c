@@ -14,7 +14,7 @@ void	ft_resize_hook(int32_t width, int32_t height, void *param)
 	ft_memset(data->img->pixels, 255, sizeof(int32_t)
 		* data->height * data->width);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	instruction();
+	// instruction();
 }
 /*
 	brief: mlx loop hook for rendering

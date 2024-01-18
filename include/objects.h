@@ -99,5 +99,6 @@ t_vec3	ft_get_sphere_normal(t_sphere sphere, t_pt3 pos);
 t_vec3	ft_get_cylinder_normal(t_cylinder cylinder, t_pt3 pos);
 
 void	ft_compute_obj_matrices(t_obj *object_list, int object_count);
+void ft_compute_object_matrix(t_obj *obj);
 
 #endif
