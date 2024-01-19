@@ -82,7 +82,7 @@ int	ray_color(t_ray ray)
 	hit_pt = ft_get_closest_hitpoint(data->obj, data->object_count, ray);
 	if (hit_pt.f_valid == true)
 	{
-		hit_pt.color = ft_get_shade(hit_pt);
+		hit_pt.color = ft_get_shade(data, hit_pt);
 		return (get_color_int(hit_pt.color));
 	}
 	return (get_color_int(ft_vec3_cap01(ray.dir)));

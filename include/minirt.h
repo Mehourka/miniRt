@@ -41,5 +41,6 @@ t_data	*get_data(void);
 void	compute_viewport(t_data *data);
 void	ft_render_image(t_data *data);
 void	ft_raise_error(t_data *data);
+t_color3	ft_get_shade(t_data *data, t_hit_point hpt);
 
 #endif

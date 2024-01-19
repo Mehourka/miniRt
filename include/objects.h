@@ -43,7 +43,6 @@ typedef struct s_plane
 	t_vec3		dir;
 	t_mat3		transform_matrix;
 	t_mat3		inverse_transfrom;
-
 }	t_plane;
 
 typedef struct s_cone

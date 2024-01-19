@@ -46,6 +46,6 @@ void		draw_gradient(void);
 
 t_ray		ft_compute_ray(t_cam cam, int row, int col);
 t_hit_point	ft_get_closest_hitpoint(t_obj *obj_list, int obj_count, t_ray ray);
-t_color3	ft_get_shade(t_hit_point hpt);
+
 
 #endif
