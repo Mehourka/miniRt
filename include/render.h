@@ -42,10 +42,16 @@ typedef struct s_cam
 
 int			get_rgba(int r, int g, int b, int a);
 int			norm_rgba(float r, float g, float b, float a);
-void		draw_gradient(void);
+int			get_color_int(t_color3 color);
+t_ray		ft_compute_ray(t_cam cam, int row, int col);
 
 t_ray		ft_compute_ray(t_cam cam, int row, int col);
 t_hit_point	ft_get_closest_hitpoint(t_obj *obj_list, int obj_count, t_ray ray);
 
+t_color3	ft_add_color(t_color3 col1, t_color3 col2, double intensity);
+int			ft_is_obstructed(t_obj *obj_list, int obj_count,
+				t_hit_point hpt, t_light light);
+t_color3	ft_bdrf(t_hit_point hpt, t_vec3 light_dir,
+				t_color3 light_color);
 
 #endif
