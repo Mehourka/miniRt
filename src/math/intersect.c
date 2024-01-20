@@ -103,4 +103,3 @@ double	ft_intersect_cone(t_cone cone, t_ray r)
 		return (t);
 	return (-1);
 }
-
