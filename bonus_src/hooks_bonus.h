@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.h                                            :+:      :+:    :+:   */
+/*   hooks_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:42 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:49:43 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:52:41 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOKS_H
-# define HOOKS_H
+#ifndef HOOKS_BONUS_H
+# define HOOKS_BONUS_H
 
 void	ft_nav_hook(void *param);
 void	ft_render_hook(void *param);

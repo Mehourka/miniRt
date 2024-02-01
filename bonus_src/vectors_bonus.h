@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vectors.h                                          :+:      :+:    :+:   */
+/*   vectors_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:48 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:49:49 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:53:56 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTORS_H
-# define VECTORS_H
+#ifndef VECTORS_BONUS_H
+# define VECTORS_BONUS_H
 
 typedef union s_vec3
 {

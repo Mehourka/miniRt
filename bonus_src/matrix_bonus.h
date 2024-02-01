@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.h                                           :+:      :+:    :+:   */
+/*   matrix_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:43 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:49:44 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:52:47 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATRIX_H
-# define MATRIX_H
+#ifndef MATRIX_BONUS_H
+# define MATRIX_BONUS_H
 
 # include "vectors.h"
 
