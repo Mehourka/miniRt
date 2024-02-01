@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/01 13:49:44 by kmehour           #+#    #+#             */
+/*   Updated: 2024/02/01 13:50:46 by kmehour          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -12,7 +24,6 @@
 # include "render.h"
 # include "objects.h"
 # include "matrix.h"
-# include "debug.h"
 
 typedef struct s_selected
 {
@@ -37,10 +48,10 @@ typedef struct s_data
 	int			l;
 }	t_data;
 
-t_data	*get_data(void);
-void	compute_viewport(t_data *data);
-void	ft_render_image(t_data *data);
-void	ft_raise_error(t_data *data);
+t_data		*get_data(void);
+void		compute_viewport(t_data *data);
+void		ft_render_image(t_data *data);
+void		ft_raise_error(t_data *data);
 t_color3	ft_get_shade(t_data *data, t_hit_point hpt);
 
 #endif

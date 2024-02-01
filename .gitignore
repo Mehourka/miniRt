@@ -16,4 +16,6 @@
 !lib/
 !lib/**
 
+lib/MLX42/build
+
 !Makefile
