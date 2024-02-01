@@ -34,7 +34,8 @@ LIBMLX	=	$(MLXDIR)/build/libmlx42.a
 INCLUDES=	-I $(LIBDIR)/libft -I $(INCDIR) -I $(LIBDIR)/MLX42/include
 LIBS	=	$(LIBFT) $(LIBMLX) -ldl -lglfw -pthread -lm -L$(shell brew --prefix glfw)/lib
 
-
+# Dependencies 
+BREW = /Users/$(USER)/.brew/bin/brew
 
 # Sources
 
@@ -45,7 +46,6 @@ SRCS	:=	\
 			hooks_objects.c						\
 			hooks_objects2.c					\
 			hooks_cam.c						\
-			debug.c								\
 			object_matrix.c						\
 			math/intersect.c					\
 			math/intersect_utils.c					\
@@ -96,7 +96,7 @@ all : $(NAME)
 run : $(NAME)
 	./$(NAME) $(FILE)
 
-p3 : $(NAME)
+p3 : deps $(NAME)
 	./$(NAME) > tmp/img.p3
 	open tmp/img.p3
 
@@ -104,6 +104,24 @@ p3 : $(NAME)
 $(NAME) : $(LIBMLX) $(LIBFT) $(OBJS)
 	@echo "$(GREEN)	Compiling $@ ... $(NC)"
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@ -I. $(INCLUDES)
+
+deps:
+	@if [ ! -f $(BREW) ]; then \
+		echo "Installing Homebrew"; \
+		curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | bash; \
+	else \
+		echo "Homebrew installed"; \
+		brew update; \
+	fi
+	@if ! brew list | grep -q "glfw"; then \
+		echo glfw not installed; \
+		brew install glfw; \
+	fi
+	@if ! brew list | grep -q "cmake"; then \
+		echo cmake not installed; \
+	fi
+
+
 
 test : $(LIBMLX) $(LIBFT) $(T_OBJS)
 	@echo "$(YELLOW)	Compiling $@ ... $(NC)"
@@ -114,10 +132,10 @@ test : $(LIBMLX) $(LIBFT) $(T_OBJS)
 $(OBJDIR)%.o : $(SRCDIR)%.c
 	@mkdir -p $(@D);
 	$(CC) -c $(CFLAGS) -MMD -MP $< -o $@ $(INCLUDES)
-
+	
 -include $(DEPS)
 
-# Compile libft
+# Compile libftP
 $(LIBFT):
 	@ $(MAKE) -C $(LIBDIR)/libft -s
 
