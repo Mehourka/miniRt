@@ -13,4 +13,7 @@
 !maps/
 !maps/scene.rt
 
+!lib/
+!lib/**
+
 !Makefile
