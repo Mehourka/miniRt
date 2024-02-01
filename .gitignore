@@ -16,6 +16,10 @@
 !lib/
 !lib/**
 
+!bonus_src
+!bonus_src/*.c
+!bonus_src/*.h
+
 lib/MLX42/build
 
 !Makefile

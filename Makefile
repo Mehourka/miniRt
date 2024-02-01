@@ -1,17 +1,15 @@
-FILE = maps/scene.rt
 # Compiler and flags
 CC		=	gcc -g
 CFLAGS	=	-Wall -Werror -Wextra -Wunreachable-code
 CFLAGS +=	-Ofast
 RM		=	rm
 
-
 #------------------------------------------------------------------------------#
 #                                VARIABLES                                     #
 #------------------------------------------------------------------------------#
 
-ARGS	=	""
-NAME	=	miniRt
+ARGS	=	"./maps/scene.rt"
+NAME	=	miniRt	
 
 # Colors
 YELLOW	=	\033[0;33m
@@ -74,13 +72,14 @@ SRCS	:=	\
 			utils/get_next_line_utils.c			\
 			utils/get_next_line.c				\
 
-B_SRCS	:=	$(SRCS:%=bonus_%)
+B_SRCS	:=	$(SRCS:%.c=%_bonus.c)
 
 
 # Objects
 OBJDIR		:=	obj/
 OBJS		:=	$(SRCS:%.c=$(OBJDIR)%.o)
 SRCS		:=	$(SRCS:%.c=$(SRCDIR)%.c)
+B_SRCS		:=	$(notdir $(B_SRCS))
 B_OBJS		:=	$(B_SRCS:%.c=$(OBJDIR)%.o)
 B_SRCS		:=	$(B_SRCS:%=$(BONDIR)%)
 T_OBJS		:=	$(subst main,test,$(OBJS))
@@ -94,11 +93,16 @@ DEPS		:=	$(OBJS:%.o=%.d)
 all : $(NAME)
 
 run : $(NAME)
-	./$(NAME) $(FILE)
+	./$(NAME) $(ARGS)
 
 p3 : deps $(NAME)
 	./$(NAME) > tmp/img.p3
 	open tmp/img.p3
+
+# Compile Bonus
+bonus : $(LIBMLX) $(LIBFT) $(B_OBJS)
+	@echo "$(GREEN)	Compiling $@ ... $(NC)"
+	$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $@ -I/bonus_src/ $(INCLUDES)
 
 # Compile program
 $(NAME) : $(LIBMLX) $(LIBFT) $(OBJS)
@@ -144,10 +148,7 @@ $(LIBMLX):
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4 -s
 
 
-# Compile Bonus
-bonus : $(LIBMLX) $(LIBFT) $(BONUS_OBJS)
-	@echo "$(GREEN)	Compiling $@ ... $(NC)"
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBS) -o $@ -I/bonus_src/ $(INCLUDES)
+
 
 $(OBJDIR)%.o : $(BONDIR)%.c
 	@mkdir -p $(OBJDIR);

@@ -6,7 +6,7 @@
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:48:59 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 14:31:56 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 13:49:00 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_ambiant_light(t_data *data, t_parse *parse)
 
 void	parse_light(t_data *data, t_parse *parse)
 {
-	parse_limit(&parse->l, 1, "Light");
+	parse_limit(&parse->l, 5, "Light");
 	if (parse->count != 4)
 	{
 		printf("Error\n");
