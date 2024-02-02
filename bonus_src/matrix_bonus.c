@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   matrix_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:48:36 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:48:37 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:43:22 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ t_mat3	ft_ortho_normal_mat3(t_vec3 v)
 		u = ft_vec3_cross_prod((t_vec3){{1, 0, 0}}, v);
 	else
 		u = ft_vec3_cross_prod((t_vec3){{0, 1, 0}}, v);
+	u = ft_vec3_normalize(u);
 	w = ft_vec3_cross_prod(u, v);
+	w = ft_vec3_normalize(w);
 	return (ft_mat3_from_vec3(u, v, w));
 }

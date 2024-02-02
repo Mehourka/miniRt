@@ -6,7 +6,7 @@
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:45 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:49:46 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:16:44 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_obj
 		t_cone		cone;
 		struct
 		{
-			t_vec3		ori;
+			t_pt3		ori;
 			t_color3	color;
 			t_vec3		dir;
 			t_mat3		transform_matrix;
