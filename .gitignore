@@ -21,5 +21,7 @@
 !bonus_src/*.h
 
 lib/MLX42/build
+lib/libft/obj/
+lib/libft/libft.a
 
 !Makefile

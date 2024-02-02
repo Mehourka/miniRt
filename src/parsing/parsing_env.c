@@ -6,7 +6,7 @@
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:48:59 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 14:31:56 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 18:07:31 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,15 @@ void	parse_camera(t_data *data, t_parse *parse)
 	ft_parse_orig_dir(&data->cam.dir, parse->token[2], 'd');
 	data->cam.dir = ft_vec3_normalize(data->cam.dir);
 	parse_length(&data->cam.angle, parse->token[3]);
-	if (data->cam.angle == 180)
-		data->cam.angle = 179.99999;
+	if (data->cam.angle > 180 || data->cam.angle < 0)
+		ft_error_message("Out of range : Cam angle must be between [0, 180]");
+	else if (data->cam.angle > 179)
+		data->cam.angle = 179;
 	else if (data->cam.angle == 0)
 		data->cam.angle = 0.00001;
-	else if (data->cam.angle > 180 || data->cam.angle < 0)
-		ft_error_message("Out of range : Cam angle must be between [0, 180]");
-	data->cam.vup = ft_vec3_create(0, 1, 0);
+	if (data->cam.dir.y == 1 || data->cam.dir.y == -1)
+		data->cam.vup = ft_vec3_create(0, 0, 1);
+	else
+		data->cam.vup = ft_vec3_create(0, 1, 0);
 	free(parse->token[0]);
 }

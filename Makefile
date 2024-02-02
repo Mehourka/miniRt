@@ -8,7 +8,7 @@ RM		=	rm
 #                                VARIABLES                                     #
 #------------------------------------------------------------------------------#
 
-ARGS	=	"./maps/scene.rt"
+ARGS	=	"./maps/test.rt"
 NAME	=	miniRt	
 
 # Colors
@@ -95,10 +95,6 @@ all : $(NAME)
 run : $(NAME)
 	./$(NAME) $(ARGS)
 
-p3 : deps $(NAME)
-	./$(NAME) > tmp/img.p3
-	open tmp/img.p3
-
 # Compile Bonus
 bonus : $(LIBMLX) $(LIBFT) $(B_OBJS)
 	@echo "$(GREEN)	Compiling $@ ... $(NC)"
@@ -125,8 +121,6 @@ deps:
 		echo cmake not installed; \
 	fi
 
-
-
 test : $(LIBMLX) $(LIBFT) $(T_OBJS)
 	@echo "$(YELLOW)	Compiling $@ ... $(NC)"
 	@$(CC) $(CFLAGS) $(T_OBJS) $(LIBS) -o $@ -I. $(INCLUDES)
@@ -147,13 +141,9 @@ $(LIBFT):
 $(LIBMLX):
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4 -s
 
-
-
-
 $(OBJDIR)%.o : $(BONDIR)%.c
 	@mkdir -p $(OBJDIR);
 	$(CC) -c $(CFLAGS) -MMD -MP $< -o $@ $(INCLUDES)
-
 
 # Remove objects
 clean :
@@ -175,4 +165,4 @@ leak :
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=no --track-fds=no ./$(NAME) $(ARGS)
 
 .PHONY:
-	clean fclean re test all leak bonus
+	clean fclean re test all leak bonus deps 

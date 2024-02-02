@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_cam.c                                        :+:      :+:    :+:   */
+/*   hooks_cam_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:20 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:49:21 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/01 18:14:09 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_vec3	ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 {
 	t_vec3			new_dir;
-	const double	thresh = 0.99;
+	const double	thresh = 0.99999;
 	double			likeness;
 
 	new_dir = ft_rodrigues_rotation(cam->dir, axis, theta);
