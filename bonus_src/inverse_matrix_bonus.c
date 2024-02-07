@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inverse_matrix.c                                   :+:      :+:    :+:   */
+/*   inverse_matrix_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: valerie <valerie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:48:31 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 13:48:32 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/07 12:55:19 by valerie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,7 @@ t_mat3	ft_mat3_inverse(t_mat3 A)
 {
 	t_mat3	inv;
 	double	det;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	det = ft_det(A);
 	if (det == 0)
 		return (A);
