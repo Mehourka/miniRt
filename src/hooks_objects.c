@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: valerie <valerie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:22 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/01 20:26:32 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/07 13:16:19 by valerie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	ft_obj_trans(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->selec.obj->ori.x += 0.1;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		data->selec.obj->ori.x -= 0.1;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		data->selec.obj->ori.y += 0.1;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		data->selec.obj->ori.x -= 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		data->selec.obj->ori.y += 0.1;
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		data->selec.obj->ori.y -= 0.1;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_Q))
 		data->selec.obj->ori.z += 0.1;
