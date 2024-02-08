@@ -6,7 +6,7 @@
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:48:59 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/08 10:51:21 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/08 10:58:51 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ void	parse_camera(t_data *data, t_parse *parse)
 	else if (data->cam.angle == 0)
 		data->cam.angle = 0.00001;
 	if (data->cam.dir.y == 1 || data->cam.dir.y == -1)
-	{
 		data->cam.dir = ft_vec3_normalize(
 				ft_vec3_add(data->cam.dir, ft_vec3_create(0, 0, 0.05)));
-	}
 	data->cam.vup = ft_vec3_create(0, 1, 0);
 	free(parse->token[0]);
 }

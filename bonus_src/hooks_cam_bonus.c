@@ -6,7 +6,7 @@
 /*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:20 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/08 10:32:12 by kmehour          ###   ########.fr       */
+/*   Updated: 2024/02/08 10:57:27 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_vec3	ft_constrain_vertical_rot(t_cam *cam, t_vec3 axis, double theta)
 
 	new_dir = ft_rodrigues_rotation(cam->dir, axis, theta);
 	likeness = fabs(ft_vec3_dot(new_dir, cam->vup));
-	if (likeness > thresh)
+	if (likeness > thresh || \
+		new_dir.x * cam->dir.x < 0 || new_dir.z * cam->dir.z < 0)
 		return (cam->dir);
 	return (new_dir);
 }
