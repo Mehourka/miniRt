@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valerie <valerie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmehour <kmehour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:49:22 by kmehour           #+#    #+#             */
-/*   Updated: 2024/02/07 13:16:19 by valerie          ###   ########.fr       */
+/*   Updated: 2024/02/08 11:06:42 by kmehour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	ft_rotation2(t_vec3 *dir, t_data *data, double theta)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_H))
 		*dir = ft_rodrigues_rotation(*dir, x_axis, theta);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_T))
-		*dir = ft_rodrigues_rotation(*dir, y_axis, theta);
+		*dir = ft_rodrigues_rotation(*dir, y_axis, -theta);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_G))
 		*dir = ft_rodrigues_rotation(*dir, y_axis, theta);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_R))
-		*dir = ft_rodrigues_rotation(*dir, z_axis, theta);
+		*dir = ft_rodrigues_rotation(*dir, z_axis, -theta);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_Y))
 		*dir = ft_rodrigues_rotation(*dir, z_axis, theta);
 }
