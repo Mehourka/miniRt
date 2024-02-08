@@ -8,7 +8,7 @@ RM		=	rm
 #                                VARIABLES                                     #
 #------------------------------------------------------------------------------#
 
-ARGS	=	"./maps/test.rt"
+ARGS	=	"./maps/cam_xyz.rt"
 NAME	=	miniRt	
 
 # Colors
