@@ -16,8 +16,12 @@
 - [Usage](#usage)
 - [License](#license)
 
+
 ## Introduction
-MiniRT is a minimal ray tracing project developed for the 42 Curriculum. It provides a simple single threaded 3D renderer  using ray tracing techniques. The project's goald is learning and experimenting with computer graphics.
+MiniRT is a minimal ray tracing project developed for the 42 Curriculum. It provides a single-threaded 3D renderer, written in C and using ray tracing techniques. The project uses only one library, MLX42, for image rendering, while everything else is custom-made. MiniRT also parses and loads `.rt` files for scene and object configurations, making it a comprehensive tool for learning and experimenting with computer graphics.
+  <p align="center">
+  <img src="img/screen.png" alt="miniRt Screenshot">
+  </p>
 
 ## Features
 - **Cross-Platform**: Runs  macOS, and Linux.
